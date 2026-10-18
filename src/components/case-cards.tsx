@@ -5,9 +5,9 @@ import { ParallaxPanel } from '@/components/motion-bits';
 import { zeitraum, type Projekt, type Sprache } from '@/lib/content';
 
 const FLAECHEN = [
-  'bg-[radial-gradient(120%_120%_at_0%_0%,#3b82f6_0%,#0071e3_40%,#0b3a8c_100%)]',
-  'bg-[radial-gradient(120%_120%_at_100%_0%,#8b7bff_0%,#5b4bdb_45%,#241a6b_100%)]',
-  'bg-[radial-gradient(120%_120%_at_0%_100%,#38bdf8_0%,#0e7490_55%,#0b3b4a_100%)]',
+  'bg-[radial-gradient(120%_120%_at_0%_0%,#3a3a3a_0%,#1a1a1a_45%,#0b0b0b_100%)]',
+  'bg-[radial-gradient(120%_120%_at_100%_0%,#353535_0%,#181818_45%,#0b0b0b_100%)]',
+  'bg-[radial-gradient(120%_120%_at_0%_100%,#383838_0%,#191919_50%,#0b0b0b_100%)]',
 ];
 
 export function CaseCards({ projekte, lang = 'de' }: { projekte: Projekt[]; lang?: Sprache }) {
@@ -28,7 +28,7 @@ export function CaseCards({ projekte, lang = 'de' }: { projekte: Projekt[]; lang
               <h3 className="mt-5 text-[clamp(1.75rem,3.2vw,2.75rem)]">{p.titel}</h3>
               <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-muted-foreground">{p.kurz}</p>
               <span className="mt-auto inline-flex items-center gap-1.5 pt-10 text-[17px] font-medium">
-                <span className="grid size-9 place-items-center rounded-full bg-foreground text-background transition-transform duration-300 group-hover:rotate-45">
+                <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover:rotate-45">
                   <ArrowUpRight className="size-4" aria-hidden />
                 </span>
                 <span className="ml-1.5">{mehr}</span>

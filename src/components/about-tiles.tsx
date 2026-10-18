@@ -138,12 +138,12 @@ const KACHELN = [
 
 export function AboutTiles() {
   return (
-    <ul className="mx-auto mt-12 grid max-w-[1000px] gap-5 md:grid-cols-3">
+    <ul className="mt-14 grid gap-5 md:grid-cols-3">
       {KACHELN.map((k) => (
-        <motion.li key={k.key} initial="rest" animate="rest" whileHover="hover" className="flex flex-col overflow-hidden rounded-[24px] bg-background p-2">
+        <motion.li key={k.key} initial="rest" animate="rest" whileHover="hover" className="flex flex-col overflow-hidden rounded-[24px] bg-card p-2">
           <div
             className={`grid aspect-[4/3] place-items-center rounded-[18px] ${
-              k.voll ? '' : 'bg-[radial-gradient(120%_100%_at_50%_0%,#ffffff_0%,#eef2fb_60%,#e4e9f6_100%)] p-5'
+              k.voll ? '' : 'bg-[radial-gradient(120%_100%_at_50%_0%,#fafafa_0%,#efefef_60%,#e6e6e6_100%)] p-5'
             }`}
           >
             {k.visual}

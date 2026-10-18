@@ -11,8 +11,8 @@ export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 
   const [offen, setOffen] = useState(false);
   const reduce = useReducedMotion();
   const links = lang === 'de'
-    ? [['/#fallstudien', 'Fallstudien'], ['/#projekte', 'Projekte'], ['/#ueber-mich', 'Über mich']]
-    : [['/#fallstudien', 'Case studies'], ['/#projekte', 'Projects'], ['/#ueber-mich', 'About']];
+    ? [['/#arbeitsweise', 'Arbeitsweise'], ['/#fallstudien', 'Fallstudien'], ['/#werdegang', 'Werdegang'], ['/#ueber-mich', 'Über mich']]
+    : [['/#arbeitsweise', 'Approach'], ['/#fallstudien', 'Case studies'], ['/#werdegang', 'Experience'], ['/#ueber-mich', 'About']];
   const cta = lang === 'de' ? 'Kontaktiere mich' : 'Get in touch';
   const ctaKurz = lang === 'de' ? 'Kontakt' : 'Contact';
 
@@ -39,7 +39,7 @@ export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 
             <div className="flex items-center gap-1.5 justify-self-end">
               <a
                 href="#kontakt"
-                className="group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full bg-brand pl-4 pr-1.5 text-[15px] font-medium text-white shadow-[0_8px_24px_-10px_rgba(0,113,227,0.8)] transition-colors hover:bg-brand/90"
+                className="group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full bg-ink pl-4 pr-1.5 text-[15px] font-medium text-white transition-colors hover:bg-ink/85"
               >
                 <span className="hidden sm:inline">{cta}</span>
                 <span className="sm:hidden">{ctaKurz}</span>

@@ -10,19 +10,20 @@
 
 /* Layout: helle Fläche, eine Akzentfarbe nur für Phasen und Ergebnisse, grosse ruhige Typografie */
 :root {
-  --background: #fafafa;
-  --foreground: #1d1d1f;
+  --background: #f3f3f3;
+  --foreground: #161616;
   --card: #ffffff;
-  --card-foreground: #1d1d1f;
-  --muted: #ececf0;
-  --muted-foreground: #6e6e73;
-  --border: #e3e3e8;
-  --input: #e3e3e8;
+  --card-foreground: #161616;
+  --muted: #e8e8e8;
+  --muted-foreground: #767676;
+  --border: #dcdcdc;
+  --input: #dcdcdc;
+  --ink: #0f0f0f;
   --ring: #0071e3;
-  --primary: #1d1d1f;
-  --primary-foreground: #fafafa;
-  --secondary: #ececf0;
-  --secondary-foreground: #1d1d1f;
+  --primary: #161616;
+  --primary-foreground: #f3f3f3;
+  --secondary: #e8e8e8;
+  --secondary-foreground: #161616;
   --brand: #0071e3;
   --brand-soft: #e8f2fd;
   --radius: 1.75rem;
@@ -45,6 +46,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
+  --color-ink: var(--ink);
   --radius-sm: calc(var(--radius) - 8px);
   --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);

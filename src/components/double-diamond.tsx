@@ -16,12 +16,12 @@ const CLIP: Record<Phase, string> = {
 };
 // Helle Glasflächen mit leichtem Lichtverlauf, damit die Facetten plastisch wirken
 const FACETTE: Record<Phase, string> = {
-  discover: 'linear-gradient(120deg, #ffffff 0%, #dfeafc 60%, #c5daf8 100%)',
-  define: 'linear-gradient(240deg, #f7f9fe 0%, #d7e3f8 60%, #bccfee 100%)',
-  develop: 'linear-gradient(120deg, #ffffff 0%, #e6e1fd 60%, #d2c9f8 100%)',
-  deliver: 'linear-gradient(240deg, #f9f8fe 0%, #ddd6f6 60%, #c6bbee 100%)',
+  discover: 'linear-gradient(120deg, #ffffff 0%, #f0f0f0 60%, #e2e2e2 100%)',
+  define: 'linear-gradient(240deg, #fafafa 0%, #e6e6e6 60%, #d4d4d4 100%)',
+  develop: 'linear-gradient(120deg, #ffffff 0%, #ededed 60%, #dedede 100%)',
+  deliver: 'linear-gradient(240deg, #fafafa 0%, #e4e4e4 60%, #d1d1d1 100%)',
 };
-const AKTIV = 'linear-gradient(135deg, #4f9bff 0%, #0071e3 55%, #0a4fb0 100%)';
+const AKTIV = 'linear-gradient(135deg, #4a4a4a 0%, #1c1c1c 55%, #050505 100%)';
 const LABEL_X: Record<Phase, string> = { discover: '17%', define: '33.2%', develop: '66.8%', deliver: '83%' };
 const OUTLINES = ['M4 100 L200 4 L396 100 L200 196 Z', 'M404 100 L600 4 L796 100 L600 196 Z'];
 
@@ -71,7 +71,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
               <motion.div
                 key={p}
                 className="absolute inset-0 [transform-style:preserve-3d]"
-                style={{ filter: on ? 'drop-shadow(0 18px 24px rgba(0,80,200,0.35))' : 'drop-shadow(0 6px 10px rgba(20,40,90,0.08))' }}
+                style={{ filter: on ? 'drop-shadow(0 18px 24px rgba(0,0,0,0.35))' : 'drop-shadow(0 6px 10px rgba(20,40,90,0.08))' }}
                 animate={reduce ? undefined : { z: on ? 56 : aktiv ? -6 : 0 }}
                 transition={{ type: 'spring', stiffness: 220, damping: 20 }}
               >
@@ -141,7 +141,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
             {aktiv ? (
               <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-10">
                 <p className="max-w-[48ch]">
-                  <span className="mb-1 block text-xl font-semibold tracking-tight text-brand">{texte[aktiv].name}</span>
+                  <span className="mb-1 block text-xl font-semibold tracking-tight">{texte[aktiv].name}</span>
                   {texte[aktiv].text}
                 </p>
                 <ul className="flex flex-wrap content-start gap-2" aria-label="Methoden">

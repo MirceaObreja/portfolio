@@ -1,19 +1,17 @@
-import { ChevronRight } from 'lucide-react';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
+import { Hero } from '@/components/hero';
 import { DoubleDiamond } from '@/components/double-diamond';
-import { PHASEN_TEXT } from '@/lib/site';
 import { CaseCards } from '@/components/case-cards';
 import { ProjectExplorer } from '@/components/project-explorer';
-import { Button } from '@/components/ui/button';
-import { Aurora } from '@/components/aurora';
-import { HeroTitle } from '@/components/hero-title';
 import { Marquee } from '@/components/marquee';
 import { AboutTiles } from '@/components/about-tiles';
-import { ParallaxBg, Reveal, ScrollText } from '@/components/motion-bits';
+import { SectionTitle } from '@/components/section-title';
+import { Timeline } from '@/components/timeline';
+import { Reveal, ScrollText } from '@/components/motion-bits';
+import { PHASEN_TEXT } from '@/lib/site';
 import { alleProjekte, fallstudien } from '@/lib/content';
 import { zuKarte } from '@/lib/karten';
-
 
 export default function Home() {
   const projekte = alleProjekte().map((p) => zuKarte(p));
@@ -24,70 +22,62 @@ export default function Home() {
       <main>
         {process.env.PREVIEW_EXPORT && (
           <div className="container-page pt-4">
-            <p className="rounded-xl border border-border bg-brand-soft px-4 py-3 text-[15px]">
-              Nur in der Vorschau sichtbar: <a href="/f/beispiel-energie-7k3m9q/" className="font-medium text-brand underline underline-offset-4">Beispiel-Bewerbungsseite öffnen</a>
+            <p className="rounded-xl border border-border bg-card px-4 py-3 text-[15px]">
+              Nur in der Vorschau sichtbar: <a href="/f/beispiel-energie-7k3m9q/" className="font-medium underline underline-offset-4">Beispiel-Bewerbungsseite öffnen</a>
             </p>
           </div>
         )}
-        <section className="relative isolate -mt-24 pt-24">
-          <ParallaxBg className="absolute inset-0 -z-10"><Aurora className="[mask-image:linear-gradient(#000_55%,transparent)]" /></ParallaxBg>
-          <div className="container-page pt-10 text-center md:pt-24">
-            <p className="glass mx-auto inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[14px] font-medium text-foreground/80">
-              <span className="size-1.5 rounded-full bg-brand" aria-hidden />
-              Service Design und UX-Strategie
-            </p>
-            <HeroTitle
-              text="Digitale Strecken von Anfang bis Ende einfacher machen."
-              className="mx-auto mt-7 max-w-[15ch] text-[clamp(3rem,8.4vw,7.25rem)] font-semibold leading-[0.98] tracking-[-0.038em]"
-            />
-            <p className="mx-auto mt-8 max-w-[54ch] text-[clamp(1.1rem,1.6vw,1.3rem)] leading-relaxed text-foreground/65">
-              Ich bin Mircea Obreja, Senior Experience Consultant bei Merkle. Ich frage, wo Leute aussteigen, was hinter dem Formular passiert und welche Abteilungen mitreden müssen. Daraus entwickle ich Konzepte, teste sie mit Nutzerinnen und Nutzern und begründe Entscheidungen mit Daten.
-            </p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-              <Button asChild size="lg" className="bg-brand text-white shadow-[0_10px_30px_-10px_rgba(0,113,227,0.7)] hover:bg-brand/90"><a href="#fallstudien">Fallstudien ansehen</a></Button>
-              <a href="#kontakt" className="inline-flex items-center gap-0.5 text-[17px] text-brand hover:underline">Kontakt aufnehmen<ChevronRight className="size-4" aria-hidden /></a>
-            </div>
-            <div className="mx-auto mt-16 max-w-3xl md:mt-20">
-              <Marquee items={['Siemens', 'ADAC', 'Bank Cler', 'Retailbanking', 'Privatkredite', 'Öffentliche Verwaltung', 'Gesundheitswesen', 'B2B-Plattformen']} />
-            </div>
 
-            <ScrollText
-              text="Ich verschaffe mir zuerst einen Überblick über die gesamte Journey, auch über Prozesse und Abhängigkeiten, die Nutzerinnen und Nutzer nie sehen. Danach strukturiere ich das Problem, leite Hypothesen ab und prüfe sie mit Research."
-              className="mx-auto mt-28 max-w-[26ch] text-left text-[clamp(1.75rem,3.6vw,3.25rem)] font-semibold leading-[1.15] tracking-[-0.025em] md:mt-40 md:text-center"
-            />
+        <Hero />
 
-            <Reveal><div className="glass mt-24 rounded-[32px] px-5 pb-8 pt-10 text-left md:mt-20 md:px-12 md:pb-12 md:pt-14">
-              <div className="mb-10 text-center">
-                <h2 className="text-[clamp(1.75rem,3.2vw,2.75rem)]">So arbeite ich.</h2>
-                <p className="mx-auto mt-3 max-w-[50ch] text-[17px] text-foreground/65">Entlang des Double Diamond, meist durch alle vier Phasen.</p>
-              </div>
-              <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze." />
-            </div></Reveal>
+        <div className="border-y border-foreground/10 bg-card py-5">
+          <div className="container-page">
+            <Marquee items={['Siemens', 'ADAC', 'Bank Cler', 'Retailbanking', 'Privatkredite', 'Öffentliche Verwaltung', 'Gesundheitswesen', 'B2B-Plattformen']} />
           </div>
+        </div>
+
+        <section className="container-page pt-28 md:pt-40" aria-label="Arbeitsweise in einem Satz">
+          <ScrollText
+            text="Ich verschaffe mir zuerst einen Überblick über die gesamte Journey, auch über Prozesse und Abhängigkeiten, die Nutzerinnen und Nutzer nie sehen. Danach strukturiere ich das Problem, leite Hypothesen ab und prüfe sie mit Research."
+            className="max-w-[24ch] text-[clamp(2rem,4.4vw,4rem)] font-medium leading-[1.08] tracking-[-0.03em]"
+          />
         </section>
 
-        <section id="fallstudien" className="container-page pt-24 md:pt-32" aria-labelledby="fs-h">
-          <Reveal><h2 id="fs-h" className="mb-10 text-center text-[clamp(2.25rem,4.4vw,3.5rem)]">Fallstudien.</h2></Reveal>
+        <section id="arbeitsweise" className="container-page pt-28 md:pt-40" aria-labelledby="aw-h">
+          <SectionTitle id="aw-h" titel="Arbeitsweise." text="Ich arbeite entlang des Double Diamond und begleite Projekte meist durch alle vier Phasen. Fahre über eine Phase, um die Methoden zu sehen." />
+          <Reveal>
+            <div className="rounded-[32px] bg-card px-5 pb-8 pt-10 md:px-12 md:pb-12 md:pt-14">
+              <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze." />
+            </div>
+          </Reveal>
+        </section>
+
+        <section id="fallstudien" className="container-page pt-28 md:pt-40" aria-labelledby="fs-h">
+          <SectionTitle id="fs-h" titel="Fallstudien." text="Drei Projekte, an denen sich zeigt, wie ich arbeite: von der Analyse bis zum messbaren Ergebnis." />
           <CaseCards projekte={cases} />
         </section>
 
-        <section id="projekte" className="container-page pt-24 md:pt-32" aria-labelledby="pr-h">
-          <Reveal className="mb-10 text-center">
-            <h2 id="pr-h" className="text-[clamp(2.25rem,4.4vw,3.5rem)]">Alle Projekte.</h2>
-            <p className="mx-auto mt-3 max-w-[52ch] text-[17px] text-muted-foreground">Seit Mai 2022 bei Merkle. Filtere nach Phase, um die Projekte zu sehen, in denen ich diese Phase verantwortet habe.</p>
-          </Reveal>
+        <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
+          <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022. Filtere nach Phase, um die Projekte zu sehen, in denen ich diese Phase verantwortet habe." />
           <ProjectExplorer projekte={projekte} />
         </section>
 
-        <section id="ueber-mich" className="container-page pt-24 md:pt-32" aria-labelledby="um-h">
-          <Reveal className="rounded-[28px] bg-card px-6 py-12 md:px-16 md:py-16">
-            <h2 id="um-h" className="text-center text-[clamp(2.25rem,4.4vw,3.5rem)]">Über mich.</h2>
-            <div className="mx-auto mt-10 max-w-[64ch] text-[17px] leading-relaxed md:text-lg">
-              <p className="mb-4">Seit Mai 2022 arbeite ich bei Merkle in der Schweiz, zuerst als Experience Consultant, seit 2025 als Senior. Ich arbeite für Banken, B2B-Plattformen und die öffentliche Hand und begleite Projekte meist von der ersten Analyse bis zur Übergabe an Design und Entwicklung.</p>
-              <p>Bei Siemens habe ich über zwei Jahre die UX auf einem B2B-Marktplatz verantwortet und ein kleines Team geführt. Kolleginnen und Kollegen holen mich dazu, wenn ein Problem verzwickt ist oder Research gebraucht wird.</p>
-            </div>
-            <AboutTiles />
+        <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">
+          <SectionTitle id="wg-h" titel="Werdegang." text="Vom Studium in Digital Business Management über ein UX-Praktikum bei Sunrise UPC zu Merkle." />
+          <Timeline />
+        </section>
+
+        <section id="ueber-mich" className="container-page pt-28 md:pt-40" aria-labelledby="um-h">
+          <SectionTitle id="um-h" titel="Über mich." />
+          <Reveal className="grid gap-8 md:grid-cols-12">
+            <p className="text-[clamp(1.35rem,2.2vw,1.9rem)] font-medium leading-snug tracking-tight md:col-span-7">
+              Seit Mai 2022 arbeite ich bei Merkle in St. Gallen, zuerst als Experience Consultant, seit 2025 als Senior. Ich arbeite für Banken, B2B-Plattformen und die öffentliche Hand.
+            </p>
+            <p className="text-[17px] leading-relaxed text-muted-foreground md:col-span-5">
+              Bei Siemens habe ich über zwei Jahre die UX auf einem B2B-Marktplatz verantwortet und ein kleines Team geführt. Kolleginnen und Kollegen holen mich dazu, wenn ein Problem verzwickt ist oder Research gebraucht wird.
+            </p>
           </Reveal>
+          <AboutTiles />
         </section>
       </main>
       <SiteFooter />
