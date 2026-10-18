@@ -1,8 +1,8 @@
 import { ArrowDown } from 'lucide-react';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
-import { HeroDiamond } from '@/components/hero-diamond';
-import { PhaseRow } from '@/components/phase-row';
+import { DoubleDiamond } from '@/components/double-diamond';
+import { PHASEN_TEXT } from '@/lib/site';
 import { CaseCards } from '@/components/case-cards';
 import { ProjectExplorer } from '@/components/project-explorer';
 import { Button } from '@/components/ui/button';
@@ -48,8 +48,7 @@ export default function Home() {
               <h2 className="text-xl font-medium tracking-tight">So arbeite ich: entlang des Double Diamond</h2>
               <p className="text-[15px] text-muted-foreground">Meist durch alle vier Phasen</p>
             </div>
-            <HeroDiamond labels={['Problem verstehen', 'Lösung entwickeln']} />
-            <PhaseRow />
+            <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache." />
           </div>
         </section>
 

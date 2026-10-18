@@ -6,11 +6,10 @@ import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { CaseCards } from '@/components/case-cards';
 import { ProjectExplorer } from '@/components/project-explorer';
-import { HeroDiamond } from '@/components/hero-diamond';
-import { PhaseRow } from '@/components/phase-row';
+import { DoubleDiamond } from '@/components/double-diamond';
 import { alleBewerbungen, alleProjekte } from '@/lib/content';
 import { zuKarte } from '@/lib/karten';
-import { KONTAKT } from '@/lib/site';
+import { KONTAKT, PHASEN_TEXT } from '@/lib/site';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -41,8 +40,8 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
   const weitere = auswahl.filter((p) => !p.fallstudie).map((p) => zuKarte(p, l));
   const n = b.beobachtungen?.length ?? 0;
   const t = l === 'de'
-    ? { fuer: `Für ${b.firma}`, h1: `Bewerbung als ${b.stelle}`, gruss: 'Freundliche Grüsse', staerken: 'Was ich mitbringe', beob: `${ZAHL[n] || 'Beobachtungen'} zu Ihrem Angebot`, beobText: 'Aus Sicht eines Kunden und ohne Kenntnis Ihrer internen Gründe. Als Ausgangspunkt für ein erstes Gespräch.', proj: 'Passende Projekte', weitere: 'Weitere Projekte', alle: 'Alle Projekte ansehen', arbeit: 'So arbeite ich', spaces: ['Problem verstehen', 'Lösung entwickeln'] as [string, string], foot: 'Ich freue mich auf ein Gespräch.' }
-    : { fuer: `For ${b.firma}`, h1: `Application for ${b.stelle}`, gruss: 'Kind regards', staerken: 'What I bring', beob: 'Observations on your product', beobText: 'From a customer’s point of view, without knowing your internal reasons. A starting point for a first conversation.', proj: 'Relevant projects', weitere: 'More projects', alle: 'See all projects', arbeit: 'How I work', spaces: ['Understand the problem', 'Develop the solution'] as [string, string], foot: 'I look forward to talking.' };
+    ? { fuer: `Für ${b.firma}`, h1: `Bewerbung als ${b.stelle}`, gruss: 'Freundliche Grüsse', staerken: 'Was ich mitbringe', beob: `${ZAHL[n] || 'Beobachtungen'} zu Ihrem Angebot`, beobText: 'Aus Sicht eines Kunden und ohne Kenntnis Ihrer internen Gründe. Als Ausgangspunkt für ein erstes Gespräch.', proj: 'Passende Projekte', weitere: 'Weitere Projekte', alle: 'Alle Projekte ansehen', arbeit: 'So arbeite ich', spaces: ['Problem verstehen', 'Lösung entwickeln'] as [string, string], hint: 'Fahren Sie über eine Phase oder tippen Sie darauf, um zu sehen, was ich dort mache.', foot: 'Ich freue mich auf ein Gespräch.' }
+    : { fuer: `For ${b.firma}`, h1: `Application for ${b.stelle}`, gruss: 'Kind regards', staerken: 'What I bring', beob: 'Observations on your product', beobText: 'From a customer’s point of view, without knowing your internal reasons. A starting point for a first conversation.', proj: 'Relevant projects', weitere: 'More projects', alle: 'See all projects', arbeit: 'How I work', spaces: ['Understand the problem', 'Develop the solution'] as [string, string], hint: 'Hover over or tap a phase to see what I do there.', foot: 'I look forward to talking.' };
 
   return (
     <div lang={l}>
@@ -104,8 +103,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         <section className="container-page pt-24 md:pt-32" aria-labelledby="aw-h">
           <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
             <h2 id="aw-h" className="mb-8 text-xl font-medium tracking-tight">{t.arbeit}</h2>
-            <HeroDiamond labels={t.spaces} />
-            <PhaseRow lang={l} />
+            <DoubleDiamond texte={PHASEN_TEXT[l]} spaces={t.spaces} hint={t.hint} />
           </div>
         </section>
       </main>
