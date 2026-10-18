@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { DiamondMini } from '@/components/diamond-mini';
+import { ParallaxPanel } from '@/components/motion-bits';
 import { zeitraum, type Projekt, type Sprache } from '@/lib/content';
 
 const FLAECHEN = [
@@ -33,13 +34,13 @@ export function CaseCards({ projekte, lang = 'de' }: { projekte: Projekt[]; lang
                 <span className="ml-1.5">{mehr}</span>
               </span>
             </div>
-            <div className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-[24px] p-7 text-white md:min-h-[440px] md:p-10 ${FLAECHEN[i % FLAECHEN.length]}`}>
+            <ParallaxPanel className={`relative min-h-[280px] overflow-hidden rounded-[24px] p-7 text-white md:min-h-[440px] md:p-10 ${FLAECHEN[i % FLAECHEN.length]}`}>
               <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-white/15 blur-3xl transition-transform duration-700 group-hover:scale-125" />
               <DiamondMini phasen={p.phasen} className="relative h-7 w-[75px] [&_.fill-brand]:fill-white [&_.fill-brand]:stroke-white [&_path:not(.fill-brand)]:stroke-white/50" />
               {p.kennzahl && (
                 <p className="relative max-w-[14ch] text-[clamp(2rem,4.2vw,3.75rem)] font-semibold leading-[1.02] tracking-[-0.03em]">{p.kennzahl}</p>
               )}
-            </div>
+            </ParallaxPanel>
           </Link>
         </li>
       ))}
