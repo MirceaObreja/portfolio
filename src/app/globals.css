@@ -1,12 +1,10 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/inter';
 
-/* Eigene Schrift: BDO Grotesk als WOFF2 in public/fonts ablegen.
-   Solange die Dateien fehlen, nutzt die Seite die Systemschrift (SF Pro auf Apple-Geräten), sonst Inter. */
+/* BDO Grotesk, variable Schrift (300 bis 900), SIL Open Font License, siehe public/fonts/BDOGrotesk-OFL.txt */
 @font-face {
   font-family: 'BDO Grotesk';
   src: url('/fonts/BDOGrotesk-Variable.woff2') format('woff2');
-  font-weight: 100 900;
+  font-weight: 300 900;
   font-display: swap;
 }
 
@@ -51,7 +49,7 @@
   --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 8px);
-  --font-sans: 'BDO Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Variable', 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'BDO Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --animate-accordion-down: accordion-down 0.25s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }

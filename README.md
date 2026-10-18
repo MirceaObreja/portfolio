@@ -13,11 +13,9 @@ npm run dev
 
 Die Seite läuft danach unter http://localhost:3000.
 
-## Schrift BDO Grotesk einbinden
+## Schrift
 
-BDO Grotesk ist nicht über npm oder Google Fonts verfügbar. Die Schriftdatei beim Hersteller herunterladen und die Lizenz für die Nutzung auf einer Website prüfen. Danach die variable Datei als `public/fonts/BDOGrotesk-Variable.woff2` ablegen. Die Seite nutzt sie dann automatisch. Bis dahin nutzt die Seite die Systemschrift, auf Apple-Geräten SF Pro, sonst Inter.
-
-Liegen nur einzelne Schnitte vor (z. B. Regular und Medium), in `src/app/globals.css` den `@font-face`-Block pro Datei anlegen.
+BDO Grotesk liegt als variable WOFF2-Datei in `public/fonts` (Schnitte 300 bis 900, auf lateinische Zeichen reduziert). Lizenz: SIL Open Font License, siehe `public/fonts/BDOGrotesk-OFL.txt`.
 
 ## Inhalte
 

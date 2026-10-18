@@ -41,7 +41,7 @@ export default function Home() {
             </p>
             <HeroTitle
               text="Digitale Strecken von Anfang bis Ende einfacher machen."
-              className="mx-auto mt-7 max-w-[15ch] text-[clamp(3rem,8.4vw,7.25rem)] font-semibold leading-[0.98] tracking-[-0.05em]"
+              className="mx-auto mt-7 max-w-[15ch] text-[clamp(3rem,8.4vw,7.25rem)] font-semibold leading-[0.98] tracking-[-0.038em]"
             />
             <p className="mx-auto mt-8 max-w-[54ch] text-[clamp(1.1rem,1.6vw,1.3rem)] leading-relaxed text-foreground/65">
               Ich bin Mircea Obreja, Senior Experience Consultant bei Merkle. Ich frage, wo Leute aussteigen, was hinter dem Formular passiert und welche Abteilungen mitreden müssen. Daraus entwickle ich Konzepte, teste sie mit Nutzerinnen und Nutzern und begründe Entscheidungen mit Daten.
