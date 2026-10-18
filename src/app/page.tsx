@@ -59,7 +59,14 @@ export default function Home() {
 
         <section id="fallstudien" className="container-page pt-28 md:pt-40" aria-labelledby="fs-h">
           <SectionTitle id="fs-h" titel="Fallstudien." text="Drei Projekte, an denen sich zeigt, wie ich arbeite: von der Analyse bis zum messbaren Ergebnis." />
-          <CaseCards projekte={cases} />
+          <Variante name="Fläche: Verlauf" text="Bisherige Variante" />
+          <CaseCards projekte={cases} stil="verlauf" />
+          <Variante name="Fläche: Sonne" text="Grosse, weiche Lichtkugel mit Korn, steigt von unten auf" />
+          <CaseCards projekte={cases} stil="sonne" />
+          <Variante name="Fläche: Zwei Lichter" text="Zwei unscharfe Farbflecken, die sich überlagern" />
+          <CaseCards projekte={cases} stil="lichter" />
+          <Variante name="Fläche: Horizont" text="Verlauf wie in der Dämmerung, mit hellem Schein am unteren Rand" />
+          <CaseCards projekte={cases} stil="horizont" />
         </section>
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
