@@ -82,7 +82,7 @@ export default function Home() {
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">
-          <SectionTitle id="wg-h" titel="Werdegang." text="Vom Studium in Digital Business Management über ein UX-Praktikum bei Sunrise UPC zu Merkle." />
+          <SectionTitle id="wg-h" titel="Werdegang." text="Vom Studium in Digital Business Management über ein UX-Praktikum bei Sunrise UPC zu Merkle in St. Gallen." />
           <Timeline />
         </section>
 
