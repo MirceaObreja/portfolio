@@ -23,7 +23,7 @@ function App({ children, label, bg = '#ffffff', i, rotate = 0 }: { children: Rea
   return (
     <motion.div
       title={label}
-      className="relative grid size-16 place-items-center rounded-[18px] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_12px_24px_-12px_rgba(20,40,90,0.35)]"
+      className="relative grid size-16 place-items-center rounded-[18px] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_12px_24px_-12px_rgba(31,43,51,0.35)]"
       style={{ background: bg, rotate }}
       variants={
         reduce
@@ -48,11 +48,11 @@ function Initialen({ t, color }: { t: string; color: string }) {
 function WerkzeugeVisual() {
   return (
     <div className="grid grid-cols-3 place-items-center gap-3 md:gap-4">
-      <App i={0} label="Figma" rotate={-6}><Logo d={ICON.figma} fill="#1d1d1f" /></App>
+      <App i={0} label="Figma" rotate={-6}><Logo d={ICON.figma} fill="#1f2b33" /></App>
       <App i={1} label="FigJam" bg="#9747ff" rotate={4}><Initialen t="Fj" color="#ffffff" /></App>
       <App i={2} label="Miro" bg="#ffd02f" rotate={-3}><Logo d={ICON.miro} fill="#050038" /></App>
-      <App i={3} label="Lookback" bg="#1d1d1f" rotate={5}><Initialen t="Lb" color="#ffffff" /></App>
-      <App i={4} label="Testing Time" rotate={-4}><Initialen t="TT" color="#0071e3" /></App>
+      <App i={3} label="Lookback" bg="#1f2b33" rotate={5}><Initialen t="Lb" color="#ffffff" /></App>
+      <App i={4} label="Testing Time" rotate={-4}><Initialen t="TT" color="#354857" /></App>
       <App i={5} label="Google Analytics" rotate={3}><Logo d={ICON.googleanalytics} fill="#e37400" /></App>
     </div>
   );
@@ -62,17 +62,17 @@ function KiVisual() {
   const reduce = useReducedMotion();
   return (
     <div className="relative flex w-full items-center justify-center gap-3">
-      <div aria-hidden className="absolute left-[18%] right-[18%] top-1/2 border-t-[1.5px] border-dashed border-brand/35" />
+      <div aria-hidden className="absolute left-[18%] right-[18%] top-1/2 border-t-[1.5px] border-dashed border-tinte/35" />
       {!reduce && (
         <motion.span
           aria-hidden
-          className="absolute top-1/2 size-2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_12px_3px_rgba(0,113,227,0.5)]"
+          className="absolute top-1/2 size-2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_12px_3px_rgba(53,72,87,0.5)]"
           animate={{ left: ['18%', '82%', '18%'] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         />
       )}
       <App i={0} label="Claude" rotate={-5}><Logo d={ICON.claude} fill="#d97757" /></App>
-      <App i={1} label="Eigene KI-Tools" bg="#1d1d1f"><Wrench className="size-7 text-white" aria-hidden /></App>
+      <App i={1} label="Eigene KI-Tools" bg="#1f2b33"><Wrench className="size-7 text-white" aria-hidden /></App>
       <App i={2} label="Microsoft Copilot" rotate={5}><Initialen t="Co" color="#0078d4" /></App>
     </div>
   );
@@ -87,10 +87,10 @@ const ECKEN = [
 
 function SucherVisual() {
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-[radial-gradient(120%_90%_at_70%_20%,#f6b48b_0%,#c86d7a_35%,#4b3a74_70%,#1b1d3a_100%)]">
+    <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-[radial-gradient(120%_90%_at_70%_20%,#c7ccc2_0%,#9eaaa2_30%,#51686f_65%,#1f2b33_100%)]">
       <svg aria-hidden viewBox="0 0 400 100" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-[42%] w-full">
-        <path d="M0 100 L0 58 L60 30 L110 52 L170 12 L240 58 L300 34 L400 66 L400 100 Z" fill="rgba(20,22,50,0.6)" />
-        <path d="M0 100 L0 78 L80 60 L150 76 L230 54 L320 74 L400 62 L400 100 Z" fill="rgba(12,14,34,0.8)" />
+        <path d="M0 100 L0 58 L60 30 L110 52 L170 12 L240 58 L300 34 L400 66 L400 100 Z" fill="rgba(31,43,51,0.55)" />
+        <path d="M0 100 L0 78 L80 60 L150 76 L230 54 L320 74 L400 62 L400 100 Z" fill="rgba(31,43,51,0.85)" />
       </svg>
       {ECKEN.map((c) => (
         <span key={c} aria-hidden className={`absolute size-5 border-white/80 ${c}`} />
@@ -143,7 +143,7 @@ export function AboutTiles() {
         <motion.li key={k.key} initial="rest" animate="rest" whileHover="hover" className="flex flex-col overflow-hidden rounded-[24px] bg-card p-2">
           <div
             className={`grid aspect-[4/3] place-items-center rounded-[18px] ${
-              k.voll ? '' : 'bg-[radial-gradient(120%_100%_at_50%_0%,#fafafa_0%,#efefef_60%,#e6e6e6_100%)] p-5'
+              k.voll ? '' : 'bg-[radial-gradient(120%_100%_at_50%_0%,#f8f7f2_0%,#eceee8_60%,#dfe3dc_100%)] p-5'
             }`}
           >
             {k.visual}

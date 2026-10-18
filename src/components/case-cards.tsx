@@ -5,9 +5,9 @@ import { ParallaxPanel } from '@/components/motion-bits';
 import { zeitraum, type Projekt, type Sprache } from '@/lib/content';
 
 const FLAECHEN = [
-  'bg-[radial-gradient(120%_120%_at_0%_0%,#3a3a3a_0%,#1a1a1a_45%,#0b0b0b_100%)]',
-  'bg-[radial-gradient(120%_120%_at_100%_0%,#353535_0%,#181818_45%,#0b0b0b_100%)]',
-  'bg-[radial-gradient(120%_120%_at_0%_100%,#383838_0%,#191919_50%,#0b0b0b_100%)]',
+  'bg-[radial-gradient(120%_120%_at_0%_0%,#758a87_0%,#354857_50%,#1f2b33_100%)]',
+  'bg-[radial-gradient(120%_120%_at_100%_0%,#51686f_0%,#2b3c48_50%,#1f2b33_100%)]',
+  'bg-[radial-gradient(120%_120%_at_0%_100%,#9eaaa2_0%,#51686f_45%,#1f2b33_100%)]',
 ];
 
 export function CaseCards({ projekte, lang = 'de' }: { projekte: Projekt[]; lang?: Sprache }) {
@@ -18,7 +18,7 @@ export function CaseCards({ projekte, lang = 'de' }: { projekte: Projekt[]; lang
         <li key={p.id} className="md:sticky" style={{ top: `calc(6rem + ${i * 1.5}rem)` }}>
           <Link
             href={`/projekte/${p.id}`}
-            className="group grid overflow-hidden rounded-[32px] bg-card p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_30px_80px_-40px_rgba(20,40,90,0.35)] md:grid-cols-2 md:p-4"
+            className="group grid overflow-hidden rounded-[32px] bg-card p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_30px_80px_-40px_rgba(31,43,51,0.35)] md:grid-cols-2 md:p-4"
           >
             <div className="flex flex-col p-6 md:p-10">
               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px]">

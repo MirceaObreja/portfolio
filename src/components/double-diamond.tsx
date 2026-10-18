@@ -20,7 +20,7 @@ const HALVES: Record<Phase, string> = {
   develop: 'M400 110 L590 16 L590 204 Z',
   deliver: 'M590 16 L780 110 L590 204 Z',
 };
-const BASIS: Record<Phase, string> = { discover: '#ececec', define: '#e2e2e2', develop: '#f7f7f7', deliver: '#efefef' };
+const BASIS: Record<Phase, string> = { discover: '#e8e8e1', define: '#dfe1da', develop: '#f6f5f0', deliver: '#ecece5' };
 const LABEL: Record<Phase, { x: string; y: string }> = {
   discover: { x: '18.4%', y: '49.5%' },
   define: { x: '34.1%', y: '49.5%' },
@@ -60,7 +60,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
               onMouseEnter={() => setHover(p)}
               onClick={() => toggle(p)}
               className="cursor-pointer transition-[fill] duration-200"
-              fill={aktiv === p ? '#111111' : aktiv && PHASEN.indexOf(p) < PHASEN.indexOf(aktiv) ? 'color-mix(in srgb, var(--brand) 22%, white)' : BASIS[p]}
+              fill={aktiv === p ? 'var(--tinte)' : aktiv && PHASEN.indexOf(p) < PHASEN.indexOf(aktiv) ? 'var(--salbei)' : BASIS[p]}
               aria-hidden
             />
           ))}
@@ -69,7 +69,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
               key={d}
               d={d}
               fill="none"
-              stroke="#111111"
+              stroke="var(--nacht)"
               strokeWidth={1.75}
               strokeLinejoin="round"
               pointerEvents="none"
@@ -82,11 +82,11 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
 
           {/* Feine Hilfslinien von den Punkten zur Beschriftung */}
           {[START, MITTE, ENDE].map((p) => (
-            <line key={'l' + p.join()} x1={p[0]} y1={p[1] + 8} x2={p[0]} y2={220} stroke="#9a9a9a" strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" pointerEvents="none" />
+            <line key={'l' + p.join()} x1={p[0]} y1={p[1] + 8} x2={p[0]} y2={220} stroke="var(--salbei)" strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" pointerEvents="none" />
           ))}
           {/* Punkte auf der Achse */}
           {[START, MITTE, ENDE].map((p) => (
-            <circle key={p.join()} cx={p[0]} cy={p[1]} r={6} fill="#ffffff" stroke="#111111" strokeWidth={2} pointerEvents="none" />
+            <circle key={p.join()} cx={p[0]} cy={p[1]} r={6} fill="#ffffff" stroke="var(--nacht)" strokeWidth={2} pointerEvents="none" />
           ))}
 
         </svg>

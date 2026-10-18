@@ -39,7 +39,7 @@ export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 
             <div className="flex items-center gap-1.5 justify-self-end">
               <a
                 href="#kontakt"
-                className="group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full bg-ink pl-4 pr-1.5 text-[15px] font-medium text-white transition-colors hover:bg-ink/85"
+                className="group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full bg-tinte pl-4 pr-1.5 text-[15px] font-medium text-white transition-colors hover:bg-nacht"
               >
                 <span className="hidden sm:inline">{cta}</span>
                 <span className="sm:hidden">{ctaKurz}</span>

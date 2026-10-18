@@ -10,22 +10,31 @@
 
 /* Layout: helle Fläche, eine Akzentfarbe nur für Phasen und Ergebnisse, grosse ruhige Typografie */
 :root {
-  --background: #f3f3f3;
-  --foreground: #161616;
+  /* Palette «Stein bis Tinte» */
+  --stein: #f1efe8;
+  --nebel: #c7ccc2;
+  --salbei: #9eaaa2;
+  --eukalyptus: #758a87;
+  --schiefer: #51686f;
+  --tinte: #354857;
+  --nacht: #1f2b33;
+
+  --background: var(--stein);
+  --foreground: var(--nacht);
   --card: #ffffff;
-  --card-foreground: #161616;
-  --muted: #e8e8e8;
-  --muted-foreground: #767676;
-  --border: #dcdcdc;
-  --input: #dcdcdc;
-  --ink: #0f0f0f;
-  --ring: #0071e3;
-  --primary: #161616;
-  --primary-foreground: #f3f3f3;
-  --secondary: #e8e8e8;
-  --secondary-foreground: #161616;
-  --brand: #0071e3;
-  --brand-soft: #e8f2fd;
+  --card-foreground: var(--nacht);
+  --muted: #e4e5de;
+  --muted-foreground: var(--schiefer);
+  --border: var(--nebel);
+  --input: var(--nebel);
+  --ink: var(--nacht);
+  --ring: var(--tinte);
+  --primary: var(--tinte);
+  --primary-foreground: #ffffff;
+  --secondary: #e4e5de;
+  --secondary-foreground: var(--nacht);
+  --brand: var(--tinte);
+  --brand-soft: #dfe5e3;
   --radius: 1.75rem;
   color-scheme: light;
 }
@@ -47,6 +56,13 @@
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
   --color-ink: var(--ink);
+  --color-stein: var(--stein);
+  --color-nebel: var(--nebel);
+  --color-salbei: var(--salbei);
+  --color-eukalyptus: var(--eukalyptus);
+  --color-schiefer: var(--schiefer);
+  --color-tinte: var(--tinte);
+  --color-nacht: var(--nacht);
   --radius-sm: calc(var(--radius) - 8px);
   --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);

@@ -37,7 +37,7 @@ function Reihe({ eintraege, reverse = false, dunkel = false }: { eintraege: Eint
                 : 'group flex items-center gap-3 whitespace-nowrap rounded-2xl border border-black/[0.06] bg-white/80 py-3 pl-3 pr-6 text-[17px] font-medium shadow-[0_1px_2px_rgba(0,0,0,0.04),0_10px_30px_-18px_rgba(0,0,0,0.25)] backdrop-blur transition-transform duration-300 hover:-translate-y-1'
             }
           >
-            <span className={dunkel ? 'grid size-9 place-items-center rounded-xl bg-white/10' : 'grid size-9 place-items-center rounded-xl bg-[#f0f0f0] transition-colors duration-300 group-hover:bg-ink group-hover:text-white'}>
+            <span className={dunkel ? 'grid size-9 place-items-center rounded-xl bg-white/10' : 'grid size-9 place-items-center rounded-xl bg-stein transition-colors duration-300 group-hover:bg-tinte group-hover:text-white'}>
               <Icon className="size-[18px]" strokeWidth={1.75} aria-hidden />
             </span>
             {e.name}
