@@ -28,9 +28,8 @@ export function SiteFooter({ titel = 'Lass uns sprechen.', text = 'Du hast Frage
           <Link href="/f/beispiel-energie-7k3m9q" className="underline underline-offset-4 transition-colors hover:text-white">Demo: Bewerbungsseite</Link>
         </span>
         <span>Designed and built with love <span className="text-white" aria-label="Herz">♥</span> for detail in St. Gallen, Switzerland.</span>
-        <a href="#top" className="group inline-flex items-center gap-2 transition-colors hover:text-white">
-          Back to top
-          <span className="grid size-8 place-items-center rounded-full border border-white/20 transition-transform duration-300 group-hover:-translate-y-0.5"><ArrowUp className="size-3.5" aria-hidden /></span>
+        <a href="#top" aria-label="Zurück zum Seitenanfang" title="Zurück zum Seitenanfang" className="group grid size-10 place-items-center rounded-full border border-white/20 transition-colors hover:border-white/50 hover:text-white">
+          <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden />
         </a>
       </div>
     </footer>
