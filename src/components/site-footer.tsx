@@ -20,14 +20,9 @@ export function SiteFooter({ titel = 'Lass uns sprechen.' }: { titel?: string })
           </div>
         </div>
       </div>
-      <div aria-hidden className="relative select-none overflow-hidden border-t border-white/10 py-6">
-        <div className="marquee-track flex w-max gap-16 whitespace-nowrap text-[clamp(4rem,12vw,11rem)] font-light leading-none tracking-[-0.05em] text-white/[0.08]">
-          {Array.from({ length: 4 }).map((_, i) => <span key={i}>Mircea Obreja</span>)}
-        </div>
-      </div>
-      <div className="container-page flex flex-wrap justify-between gap-4 border-t border-white/10 py-6 text-sm text-white/50">
-        <span>{KONTAKT.name}, {new Date().getFullYear()}</span>
-        <span>St. Gallen, Schweiz</span>
+      <div className="container-page flex flex-wrap justify-between gap-4 mt-8 border-t border-white/10 py-6 text-sm text-white/50">
+        <span>© {new Date().getFullYear()} {KONTAKT.name}. Alle Rechte vorbehalten.</span>
+        <span>Mit Liebe zum Detail gestaltet und entwickelt in St. Gallen.</span>
       </div>
     </footer>
   );

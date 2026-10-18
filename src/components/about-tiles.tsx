@@ -2,28 +2,66 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { Wrench } from 'lucide-react';
 
-// Markenzeichen aus Simple Icons (CC0), nur zur Kennzeichnung der genutzten Werkzeuge
-const ICON: Record<'figma' | 'miro' | 'googleanalytics' | 'claude', string> = {
-  'figma': 'M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.097-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z',
-  'miro': 'M17.392 0H13.9L17 4.808 10.444 0H6.949l3.102 6.3L3.494 0H0l3.05 8.131L0 24h3.494L10.05 6.985 6.949 24h3.494L17 5.494 13.899 24h3.493L24 3.672 17.392 0z',
-  'googleanalytics': 'M22.84 2.9982v17.9987c.0086 1.6473-1.3197 2.9897-2.967 2.9984a2.9808 2.9808 0 01-.3677-.0208c-1.528-.226-2.6477-1.5558-2.6105-3.1V3.1204c-.0369-1.5458 1.0856-2.8762 2.6157-3.1 1.6361-.1915 3.1178.9796 3.3093 2.6158.014.1201.0208.241.0202.3619zM4.1326 18.0548c-1.6417 0-2.9726 1.331-2.9726 2.9726C1.16 22.6691 2.4909 24 4.1326 24s2.9726-1.3309 2.9726-2.9726-1.331-2.9726-2.9726-2.9726zm7.8728-9.0098c-.0171 0-.0342 0-.0513.0003-1.6495.0904-2.9293 1.474-2.891 3.1256v7.9846c0 2.167.9535 3.4825 2.3505 3.763 1.6118.3266 3.1832-.7152 3.5098-2.327.04-.1974.06-.3983.0593-.5998v-8.9585c.003-1.6474-1.33-2.9852-2.9773-2.9882z',
-  'claude': 'm4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z'
-};
 
-function Logo({ d, fill }: { d: string; fill: string }) {
+// Markenzeichen aus Iconify «logos» und Remix Icon, nur zur Kennzeichnung der genutzten Werkzeuge
+function Svg({ box, className = 'size-7', children }: { box: string; className?: string; children: React.ReactNode }) {
   return (
-    <svg viewBox="0 0 24 24" className="size-7" aria-hidden>
-      <path d={d} fill={fill} />
+    <svg viewBox={box} className={className} aria-hidden>
+      {children}
     </svg>
   );
 }
 
-function App({ children, label, bg = '#ffffff', i, rotate = 0 }: { children: React.ReactNode; label: string; bg?: string; i: number; rotate?: number }) {
+const FigmaLogo = () => (
+  <Svg box="0 0 256 384" className="h-8 w-auto">
+    <path fill="#0acf83" d="M64 384c35.328 0 64-28.672 64-64v-64H64c-35.328 0-64 28.672-64 64s28.672 64 64 64" />
+    <path fill="#a259ff" d="M0 192c0-35.328 28.672-64 64-64h64v128H64c-35.328 0-64-28.672-64-64" />
+    <path fill="#f24e1e" d="M0 64C0 28.672 28.672 0 64 0h64v128H64C28.672 128 0 99.328 0 64" />
+    <path fill="#ff7262" d="M128 0h64c35.328 0 64 28.672 64 64s-28.672 64-64 64h-64z" />
+    <path fill="#1abcfe" d="M256 192c0 35.328-28.672 64-64 64s-64-28.672-64-64s28.672-64 64-64s64 28.672 64 64" />
+  </Svg>
+);
+const MiroLogo = () => (
+  <Svg box="0 0 256 256" className="size-full">
+    <path fill="#ffdd33" d="M0 64C0 28.654 28.654 0 64 0h128c35.346 0 64 28.654 64 64v128c0 35.346-28.654 64-64 64H64c-35.346 0-64-28.654-64-64z" />
+    <path fill="#050038" d="M170.195 48.8h-23.239l19.366 34.026L123.717 48.8h-23.239l21.303 41.588L77.239 48.8H54l23.239 52.937L54 207.6h23.239l44.542-113.426L100.478 207.6h23.239l42.605-120.988L146.956 207.6h23.239L212.8 75.263z" />
+  </Svg>
+);
+const AnalyticsLogo = () => (
+  <Svg box="0 0 256 284" className="h-8 w-auto">
+    <path fill="#f9ab00" d="M256.003 247.933a35.224 35.224 0 0 1-39.376 35.161c-18.044-2.67-31.266-18.371-30.826-36.606V36.845C185.365 18.591 198.62 2.881 216.687.24a35.22 35.22 0 0 1 39.316 35.16z" />
+    <path fill="#e37400" d="M35.101 213.193c19.386 0 35.101 15.716 35.101 35.101c0 19.386-15.715 35.101-35.101 35.101S0 267.68 0 248.295s15.715-35.102 35.101-35.102m92.358-106.387c-19.477 1.068-34.59 17.406-34.137 36.908v94.285c0 25.588 11.259 41.122 27.755 44.433a35.16 35.16 0 0 0 42.146-34.56V142.089a35.22 35.22 0 0 0-35.764-35.282" />
+  </Svg>
+);
+const LookbackLogo = () => (
+  <Svg box="0 0 512 96" className="w-12">
+    <g fill="#192d41"><path d="M296.128 31.545c-7.935 0-13.187 3.334-20.223 8.925V1.006L273.983 0l-24.319 11.5v1.76l9.408 5.783v71.828c8.641 3.768 16.384 4.774 24.318 4.774c17.729 0 35.203-12.067 35.203-34.688c-.066-16.907-9.6-29.412-22.465-29.412m-8.959 55.362c-4.737 0-8.324-2.136-11.33-5.783V45.181a48.4 48.4 0 0 1 10.432-1.318c8.641 0 14.336 7.035 14.336 21.305c.066 13.824-4.35 21.74-13.438 21.74m85.438-2.703V56.117c0-15.96-6.144-24.635-21.567-24.635c-9.982 0-18.177 3.584-25.342 10.62l2.748 5.47c5.25-3.33 10.24-5.341 15.36-5.341c8.513 0 11.842 5.024 11.842 14.83v2.578c-25.342 2.575-32.705 10.932-32.705 21.74c0 10.619 7.489 14.266 14.528 14.266c6.018 0 12.162-2.579 18.177-6.601v5.028h24.193V84.9h-6.593l-.64-.693zm-16.833-.184a33.8 33.8 0 0 1-7.934 1.318c-4.992 0-8.51-2.45-8.321-7.92c.129-6.471 4.862-9.613 16.258-10.619v17.22zm64.832 1.631c-10.11 0-19.647-8.04-19.647-26.079c0-12.818 3.97-19.732 11.459-19.732c3.072 0 5.437 1.131 8.063 3.33l11.135 14.642h1.92V34.69a51.4 51.4 0 0 0-17.151-3.142c-20.546 0-33.28 14.642-33.28 33.493c0 18.418 11.71 30.481 30.016 30.481a34.47 34.47 0 0 0 23.04-8.361l-2.755-5.025c-4.413 2.512-8.126 3.518-12.8 3.518zm82.307-.751L483.136 57.56l25.92-23.437v-1.131h-32.384v1.252l8.384 8.048L466.303 61.9l22.528 32.234H512v-9.23h-9.087z" /><path d="M465.088 84.204V1.009L463.04 0l-24.193 11.5v1.694l9.41 5.783v65.23l-.769.693h-6.593v9.234h31.552v-9.23h-6.59l-.77-.693zM15.04 9.489H0v84.774h50.88v-13.64H15.04zM83.456 31.67c-18.56 0-32.576 13.765-32.576 31.987c0 18.226 14.015 32.113 32.576 32.113c18.56 0 32.705-13.824 32.705-32.113c0-18.284-14.019-31.987-32.705-31.987m0 50.777c-10.369 0-18.174-8.041-18.174-18.727c0-10.682 7.809-18.664 18.174-18.664c10.24 0 18.307 8.17 18.307 18.601c0 10.682-7.81 18.79-18.307 18.79m70.144-50.84c-18.56 0-32.576 13.766-32.576 31.988c0 18.226 14.015 32.112 32.576 32.112c18.56 0 32.705-13.824 32.705-32.112S172.224 31.608 153.6 31.608m0 50.714c-10.369 0-18.174-8.044-18.174-18.726s7.809-18.602 18.174-18.602c10.24 0 18.307 8.17 18.307 18.602c0 10.682-7.875 18.726-18.307 18.726m93.055-49.266h-19.581l-18.627 18.977V6.41h-14.399v87.725h14.402v-26.96l25.214 26.963h18.88L220.29 59.572l26.366-26.52z" /></g>
+  </Svg>
+);
+const ClaudeLogo = () => (
+  <Svg box="0 0 256 257" className="size-8">
+    <path fill="#d97757" d="m50.228 170.321l50.357-28.257l.843-2.463l-.843-1.361h-2.462l-8.426-.518l-28.775-.778l-24.952-1.037l-24.175-1.296l-6.092-1.297L0 125.796l.583-3.759l5.12-3.434l7.324.648l16.202 1.101l24.304 1.685l17.629 1.037l26.118 2.722h4.148l.583-1.685l-1.426-1.037l-1.101-1.037l-25.147-17.045l-27.22-18.017l-14.258-10.37l-7.713-5.25l-3.888-4.925l-1.685-10.758l7-7.713l9.397.649l2.398.648l9.527 7.323l20.35 15.75L94.817 91.9l3.889 3.24l1.555-1.102l.195-.777l-1.75-2.917l-14.453-26.118l-15.425-26.572l-6.87-11.018l-1.814-6.61c-.648-2.723-1.102-4.991-1.102-7.778l7.972-10.823L71.42 0l10.63 1.426l4.472 3.888l6.61 15.101l10.694 23.786l16.591 32.34l4.861 9.592l2.592 8.879l.973 2.722h1.685v-1.556l1.36-18.211l2.528-22.36l2.463-28.776l.843-8.1l4.018-9.722l7.971-5.25l6.222 2.981l5.12 7.324l-.713 4.73l-3.046 19.768l-5.962 30.98l-3.889 20.739h2.268l2.593-2.593l10.499-13.934l17.628-22.036l7.778-8.749l9.073-9.657l5.833-4.601h11.018l8.1 12.055l-3.628 12.443l-11.342 14.388l-9.398 12.184l-13.48 18.147l-8.426 14.518l.778 1.166l2.01-.194l30.46-6.481l16.462-2.982l19.637-3.37l8.88 4.148l.971 4.213l-3.5 8.62l-20.998 5.184l-24.628 4.926l-36.682 8.685l-.454.324l.519.648l16.526 1.555l7.065.389h17.304l32.21 2.398l8.426 5.574l5.055 6.805l-.843 5.184l-12.962 6.611l-17.498-4.148l-40.83-9.721l-14-3.5h-1.944v1.167l11.666 11.406l21.387 19.314l26.767 24.887l1.36 6.157l-3.434 4.86l-3.63-.518l-23.526-17.693l-9.073-7.972l-20.545-17.304h-1.36v1.814l4.73 6.935l25.017 37.59l1.296 11.536l-1.814 3.76l-6.481 2.268l-7.13-1.297l-14.647-20.544l-15.1-23.138l-12.185-20.739l-1.49.843l-7.194 77.448l-3.37 3.953l-7.778 2.981l-6.48-4.925l-3.436-7.972l3.435-15.749l4.148-20.544l3.37-16.333l3.046-20.285l1.815-6.74l-.13-.454l-1.49.194l-15.295 20.999l-23.267 31.433l-18.406 19.702l-4.407 1.75l-7.648-3.954l.713-7.064l4.277-6.286l25.47-32.405l15.36-20.092l9.917-11.6l-.065-1.686h-.583L44.07 198.125l-12.055 1.555l-5.185-4.86l.648-7.972l2.463-2.593l20.35-13.999z" />
+  </Svg>
+);
+const CopilotLogo = () => (
+  <Svg box="0 0 24 24" className="size-8">
+    <defs>
+      <linearGradient id="copilot-v" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stopColor="#2870ea" />
+        <stop offset="0.5" stopColor="#1b4aef" />
+        <stop offset="1" stopColor="#7b3fe4" />
+      </linearGradient>
+    </defs>
+    <path fill="url(#copilot-v)" d="M14.865 3.063c.857 0 1.618.544 1.896 1.355l.602 1.758c.269.785.993 1.32 1.817 1.352h.553l.08.003h.073l-.005.002c3.672.114 2.36 4.494 1.356 7.782c-.86 2.811-2.149 5.623-4.297 5.623H9.36c-.86 0-1.625-.55-1.9-1.365l-.586-1.739a2.005 2.005 0 0 0-1.877-1.364h-.73c-3.855 0-2.523-4.454-1.505-7.784c.86-2.812 2.149-5.623 4.297-5.623zm-1.62 4.468c-.812 0-1.535.49-1.845 1.225c-.67 2.272-1.391 4.746-1.830 6.264a2.010 2.010 0 0 1-1.905 1.449h3.078c.862 0 1.623-.552 1.897-1.363c.659-2.234 1.360-4.639 1.790-6.127a2.005 2.005 0 0 1 1.857-1.448z" />
+  </Svg>
+);
+
+function App({ children, label, bg = '#ffffff', i, rotate = 0, pad = true }: { children: React.ReactNode; label: string; bg?: string; i: number; rotate?: number; pad?: boolean }) {
   const reduce = useReducedMotion();
   return (
     <motion.div
       title={label}
-      className="relative grid size-16 place-items-center rounded-[18px] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_12px_24px_-12px_rgba(31,43,51,0.35)]"
+      className={`relative grid size-16 place-items-center overflow-hidden rounded-[18px] shadow-[0_1px_2px_rgba(0,0,0,0.06),0_12px_24px_-12px_rgba(31,43,51,0.35)] ${pad ? '' : 'p-0'}`}
       style={{ background: bg, rotate }}
       variants={
         reduce
@@ -47,13 +85,13 @@ function Initialen({ t, color }: { t: string; color: string }) {
 
 function WerkzeugeVisual() {
   return (
-    <div className="grid grid-cols-3 place-items-center gap-3 md:gap-4">
-      <App i={0} label="Figma" rotate={-6}><Logo d={ICON.figma} fill="#1f2b33" /></App>
-      <App i={1} label="FigJam" bg="#9747ff" rotate={4}><Initialen t="Fj" color="#ffffff" /></App>
-      <App i={2} label="Miro" bg="#ffd02f" rotate={-3}><Logo d={ICON.miro} fill="#050038" /></App>
-      <App i={3} label="Lookback" bg="#1f2b33" rotate={5}><Initialen t="Lb" color="#ffffff" /></App>
+    <div className="relative grid grid-cols-3 place-items-center gap-3 md:gap-4">
+      <App i={0} label="Figma" rotate={-6}><FigmaLogo /></App>
+      <App i={1} label="FigJam" bg="#ffc700" rotate={4}><Initialen t="Fj" color="#1e1e1e" /></App>
+      <App i={2} label="Miro" bg="#ffdd33" rotate={-3} pad={false}><MiroLogo /></App>
+      <App i={3} label="Lookback" rotate={5}><LookbackLogo /></App>
       <App i={4} label="Testing Time" rotate={-4}><Initialen t="TT" color="#354857" /></App>
-      <App i={5} label="Google Analytics" rotate={3}><Logo d={ICON.googleanalytics} fill="#e37400" /></App>
+      <App i={5} label="Google Analytics" rotate={3}><AnalyticsLogo /></App>
     </div>
   );
 }
@@ -71,42 +109,96 @@ function KiVisual() {
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         />
       )}
-      <App i={0} label="Claude" rotate={-5}><Logo d={ICON.claude} fill="#d97757" /></App>
+      <App i={0} label="Claude" rotate={-5}><ClaudeLogo /></App>
       <App i={1} label="Eigene KI-Tools" bg="#1f2b33"><Wrench className="size-7 text-white" aria-hidden /></App>
-      <App i={2} label="Microsoft Copilot" rotate={5}><Initialen t="Co" color="#0078d4" /></App>
+      <App i={2} label="Microsoft Copilot" rotate={5}><CopilotLogo /></App>
     </div>
   );
 }
 
-const ECKEN = [
-  'left-3 top-3 border-l-2 border-t-2',
-  'right-3 top-3 border-r-2 border-t-2',
-  'left-3 bottom-3 border-l-2 border-b-2',
-  'right-3 bottom-3 border-r-2 border-b-2',
+// Feines Korn für die hellen Flächen, gleiches Prinzip wie bei den Fallstudien
+const KORN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.17 0 0 0 0 0.2 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
+
+const ORBS: [string, string, string, string][] = [
+  ['-left-[18%] -top-[30%]', '#c7ccc2', '-right-[14%] -bottom-[35%]', '#9eaaa2'],
+  ['-right-[20%] -top-[28%]', '#9eaaa2', '-left-[12%] -bottom-[30%]', '#c7ccc2'],
+  ['left-[20%] -top-[40%]', '#c7ccc2', '-right-[22%] bottom-[-20%]', '#758a87'],
 ];
 
-function SucherVisual() {
+/** Heller Hintergrund mit weichen Farbflecken und Korn, angelehnt an die Fallstudien-Karten. */
+function Flaeche({ i }: { i: number }) {
+  const [p1, c1, p2, c2] = ORBS[i % 3];
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-[18px] bg-[radial-gradient(120%_90%_at_70%_20%,#c7ccc2_0%,#9eaaa2_30%,#51686f_65%,#1f2b33_100%)]">
-      <svg aria-hidden viewBox="0 0 400 100" preserveAspectRatio="none" className="absolute inset-x-0 bottom-0 h-[42%] w-full">
-        <path d="M0 100 L0 58 L60 30 L110 52 L170 12 L240 58 L300 34 L400 66 L400 100 Z" fill="rgba(31,43,51,0.55)" />
-        <path d="M0 100 L0 78 L80 60 L150 76 L230 54 L320 74 L400 62 L400 100 Z" fill="rgba(31,43,51,0.85)" />
-      </svg>
-      {ECKEN.map((c) => (
-        <span key={c} aria-hidden className={`absolute size-5 border-white/80 ${c}`} />
-      ))}
-      <motion.span
-        aria-hidden
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-[1.5px]"
-        variants={{
-          rest: { width: 64, height: 44, borderColor: 'rgba(255,255,255,0.9)' },
-          hover: { width: 40, height: 28, borderColor: 'rgba(74,222,128,1)', transition: { type: 'spring', stiffness: 260, damping: 16 } },
-        }}
-      />
-      <div aria-hidden className="absolute inset-x-0 bottom-2.5 flex justify-center gap-4 text-[11px] font-medium tabular-nums tracking-wide text-white/90">
-        <span>f/2.8</span>
-        <span>1/250</span>
-        <span>ISO 100</span>
+    <>
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(160deg,#f6f5f0_0%,#ebece5_55%,#dfe3dc_100%)]" />
+      <div aria-hidden className={`pointer-events-none absolute aspect-square w-[80%] rounded-full blur-[40px] transition-transform duration-1000 group-hover:translate-x-3 ${p1}`} style={{ background: `radial-gradient(circle, ${c1} 0%, ${c1}99 40%, ${c1}00 70%)` }} />
+      <div aria-hidden className={`pointer-events-none absolute aspect-square w-[65%] rounded-full opacity-70 blur-[40px] transition-transform duration-1000 group-hover:-translate-x-3 ${p2}`} style={{ background: `radial-gradient(circle, ${c2} 0%, ${c2}88 40%, ${c2}00 70%)` }} />
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.22] mix-blend-multiply" style={{ backgroundImage: KORN, backgroundSize: '200px 200px' }} />
+    </>
+  );
+}
+
+const LAMELLEN = Array.from({ length: 6 }, (_, k) => k * 60);
+
+/** Kamera als App-Kachel: Beim Darüberfahren schliesst sich die Blende und der Blitz leuchtet kurz auf. */
+function KameraVisual() {
+  const reduce = useReducedMotion();
+  return (
+    <div className="relative flex flex-col items-center gap-4">
+      <motion.div
+        className="relative h-[104px] w-[150px] rounded-[22px] bg-nacht shadow-[0_1px_2px_rgba(0,0,0,0.08),0_18px_36px_-14px_rgba(31,43,51,0.55)]"
+        variants={reduce ? undefined : { rest: { y: 0, rotate: -4 }, hover: { y: -6, rotate: 0, transition: { type: 'spring', stiffness: 260, damping: 18 } } }}
+        style={{ rotate: -4 }}
+      >
+        {/* Sucherbuckel und Auslöser */}
+        <span aria-hidden className="absolute -top-2.5 left-1/2 h-4 w-12 -translate-x-1/2 rounded-t-[8px] bg-nacht" />
+        <motion.span
+          aria-hidden
+          className="absolute -top-1.5 right-5 h-2 w-6 rounded-t-[4px] bg-schiefer"
+          variants={reduce ? undefined : { rest: { y: 0 }, hover: { y: [0, 2, 0], transition: { duration: 0.25, delay: 0.15 } } }}
+        />
+        {/* Blitz */}
+        <motion.span
+          aria-hidden
+          className="absolute left-4 top-3.5 h-2 w-4 rounded-[3px] bg-salbei"
+          variants={reduce ? undefined : { rest: { backgroundColor: '#9eaaa2', boxShadow: '0 0 0 0 rgba(241,239,232,0)' }, hover: { backgroundColor: ['#9eaaa2', '#ffffff', '#9eaaa2'], boxShadow: ['0 0 0 0 rgba(241,239,232,0)', '0 0 28px 10px rgba(241,239,232,0.9)', '0 0 0 0 rgba(241,239,232,0)'], transition: { duration: 0.5, delay: 0.3 } } }}
+        />
+        {/* Objektiv mit Blende */}
+        <div className="absolute left-1/2 top-1/2 grid size-[74px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-schiefer ring-[3px] ring-eukalyptus/70">
+          <div className="relative size-[54px] overflow-hidden rounded-full bg-nacht">
+            <motion.svg
+              aria-hidden
+              viewBox="-50 -50 100 100"
+              className="absolute inset-0 size-full"
+              variants={reduce ? undefined : { rest: { rotate: 0 }, hover: { rotate: 30, transition: { duration: 0.6, ease: [0.2, 0.7, 0.2, 1] } } }}
+            >
+              <defs>
+                <radialGradient id="linse" cx="0.38" cy="0.32" r="0.8">
+                  <stop offset="0" stopColor="#c7ccc2" />
+                  <stop offset="0.45" stopColor="#758a87" />
+                  <stop offset="1" stopColor="#354857" />
+                </radialGradient>
+              </defs>
+              {LAMELLEN.map((w) => (
+                <line key={w} x1={0} y1={-50} x2={22} y2={6} stroke="#51686f" strokeWidth={1.6} transform={`rotate(${w})`} />
+              ))}
+              <motion.circle
+                cx={0}
+                cy={0}
+                fill="url(#linse)"
+                initial={false}
+                variants={reduce ? undefined : { rest: { r: 30 }, hover: { r: 11, transition: { duration: 0.6, ease: [0.2, 0.7, 0.2, 1] } } }}
+                r={30}
+              />
+            </motion.svg>
+            <span aria-hidden className="absolute left-[24%] top-[20%] size-2 rounded-full bg-white/60 blur-[1px]" />
+          </div>
+        </div>
+      </motion.div>
+      <div aria-hidden className="flex gap-2 text-[11px] font-medium tabular-nums tracking-wide text-tinte/80">
+        {['f/2.8', '1/250', 'ISO 100'].map((t) => (
+          <span key={t} className="rounded-full bg-white/60 px-2.5 py-1 backdrop-blur-sm">{t}</span>
+        ))}
       </div>
     </div>
   );
@@ -118,35 +210,29 @@ const KACHELN = [
     titel: 'Werkzeuge',
     text: 'Figma, FigJam, Miro, Lookback, Testing Time und Google Analytics gehören zu meinem Alltag, von der Recherche bis zum klickbaren Prototyp.',
     visual: <WerkzeugeVisual />,
-    voll: false,
   },
   {
     key: 'ki',
     titel: 'KI im Arbeitsalltag',
     text: 'Ich setze Claude und Microsoft Copilot täglich ein und baue mir eigene kleine KI-Tools für wiederkehrende Aufgaben. So bleibt mehr Zeit für Analyse und Konzept.',
     visual: <KiVisual />,
-    voll: false,
   },
   {
     key: 'ausgleich',
     titel: 'Ausgleich',
     text: 'Fotografie. Nach einem Tag am Bildschirm schaue ich gern durch den Sucher.',
-    visual: <SucherVisual />,
-    voll: true,
+    visual: <KameraVisual />,
   },
 ];
 
 export function AboutTiles() {
   return (
     <ul className="mt-14 grid gap-5 md:grid-cols-3">
-      {KACHELN.map((k) => (
-        <motion.li key={k.key} initial="rest" animate="rest" whileHover="hover" className="flex flex-col overflow-hidden rounded-[24px] bg-card p-2">
-          <div
-            className={`grid aspect-[4/3] place-items-center rounded-[18px] ${
-              k.voll ? '' : 'bg-[radial-gradient(120%_100%_at_50%_0%,#f8f7f2_0%,#eceee8_60%,#dfe3dc_100%)] p-5'
-            }`}
-          >
-            {k.visual}
+      {KACHELN.map((k, i) => (
+        <motion.li key={k.key} initial="rest" animate="rest" whileHover="hover" className="group flex flex-col overflow-hidden rounded-[24px] bg-card p-2">
+          <div className="relative grid aspect-[4/3] place-items-center overflow-hidden rounded-[18px] p-5">
+            <Flaeche i={i} />
+            <div className="relative">{k.visual}</div>
           </div>
           <div className="px-4 pb-5 pt-5">
             <h3 className="text-lg">{k.titel}</h3>
