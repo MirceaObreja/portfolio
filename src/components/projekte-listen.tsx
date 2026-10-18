@@ -71,14 +71,14 @@ function Phasen({ p, hell = false }: { p: ProjektKarte; hell?: boolean }) {
    Grosse Typografie, die Zeile wird beim Darüberfahren schwarz. */
 
 /** Index-Liste: grosse Typografie, die Zeile wird beim Darüberfahren schwarz. */
-export function ListeIndex({ projekte, tabs = 'standard' }: { projekte: ProjektKarte[]; tabs?: TabVariante }) {
+export function ListeIndex({ projekte, tabs = 'standard' }: { projekte: ProjektKarte[]; tabs?: TabVariante | false }) {
   const { filter, setFilter, liste } = useFilter(projekte);
   const anzahl = (ph: Phase) => projekte.filter((p) => p.phasen.includes(ph)).length;
-  const Tabs = TABS[tabs];
+  const Tabs = tabs ? TABS[tabs] : null;
   const [offen, setOffen] = useState<string | null>(null);
   return (
     <div>
-      <Tabs filter={filter} setFilter={setFilter} gesamt={projekte.length} anzahl={anzahl} treffer={liste.length} />
+      {Tabs && <Tabs filter={filter} setFilter={setFilter} gesamt={projekte.length} anzahl={anzahl} treffer={liste.length} />}
       <ul className="border-t border-foreground">
         {liste.map((p) => {
           const auf = offen === p.id;

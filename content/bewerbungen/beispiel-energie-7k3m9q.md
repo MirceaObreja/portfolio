@@ -16,7 +16,7 @@ beobachtungen:
     text: Der Rechner fragt zuerst nach dem Jahresverbrauch. Viele kennen diese Zahl nicht. Eine Schätzung über Haushaltsgrösse und Wohnfläche könnte mehr Leute bis zum Angebot bringen. Das liesse sich mit einem A/B-Test prüfen.
   - titel: Solar-Anfrage
     text: Nach dem Absenden fehlt eine Angabe, wann und wie es weitergeht. Eine kurze Übersicht der nächsten Schritte würde Rückfragen beim Kundendienst reduzieren.
-projekte: [siemens-xcelerator, retailbank-conversational-ui, bank-cler-zak]
+projekte: [siemens-xcelerator, bank-cler-zak, co2-apps, retailbank-conversational-ui, adac-mautportal]
 ---
 
 Sie suchen jemanden, der Ihre digitalen Angebote für Strom und Solar von Anfang bis Ende denkt. Genau so arbeite ich: Ich schaue mir die ganze Strecke an, auch die Prozesse hinter dem Formular, und entwickle daraus Lösungen, die ich mit Nutzerinnen und Nutzern prüfe.

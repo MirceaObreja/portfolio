@@ -15,7 +15,7 @@ export type FlaechenStil = 'verlauf' | 'sonne' | 'lichter' | 'horizont';
 // Feines Korn als SVG-Rauschen, liegt über den weichen Farbflächen
 const KORN = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
-function Licht({ stil, i }: { stil: FlaechenStil; i: number }) {
+export function Licht({ stil, i }: { stil: FlaechenStil; i: number }) {
   if (stil === 'verlauf') {
     return <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-white/15 blur-3xl transition-transform duration-700 group-hover:scale-125" />;
   }
