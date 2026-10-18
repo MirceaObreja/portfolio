@@ -4,7 +4,7 @@ import { Hero } from '@/components/hero';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { CaseCards } from '@/components/case-cards';
 import { Banner } from '@/components/banners';
-import { ListeIndex, ListeKarten, ListeRegister, ListeTabelle } from '@/components/projekte-listen';
+import { ListeIndex } from '@/components/projekte-listen';
 
 function Variante({ name, text }: { name: string; text: string }) {
   return (
@@ -64,14 +64,14 @@ export default function Home() {
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
           <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
-          <Variante name="Liste A" text="Index: grosse Schrift, Zeile wird beim Darüberfahren schwarz" />
-          <ListeIndex projekte={projekte} />
-          <Variante name="Liste B" text="Einzelne Karten, aufgeklappt mit Details in Spalten" />
-          <ListeKarten projekte={projekte} />
-          <Variante name="Liste C" text="Tabelle mit Phasen als Punkte" />
-          <ListeTabelle projekte={projekte} />
-          <Variante name="Liste D" text="Register: Projekte links, Details rechts" />
-          <ListeRegister projekte={projekte} />
+          <Variante name="Tabs 1" text="Unterstrichen: grosse Textreiter, Linie gleitet zur Auswahl" />
+          <ListeIndex projekte={projekte} tabs="linie" />
+          <Variante name="Tabs 2" text="Pille mit Phasen-Symbol, schwarze Pille gleitet mit" />
+          <ListeIndex projekte={projekte} tabs="pille" />
+          <Variante name="Tabs 3" text="Zahlenkacheln mit Anzahl Projekte pro Phase" />
+          <ListeIndex projekte={projekte} tabs="zahlen" />
+          <Variante name="Tabs 4" text="Gruppiert nach Problem verstehen und Lösung entwickeln" />
+          <ListeIndex projekte={projekte} tabs="gruppen" />
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">
