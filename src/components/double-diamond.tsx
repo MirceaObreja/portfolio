@@ -7,14 +7,22 @@ type Phase = 'discover' | 'define' | 'develop' | 'deliver';
 type Text = Record<Phase, { name: string; text: string; methoden: string[] }>;
 
 const PHASEN: Phase[] = ['discover', 'define', 'develop', 'deliver'];
+// Klassische Form: Die Diamanten berühren sich in der Mitte (Problemdefinition)
 const HALVES: Record<Phase, string> = {
-  discover: 'M6 100 L200 6 L200 194 Z',
-  define: 'M200 6 L394 100 L200 194 Z',
-  develop: 'M406 100 L600 6 L600 194 Z',
-  deliver: 'M600 6 L794 100 L600 194 Z',
+  discover: 'M4 100 L200 4 L200 196 Z',
+  define: 'M200 4 L400 100 L200 196 Z',
+  develop: 'M400 100 L600 4 L600 196 Z',
+  deliver: 'M600 4 L796 100 L600 196 Z',
 };
-const LABEL_X: Record<Phase, string> = { discover: '17%', define: '33.2%', develop: '66.8%', deliver: '83%' };
-const OUTLINES = ['M6 100 L200 6 L394 100 L200 194 Z', 'M406 100 L600 6 L794 100 L600 194 Z'];
+const BASIS: Record<Phase, string> = { discover: '#ececec', define: '#e2e2e2', develop: '#f7f7f7', deliver: '#efefef' };
+const LABEL_X: Record<Phase, string> = { discover: '17.5%', define: '33%', develop: '67%', deliver: '82.5%' };
+const BEWEGUNG: Record<Phase, string> = { discover: 'öffnen', define: 'fokussieren', develop: 'öffnen', deliver: 'fokussieren' };
+const PUNKTE = [
+  { x: '0.5%', label: 'Ausgangslage', align: 'left' },
+  { x: '50%', label: 'Problemdefinition', align: 'center' },
+  { x: '99.5%', label: 'Lösung', align: 'right' },
+] as const;
+const OUTLINES = ['M4 100 L200 4 L400 100 L200 196 Z', 'M400 100 L600 4 L796 100 L600 196 Z'];
 
 export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [string, string]; hint: string }) {
   const reduce = useReducedMotion();
@@ -27,72 +35,86 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
   return (
     <div>
       {/* Problem- und Lösungsraum */}
-      <div className="mb-5 grid grid-cols-2 gap-3">
-        {spaces.map((s, i) => (
-          <div key={s} className={cn('flex items-baseline gap-3 border-t-2 pt-3 transition-colors duration-300', raum === i ? 'border-ink' : 'border-foreground/15')}>
+      <div className="mb-4 grid grid-cols-2">
+        {spaces.map((sp, i) => (
+          <div key={sp} className={cn('flex items-baseline gap-2.5 pt-1 transition-opacity duration-300', raum !== null && raum !== i && 'opacity-40', i === 1 && 'justify-end text-right md:justify-start md:pl-6 md:text-left')}>
             <span className="text-[13px] tabular-nums text-muted-foreground">0{i + 1}</span>
-            <span className="text-[clamp(1rem,2vw,1.4rem)] font-medium tracking-tight">{s}</span>
+            <span className="text-[clamp(1.05rem,2.2vw,1.6rem)] font-medium tracking-tight">{sp}</span>
           </div>
         ))}
       </div>
 
       <div className="relative" onMouseLeave={() => setHover(null)}>
-        {/* Hinterlegung der beiden Räume */}
-        <div aria-hidden className="absolute inset-0 grid grid-cols-2 gap-3">
-          <div className={cn('rounded-[20px] transition-colors duration-300', raum === 0 ? 'bg-[#ebebeb]' : 'bg-background')} />
-          <div className={cn('rounded-[20px] transition-colors duration-300', raum === 1 ? 'bg-[#ebebeb]' : 'bg-background')} />
+        {/* Öffnen und Fokussieren über den Hälften */}
+        <div aria-hidden className="mb-2 hidden grid-cols-4 text-center text-[12px] text-muted-foreground sm:grid">
+          {PHASEN.map((p) => (
+            <span key={p} className={cn('transition-colors', aktiv === p && 'text-foreground')}>{BEWEGUNG[p]}</span>
+          ))}
         </div>
-        <div className="relative px-2 py-5 md:px-4 md:py-8">
-          <div className="relative">
-            <svg viewBox="0 0 800 200" preserveAspectRatio="none" className="block h-[170px] w-full overflow-visible sm:h-auto">
-              {PHASEN.map((p) => (
-                <path
-                  key={p}
-                  d={HALVES[p]}
-                  onMouseEnter={() => setHover(p)}
-                  onClick={() => toggle(p)}
-                  className="cursor-pointer transition-[fill] duration-200"
-                  fill={aktiv === p ? '#111111' : '#ffffff'}
-                  aria-hidden
-                />
-              ))}
-              {OUTLINES.map((d, i) => (
-                <motion.path
-                  key={d}
-                  d={d}
-                  fill="none"
-                  stroke="#111111"
-                  strokeWidth={2}
-                  strokeLinejoin="round"
-                  pointerEvents="none"
-                  initial={reduce ? false : { pathLength: 0 }}
-                  whileInView={{ pathLength: 1 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ delay: 0.15 + i * 0.35, duration: 1, ease: [0.65, 0, 0.35, 1] }}
-                />
-              ))}
-              <path d="M200 6 L200 194 M600 6 L600 194" stroke="#9a9a9a" strokeWidth={1.5} strokeDasharray="4 6" vectorEffect="non-scaling-stroke" pointerEvents="none" />
-            </svg>
+        <div className="relative">
+          <svg viewBox="0 0 800 200" preserveAspectRatio="none" className="block h-[170px] w-full overflow-visible sm:h-auto">
+            <line x1="0" y1="100" x2="800" y2="100" stroke="#c9c9c9" strokeWidth={1} strokeDasharray="2 5" vectorEffect="non-scaling-stroke" />
             {PHASEN.map((p) => (
-              <button
+              <path
                 key={p}
-                type="button"
-                aria-pressed={pinned === p}
-                aria-controls="phase-text"
+                d={HALVES[p]}
                 onMouseEnter={() => setHover(p)}
-                onFocus={() => setHover(p)}
-                onBlur={() => setHover(null)}
                 onClick={() => toggle(p)}
-                style={{ left: LABEL_X[p] }}
-                className={cn(
-                  'absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-1 py-1 text-[12px] font-medium tracking-tight transition-colors sm:px-2 sm:text-[15px] md:text-base',
-                  aktiv === p ? 'text-white' : 'text-foreground',
-                )}
-              >
-                {texte[p].name}
-              </button>
+                className="cursor-pointer transition-[fill] duration-200"
+                fill={aktiv === p ? '#111111' : BASIS[p]}
+                aria-hidden
+              />
             ))}
-          </div>
+            {OUTLINES.map((d, i) => (
+              <motion.path
+                key={d}
+                d={d}
+                fill="none"
+                stroke="#111111"
+                strokeWidth={1.75}
+                strokeLinejoin="round"
+                pointerEvents="none"
+                initial={reduce ? false : { pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ delay: 0.15 + i * 0.5, duration: 1, ease: [0.65, 0, 0.35, 1] }}
+              />
+            ))}
+          </svg>
+          {/* Punkte auf der Achse */}
+          {PUNKTE.map((pt) => (
+            <span key={pt.label} aria-hidden className="absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink bg-white" style={{ left: pt.x }} />
+          ))}
+          {PHASEN.map((p) => (
+            <button
+              key={p}
+              type="button"
+              aria-pressed={pinned === p}
+              aria-controls="phase-text"
+              onMouseEnter={() => setHover(p)}
+              onFocus={() => setHover(p)}
+              onBlur={() => setHover(null)}
+              onClick={() => toggle(p)}
+              style={{ left: LABEL_X[p] }}
+              className={cn(
+                'absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-1 py-1 text-[12px] font-medium tracking-tight transition-colors sm:px-2 sm:text-[15px] md:text-base',
+                aktiv === p ? 'text-white' : 'text-foreground',
+              )}
+            >
+              {texte[p].name}
+            </button>
+          ))}
+        </div>
+        <div aria-hidden className="relative mt-3 h-5 text-[12px] text-muted-foreground sm:text-[13px]">
+          {PUNKTE.map((pt) => (
+            <span
+              key={pt.label}
+              className={cn('absolute top-0 whitespace-nowrap', pt.align === 'center' && '-translate-x-1/2', pt.align === 'right' && '-translate-x-full')}
+              style={{ left: pt.x }}
+            >
+              {pt.label}
+            </span>
+          ))}
         </div>
       </div>
 
