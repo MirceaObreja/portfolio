@@ -15,7 +15,7 @@ Die Seite läuft danach unter http://localhost:3000.
 
 ## Schrift BDO Grotesk einbinden
 
-BDO Grotesk ist nicht über npm oder Google Fonts verfügbar. Die Schriftdatei beim Hersteller herunterladen und die Lizenz für die Nutzung auf einer Website prüfen. Danach die variable Datei als `public/fonts/BDOGrotesk-Variable.woff2` ablegen. Die Seite nutzt sie dann automatisch. Bis dahin wird Hanken Grotesk als Ersatz angezeigt.
+BDO Grotesk ist nicht über npm oder Google Fonts verfügbar. Die Schriftdatei beim Hersteller herunterladen und die Lizenz für die Nutzung auf einer Website prüfen. Danach die variable Datei als `public/fonts/BDOGrotesk-Variable.woff2` ablegen. Die Seite nutzt sie dann automatisch. Bis dahin nutzt die Seite die Systemschrift, auf Apple-Geräten SF Pro, sonst Inter.
 
 Liegen nur einzelne Schnitte vor (z. B. Regular und Medium), in `src/app/globals.css` den `@font-face`-Block pro Datei anlegen.
 

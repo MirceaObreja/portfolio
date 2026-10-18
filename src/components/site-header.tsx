@@ -1,30 +1,43 @@
 import Link from 'next/link';
 import { KONTAKT } from '@/lib/site';
 
+function Mark({ className = '' }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 64 24" className={className} aria-hidden>
+      <path d="M1 12 L16 1 L31 12 L16 23Z M33 12 L48 1 L63 12 L48 23Z" className="fill-foreground" />
+    </svg>
+  );
+}
+
 export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 'de' | 'en' }) {
-  const t = lang === 'de'
+  const links = lang === 'de'
     ? [['/#fallstudien', 'Fallstudien'], ['/#projekte', 'Projekte'], ['/#ueber-mich', 'Über mich']]
     : [['/#fallstudien', 'Case studies'], ['/#projekte', 'Projects'], ['/#ueber-mich', 'About']];
   return (
-    <header className="sticky top-0 z-40 border-b border-transparent bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70">
-      <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2.5 font-medium tracking-tight">
-          <svg viewBox="0 0 64 24" className="h-3 w-8" aria-hidden>
-            <path d="M1 12 L16 1 L31 12 L16 23Z M33 12 L48 1 L63 12 L48 23Z" className="fill-brand" />
-          </svg>
-          {KONTAKT.name}
-        </Link>
-        <nav aria-label="Hauptnavigation" className="flex items-center gap-1 text-[15px]">
-          {nav && t.map(([href, label]) => (
-            <Link key={href} href={href} className="hidden rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:inline-block">
-              {label}
-            </Link>
-          ))}
-          <a href="#kontakt" className="ml-1 rounded-full bg-primary px-4 py-1.5 text-primary-foreground transition-colors hover:bg-primary/85">
-            {lang === 'de' ? 'Kontakt' : 'Contact'}
-          </a>
-        </nav>
-      </div>
-    </header>
+    <>
+      <div className="h-24" aria-hidden />
+      <Link
+        href="/"
+        aria-label={`${KONTAKT.name}, Startseite`}
+        className="fixed top-4 z-50 flex h-11 items-center gap-2.5 rounded-full px-3 text-[15px] font-semibold tracking-tight transition-colors hover:bg-black/5"
+        style={{ left: 'max(12px, env(safe-area-inset-left, 0px))' }}
+      >
+        <Mark className="h-3 w-8" />
+        <span className="hidden lg:inline">{KONTAKT.name}</span>
+      </Link>
+      <nav
+        aria-label="Hauptnavigation"
+        className="fixed right-3 top-4 z-50 flex h-11 items-center sm:right-auto sm:left-1/2 sm:-translate-x-1/2 gap-0.5 rounded-full border border-black/[0.06] bg-white/70 p-1 text-[14px] shadow-[0_8px_30px_rgba(0,0,0,0.06)] backdrop-blur-xl backdrop-saturate-150"
+      >
+        {nav && links.map(([href, label], i) => (
+          <Link key={href} href={href} className={`${i === 2 ? 'hidden sm:inline-block' : ''} whitespace-nowrap rounded-full px-3 py-1.5 text-foreground/80 transition-colors hover:bg-black/5 hover:text-foreground sm:px-4`}>
+            {label}
+          </Link>
+        ))}
+        <a href="#kontakt" className="whitespace-nowrap rounded-full bg-foreground px-3.5 py-1.5 text-background transition-opacity hover:opacity-85 sm:px-4">
+          {lang === 'de' ? 'Kontakt' : 'Contact'}
+        </a>
+      </nav>
+    </>
   );
 }

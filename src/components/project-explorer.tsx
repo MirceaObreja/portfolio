@@ -35,7 +35,7 @@ export function ProjectExplorer({ projekte, filter = true, lang = 'de' }: { proj
     <div>
       {filter && (
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-          <div role="group" aria-label="Nach Phase filtern" className="flex flex-wrap gap-2">
+          <div role="group" aria-label="Nach Phase filtern" className="inline-flex max-w-full flex-wrap gap-1 rounded-full bg-muted p-1">
             {[null, ...PHASEN].map((p) => {
               const on = aktiv === p;
               return (
@@ -46,11 +46,10 @@ export function ProjectExplorer({ projekte, filter = true, lang = 'de' }: { proj
                   aria-controls="projektliste"
                   onClick={() => setAktiv(p)}
                   className={cn(
-                    'inline-flex h-9 items-center gap-2 rounded-full border px-4 text-[15px] transition-colors',
-                    on ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card hover:border-foreground/30',
+                    'h-8 rounded-full px-4 text-[14px] transition-all',
+                    on ? 'bg-card font-medium shadow-[0_1px_4px_rgba(0,0,0,0.12)]' : 'text-foreground/70 hover:text-foreground',
                   )}
                 >
-                  {p && <DiamondMini phasen={[p]} className={cn('h-3 w-8', on && '[&_.fill-brand]:fill-primary-foreground [&_.fill-brand]:stroke-primary-foreground')} />}
                   {p ? name(p) : t.alle}
                 </button>
               );
@@ -60,7 +59,7 @@ export function ProjectExplorer({ projekte, filter = true, lang = 'de' }: { proj
         </div>
       )}
 
-      <Accordion type="single" collapsible id="projektliste" className="border-t border-foreground">
+      <Accordion type="single" collapsible id="projektliste" className="rounded-[28px] bg-card px-5 md:px-8 [&>div:last-child_[data-slot=accordion-item]]:border-b-0">
         <AnimatePresence initial={false} mode="popLayout">
           {liste.map((p) => (
             <motion.div

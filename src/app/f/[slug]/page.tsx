@@ -49,7 +49,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
       <main>
         <section className="container-page pt-14 md:pt-24">
           <p className="mb-6 inline-flex rounded-full bg-brand-soft px-3 py-1 text-[15px] font-medium text-brand">{t.fuer}</p>
-          <h1 className="max-w-[16ch] text-[clamp(2.75rem,7vw,5.75rem)] font-medium tracking-[-0.045em]">{t.h1}</h1>
+          <h1 className="max-w-[16ch] text-[clamp(2.75rem,7vw,5.75rem)] tracking-[-0.045em]">{t.h1}</h1>
           <div className="mt-12 grid md:grid-cols-12">
             <div className="max-w-[62ch] text-lg md:col-span-7 md:col-start-6 [&_p]:mb-4">
               {b.anrede && <p>{b.anrede}</p>}
@@ -60,11 +60,11 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         </section>
 
         <section className="container-page pt-24 md:pt-32" aria-labelledby="st-h">
-          <h2 id="st-h" className="mb-8 text-[clamp(2rem,3.6vw,3rem)] font-medium">{t.staerken}</h2>
+          <h2 id="st-h" className="mb-8 text-[clamp(2rem,3.6vw,3rem)]">{t.staerken}</h2>
           <ul className="grid gap-4 md:grid-cols-3">
             {b.staerken.map((s) => (
-              <li key={s.titel} className="grid content-start gap-3 rounded-2xl border border-border bg-card p-6 md:p-8">
-                <h3 className="text-xl font-medium tracking-tight">{s.titel}</h3>
+              <li key={s.titel} className="grid content-start gap-3 rounded-[28px] bg-card p-6 md:p-8">
+                <h3 className="text-xl tracking-tight">{s.titel}</h3>
                 <p className="text-muted-foreground">{s.text}</p>
               </li>
             ))}
@@ -74,13 +74,13 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         {n > 0 && (
           <section className="container-page pt-24 md:pt-32" aria-labelledby="bo-h">
             <div className="mb-8 grid gap-3 md:grid-cols-12">
-              <h2 id="bo-h" className="text-[clamp(2rem,3.6vw,3rem)] font-medium md:col-span-6">{t.beob}</h2>
+              <h2 id="bo-h" className="text-[clamp(2rem,3.6vw,3rem)] md:col-span-6">{t.beob}</h2>
               <p className="text-muted-foreground md:col-span-6 md:pt-3">{t.beobText}</p>
             </div>
-            <ul className="grid gap-x-10 md:grid-cols-2">
+            <ul className="grid gap-5 md:grid-cols-2">
               {b.beobachtungen!.map((o) => (
-                <li key={o.titel} className="grid content-start gap-2 border-t border-foreground py-6">
-                  <h3 className="text-xl font-medium tracking-tight">{o.titel}</h3>
+                <li key={o.titel} className="grid content-start gap-2 rounded-[28px] bg-card p-6 md:p-8">
+                  <h3 className="text-xl tracking-tight">{o.titel}</h3>
                   <p className="text-muted-foreground">{o.text}</p>
                 </li>
               ))}
@@ -89,11 +89,11 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         )}
 
         <section className="container-page pt-24 md:pt-32" aria-labelledby="pj-h">
-          <h2 id="pj-h" className="mb-8 text-[clamp(2rem,3.6vw,3rem)] font-medium">{t.proj}</h2>
+          <h2 id="pj-h" className="mb-8 text-[clamp(2rem,3.6vw,3rem)]">{t.proj}</h2>
           {cases.length > 0 && <CaseCards projekte={cases} lang={l} />}
           {weitere.length > 0 && (
             <div className="mt-14">
-              {cases.length > 0 && <h3 className="mb-4 text-xl font-medium">{t.weitere}</h3>}
+              {cases.length > 0 && <h3 className="mb-4 text-xl">{t.weitere}</h3>}
               <ProjectExplorer projekte={weitere} filter={false} lang={l} />
             </div>
           )}
@@ -101,8 +101,8 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         </section>
 
         <section className="container-page pt-24 md:pt-32" aria-labelledby="aw-h">
-          <div className="rounded-2xl border border-border bg-card p-6 md:p-10">
-            <h2 id="aw-h" className="mb-8 text-xl font-medium tracking-tight">{t.arbeit}</h2>
+          <div className="rounded-[28px] bg-card p-6 md:p-10">
+            <h2 id="aw-h" className="mb-8 text-xl tracking-tight">{t.arbeit}</h2>
             <DoubleDiamond texte={PHASEN_TEXT[l]} spaces={t.spaces} hint={t.hint} />
           </div>
         </section>

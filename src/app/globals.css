@@ -1,8 +1,8 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/hanken-grotesk';
+@import '@fontsource-variable/inter';
 
 /* Eigene Schrift: BDO Grotesk als WOFF2 in public/fonts ablegen.
-   Solange die Dateien fehlen, greift Hanken Grotesk als Ersatz. */
+   Solange die Dateien fehlen, nutzt die Seite die Systemschrift (SF Pro auf Apple-Geräten), sonst Inter. */
 @font-face {
   font-family: 'BDO Grotesk';
   src: url('/fonts/BDOGrotesk-Variable.woff2') format('woff2');
@@ -13,21 +13,21 @@
 /* Layout: helle Fläche, eine Akzentfarbe nur für Phasen und Ergebnisse, grosse ruhige Typografie */
 :root {
   --background: #fafafa;
-  --foreground: #141414;
+  --foreground: #1d1d1f;
   --card: #ffffff;
-  --card-foreground: #141414;
-  --muted: #f0f0f0;
-  --muted-foreground: #6b6b70;
-  --border: #e6e6e6;
-  --input: #e6e6e6;
-  --ring: #2e4bff;
-  --primary: #141414;
+  --card-foreground: #1d1d1f;
+  --muted: #ececf0;
+  --muted-foreground: #6e6e73;
+  --border: #e3e3e8;
+  --input: #e3e3e8;
+  --ring: #0071e3;
+  --primary: #1d1d1f;
   --primary-foreground: #fafafa;
-  --secondary: #f0f0f0;
-  --secondary-foreground: #141414;
-  --brand: #2e4bff;
-  --brand-soft: #eef1ff;
-  --radius: 1rem;
+  --secondary: #ececf0;
+  --secondary-foreground: #1d1d1f;
+  --brand: #0071e3;
+  --brand-soft: #e8f2fd;
+  --radius: 1.75rem;
   color-scheme: light;
 }
 
@@ -51,7 +51,7 @@
   --radius-md: calc(var(--radius) - 4px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 8px);
-  --font-sans: 'BDO Grotesk', 'Hanken Grotesk Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'BDO Grotesk', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Variable', 'Segoe UI', Roboto, sans-serif;
   --animate-accordion-down: accordion-down 0.25s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   @keyframes accordion-down { from { height: 0; } to { height: var(--radix-accordion-content-height); } }
@@ -60,7 +60,7 @@
 
 @layer base {
   * { border-color: var(--border); }
-  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 96px; }
   body {
     background: var(--background);
     color: var(--foreground);
@@ -69,7 +69,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3 { text-wrap: balance; letter-spacing: -0.03em; line-height: 1.05; }
+  h1, h2, h3 { text-wrap: balance; letter-spacing: -0.025em; line-height: 1.07; font-weight: 600; }
   p { text-wrap: pretty; }
   :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
   @media (prefers-reduced-motion: reduce) {
@@ -80,7 +80,7 @@
 
 @utility container-page {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1120px;
   margin-inline: auto;
   padding-left: max(20px, env(safe-area-inset-left, 0px));
   padding-right: max(20px, env(safe-area-inset-right, 0px));

@@ -38,7 +38,7 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
         </Link>
         <header className="border-b border-foreground pb-12 pt-10 md:pb-16 md:pt-16">
           <p className="mb-5 font-medium text-muted-foreground">{p.kunde}</p>
-          <h1 className="max-w-[20ch] text-[clamp(2.25rem,5.4vw,4.5rem)] font-medium tracking-[-0.04em]">{p.titel}</h1>
+          <h1 className="max-w-[20ch] text-[clamp(2.25rem,5.4vw,4.5rem)] tracking-[-0.04em]">{p.titel}</h1>
           {p.kennzahl && <p className="mt-8 text-[clamp(1.4rem,2.6vw,2rem)] font-medium tracking-tight text-brand">{p.kennzahl}</p>}
         </header>
         <div className="grid gap-10 pt-10 md:grid-cols-12 md:pt-14">
@@ -55,11 +55,11 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
           </article>
         </div>
         <nav aria-label="Weitere Fallstudien" className="mt-24 border-t border-foreground pt-8">
-          <h2 className="mb-6 text-xl font-medium">Weitere Fallstudien</h2>
+          <h2 className="mb-6 text-xl">Weitere Fallstudien</h2>
           <ul className="grid gap-4 md:grid-cols-2">
             {andere.map((a) => (
               <li key={a.id}>
-                <Link href={`/projekte/${a.id}`} className="group grid h-full gap-2 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-foreground/25">
+                <Link href={`/projekte/${a.id}`} className="group grid h-full gap-2 rounded-[28px] bg-card p-6 transition-colors hover:border-foreground/25">
                   <span className="text-[15px] text-muted-foreground">{a.kunde}</span>
                   <span className="text-xl font-medium tracking-tight group-hover:text-brand">{a.titel}</span>
                 </Link>
