@@ -4,7 +4,16 @@ import { Hero } from '@/components/hero';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { CaseCards } from '@/components/case-cards';
 import { Banner } from '@/components/banners';
-import { ProjekteSplit } from '@/components/projekte-varianten';
+import { ListeIndex, ListeKarten, ListeRegister, ListeTabelle } from '@/components/projekte-listen';
+
+function Variante({ name, text }: { name: string; text: string }) {
+  return (
+    <div className="mb-4 mt-20 flex flex-wrap items-center gap-3 first:mt-0">
+      <span className="rounded-full bg-brand px-3 py-1 text-[13px] font-medium text-white">{name}</span>
+      <span className="text-[14px] text-muted-foreground">{text}</span>
+    </div>
+  );
+}
 import { AboutTiles } from '@/components/about-tiles';
 import { SectionTitle } from '@/components/section-title';
 import { Timeline } from '@/components/timeline';
@@ -55,7 +64,14 @@ export default function Home() {
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
           <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
-          <ProjekteSplit projekte={projekte} />
+          <Variante name="Liste A" text="Index: grosse Schrift, Zeile wird beim Darüberfahren schwarz" />
+          <ListeIndex projekte={projekte} />
+          <Variante name="Liste B" text="Einzelne Karten, aufgeklappt mit Details in Spalten" />
+          <ListeKarten projekte={projekte} />
+          <Variante name="Liste C" text="Tabelle mit Phasen als Punkte" />
+          <ListeTabelle projekte={projekte} />
+          <Variante name="Liste D" text="Register: Projekte links, Details rechts" />
+          <ListeRegister projekte={projekte} />
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">
