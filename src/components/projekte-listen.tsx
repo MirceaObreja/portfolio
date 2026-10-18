@@ -80,7 +80,7 @@ export function ListeIndex({ projekte, tabs = 'standard' }: { projekte: ProjektK
     <div>
       <Tabs filter={filter} setFilter={setFilter} gesamt={projekte.length} anzahl={anzahl} treffer={liste.length} />
       <ul className="border-t border-foreground">
-        {liste.map((p, i) => {
+        {liste.map((p) => {
           const auf = offen === p.id;
           return (
             <li key={p.id} className="border-b border-foreground/15">
@@ -88,9 +88,8 @@ export function ListeIndex({ projekte, tabs = 'standard' }: { projekte: ProjektK
                 type="button"
                 aria-expanded={auf}
                 onClick={() => setOffen(auf ? null : p.id)}
-                className={cn('group grid w-full grid-cols-[2.5rem_minmax(0,1fr)_auto] items-center gap-4 px-3 py-6 text-left transition-colors duration-300 md:grid-cols-[3.5rem_minmax(0,1fr)_14rem_auto] md:px-5', auf ? 'bg-ink text-white' : 'hover:bg-ink hover:text-white')}
+                className={cn('group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-3 py-6 text-left transition-colors duration-300 md:grid-cols-[minmax(0,1fr)_14rem_auto] md:px-5', auf ? 'bg-ink text-white' : 'hover:bg-ink hover:text-white')}
               >
-                <span className="text-[13px] tabular-nums opacity-50">{String(i + 1).padStart(2, '0')}</span>
                 <span className="grid gap-1">
                   <span className="text-[clamp(1.25rem,2.6vw,2rem)] font-medium leading-tight tracking-tight">{p.titel}</span>
                   <span className="text-[14px] opacity-60">{p.kunde}</span>
@@ -101,8 +100,7 @@ export function ListeIndex({ projekte, tabs = 'standard' }: { projekte: ProjektK
                 </span>
               </button>
               <Aufklapp offen={auf}>
-                <div className="grid gap-6 bg-ink px-3 pb-8 text-white md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1fr)] md:px-5">
-                  <span className="hidden md:block" />
+                <div className="grid gap-6 bg-ink px-3 pb-8 text-white md:grid-cols-2 md:px-5">
                   <div className="grid content-start gap-3 text-[15px] leading-relaxed">
                     <p className="text-white/80">{p.kurz}</p>
                     {p.ergebnis && <p><span className="text-white/50">Ergebnis</span><br />{p.ergebnis}</p>}

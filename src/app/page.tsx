@@ -64,14 +64,14 @@ export default function Home() {
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
           <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
-          <Variante name="Tabs 1" text="Unterstrichen: grosse Textreiter, Linie gleitet zur Auswahl" />
+          <Variante name="Tabs 1" text="Linie gleitet, Anzahl nur beim Darüberfahren und bei der Auswahl" />
           <ListeIndex projekte={projekte} tabs="linie" />
-          <Variante name="Tabs 2" text="Pille mit Phasen-Symbol, schwarze Pille gleitet mit" />
-          <ListeIndex projekte={projekte} tabs="pille" />
-          <Variante name="Tabs 3" text="Zahlenkacheln mit Anzahl Projekte pro Phase" />
-          <ListeIndex projekte={projekte} tabs="zahlen" />
-          <Variante name="Tabs 4" text="Gruppiert nach Problem verstehen und Lösung entwickeln" />
-          <ListeIndex projekte={projekte} tabs="gruppen" />
+          <Variante name="Tabs 2" text="Farbiger Punkt vor dem gewählten Reiter" />
+          <ListeIndex projekte={projekte} tabs="punkt" />
+          <Variante name="Tabs 3" text="Leuchtmarker gleitet hinter das gewählte Wort" />
+          <ListeIndex projekte={projekte} tabs="marker" />
+          <Variante name="Tabs 4" text="Schrägstriche als Trenner, Phasen-Symbol klappt auf" />
+          <ListeIndex projekte={projekte} tabs="symbol" />
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">
