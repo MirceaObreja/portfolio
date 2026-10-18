@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { useRef, useState } from 'react';
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react';
 import { cn } from '@/lib/utils';
 
 type Phase = 'discover' | 'define' | 'develop' | 'deliver';
@@ -8,6 +8,14 @@ type Text = Record<Phase, { name: string; text: string; methoden: string[] }>;
 type Pt = [number, number];
 
 const PHASEN: Phase[] = ['discover', 'define', 'develop', 'deliver'];
+
+// Jeder Diamant wird vom linken Punkt aus oben und unten gleichzeitig gezeichnet, zuerst der erste, dann der zweite
+const KONTUR = [
+  ['M20 110 L210 16 L400 110', 'M20 110 L210 204 L400 110'],
+  ['M400 110 L590 16 L780 110', 'M400 110 L590 204 L780 110'],
+];
+const DAUER = 0.9;
+const START_ZEIT = [0.2, 0.2 + DAUER + 0.15];
 
 // Eckpunkte im Koordinatensystem 800 × 290 (unten Platz für die Beschriftung)
 const START: Pt = [20, 110];
@@ -29,6 +37,8 @@ const LABEL: Record<Phase, { x: string; y: string }> = {
 };
 export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [string, string]; hint: string }) {
   const reduce = useReducedMotion();
+  const svgRef = useRef<SVGSVGElement>(null);
+  const sichtbar = useInView(svgRef, { once: true, amount: 0.4 }) || !!reduce;
   const [hover, setHover] = useState<Phase | null>(null);
   const [pinned, setPinned] = useState<Phase | null>(null);
   const aktiv = hover ?? pinned;
@@ -51,49 +61,77 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
       </div>
 
       <div className="relative" onMouseLeave={() => setHover(null)}>
-        <svg viewBox="0 0 800 222" className="block h-auto w-full overflow-visible">
-
-          {PHASEN.map((p) => (
-            <path
-              key={p}
-              d={HALVES[p]}
-              onMouseEnter={() => setHover(p)}
-              onClick={() => toggle(p)}
-              className="cursor-pointer transition-[fill] duration-200"
-              fill={aktiv === p ? 'var(--tinte)' : aktiv && PHASEN.indexOf(p) < PHASEN.indexOf(aktiv) ? 'var(--salbei)' : BASIS[p]}
-              aria-hidden
-            />
+        <svg ref={svgRef} viewBox="0 0 800 222" className="block h-auto w-full overflow-visible">
+          {/* Flächen erscheinen, sobald die Kontur des jeweiligen Diamanten fertig ist */}
+          {[0, 1].map((d) => (
+            <motion.g
+              key={'f' + d}
+              initial={reduce ? false : { opacity: 0 }}
+              animate={sichtbar ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ delay: START_ZEIT[d] + DAUER * 0.75, duration: 0.5 }}
+            >
+              {PHASEN.slice(d * 2, d * 2 + 2).map((p) => (
+                <path
+                  key={p}
+                  d={HALVES[p]}
+                  onMouseEnter={() => setHover(p)}
+                  onClick={() => toggle(p)}
+                  className="cursor-pointer transition-[fill] duration-200"
+                  fill={aktiv === p ? 'var(--tinte)' : aktiv && PHASEN.indexOf(p) < PHASEN.indexOf(aktiv) ? 'var(--salbei)' : BASIS[p]}
+                  aria-hidden
+                />
+              ))}
+            </motion.g>
           ))}
-          {['M20 110 L210 16 L400 110 L210 204 Z', 'M400 110 L590 16 L780 110 L590 204 Z'].map((d, i) => (
-            <motion.path
-              key={d}
-              d={d}
-              fill="none"
-              stroke="var(--nacht)"
-              strokeWidth={1.75}
-              strokeLinejoin="round"
-              pointerEvents="none"
-              initial={reduce ? false : { pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ delay: 0.15 + i * 0.5, duration: 1, ease: [0.65, 0, 0.35, 1] }}
-            />
-          ))}
+          {KONTUR.map((paar, d) =>
+            paar.map((pfad) => (
+              <motion.path
+                key={pfad}
+                d={pfad}
+                fill="none"
+                stroke="var(--nacht)"
+                strokeWidth={1.75}
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                pointerEvents="none"
+                initial={reduce ? false : { pathLength: 0 }}
+                animate={sichtbar ? { pathLength: 1 } : { pathLength: 0 }}
+                transition={{ delay: START_ZEIT[d], duration: DAUER, ease: [0.65, 0, 0.35, 1] }}
+              />
+            )),
+          )}
 
           {/* Feine Hilfslinien von den Punkten zur Beschriftung */}
-          {[START, MITTE, ENDE].map((p) => (
-            <line key={'l' + p.join()} x1={p[0]} y1={p[1] + 8} x2={p[0]} y2={220} stroke="var(--salbei)" strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" pointerEvents="none" />
+          {[START, MITTE, ENDE].map((p, i) => (
+            <motion.line
+              key={'l' + p.join()}
+              x1={p[0]} y1={p[1] + 8} x2={p[0]} y2={220}
+              stroke="var(--salbei)" strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" pointerEvents="none"
+              initial={reduce ? false : { opacity: 0 }}
+              animate={sichtbar ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ delay: [0.2, START_ZEIT[1], START_ZEIT[1] + DAUER][i], duration: 0.4 }}
+            />
           ))}
-          {/* Punkte auf der Achse */}
-          {[START, MITTE, ENDE].map((p) => (
-            <circle key={p.join()} cx={p[0]} cy={p[1]} r={6} fill="#ffffff" stroke="var(--nacht)" strokeWidth={2} pointerEvents="none" />
+          {/* Punkte erscheinen, wenn die Linie sie erreicht */}
+          {[START, MITTE, ENDE].map((p, i) => (
+            <motion.circle
+              key={p.join()}
+              cx={p[0]} cy={p[1]} r={6}
+              fill="#ffffff" stroke="var(--nacht)" strokeWidth={2} pointerEvents="none"
+              style={{ transformOrigin: `${p[0]}px ${p[1]}px` }}
+              initial={reduce ? false : { scale: 0 }}
+              animate={sichtbar ? { scale: 1 } : { scale: 0 }}
+              transition={{ delay: [0.1, START_ZEIT[1] - 0.1, START_ZEIT[1] + DAUER - 0.05][i], type: 'spring', stiffness: 400, damping: 18 }}
+            />
           ))}
-
         </svg>
 
         {PHASEN.map((p) => (
-          <button
+          <motion.button
             key={p}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={sichtbar ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ delay: START_ZEIT[PHASEN.indexOf(p) < 2 ? 0 : 1] + DAUER * 0.75, duration: 0.5 }}
             type="button"
             aria-pressed={pinned === p}
             aria-controls="phase-text"
@@ -108,7 +146,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
             )}
           >
             {texte[p].name}
-          </button>
+          </motion.button>
         ))}
 
         {/* Beschriftung direkt unter den drei Punkten */}

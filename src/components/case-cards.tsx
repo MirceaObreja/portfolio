@@ -59,7 +59,7 @@ export function CaseCards({ projekte, lang = 'de', stil = 'verlauf' }: { projekt
             className="group grid overflow-hidden rounded-[32px] bg-card p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_30px_80px_-40px_rgba(31,43,51,0.35)] md:grid-cols-2 md:p-4"
           >
             <div className="flex flex-col p-6 md:p-10">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="flex flex-col items-start gap-2">
                 <span className="rounded-full bg-brand-soft px-3.5 py-1.5 text-[clamp(0.95rem,1.1vw,1.05rem)] font-semibold tracking-tight text-tinte">{p.kunde}</span>
                 <span className="text-[14px] text-muted-foreground">{zeitraum(p, lang)}</span>
               </div>
