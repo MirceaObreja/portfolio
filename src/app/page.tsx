@@ -1,6 +1,6 @@
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
-import { Hero } from '@/components/hero';
+import { HeroPanel, HeroVollbild, HeroKarte } from '@/components/hero-varianten';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { CaseCards } from '@/components/case-cards';
 import { Banner } from '@/components/banners';
@@ -13,6 +13,15 @@ import { Reveal, ScrollText } from '@/components/motion-bits';
 import { PHASEN_TEXT } from '@/lib/site';
 import { alleProjekte, fallstudien } from '@/lib/content';
 import { zuKarte } from '@/lib/karten';
+
+function Variante({ name, text }: { name: string; text: string }) {
+  return (
+    <div className="container-page mt-6 flex flex-wrap items-center gap-3 pb-10">
+      <span className="rounded-full bg-brand px-3 py-1 text-[13px] font-medium text-white">{name}</span>
+      <span className="text-[14px] text-muted-foreground">{text}</span>
+    </div>
+  );
+}
 
 export default function Home() {
   const projekte = alleProjekte().map((p) => zuKarte(p));
@@ -29,14 +38,20 @@ export default function Home() {
           </div>
         )}
 
-        <Hero />
+        {/* Vorübergehend: drei Varianten für den Einstieg */}
+        <HeroVollbild />
+        <Variante name="Header A: Vollbild" text="Randlos, Name hinter dem Porträt, heller Horizont unten" />
+        <HeroPanel />
+        <Variante name="Header B: Panel" text="Wie auf der Bewerbungsseite, Zahlen als Glas-Chips" />
+        <HeroKarte />
+        <Variante name="Header C: Karte" text="Name auf hellem Grund, Porträt in dunkler Karte mit Lichtkugel" />
 
         <Banner />
 
         <section className="container-page pt-28 md:pt-40" aria-label="Arbeitsweise in einem Satz">
           <ScrollText
             text="Ich verschaffe mir zuerst einen Überblick über die gesamte Journey, auch über Prozesse und Abhängigkeiten, die Nutzerinnen und Nutzer nie sehen. Danach strukturiere ich das Problem, leite Hypothesen ab und prüfe sie mit Research."
-            className="max-w-[24ch] text-[clamp(1.4rem,3.08vw,2.8rem)] font-medium leading-[1.08] tracking-[-0.03em]"
+            className="text-[clamp(1.4rem,3.08vw,2.8rem)] font-medium leading-[1.08] tracking-[-0.03em]"
           />
         </section>
 
