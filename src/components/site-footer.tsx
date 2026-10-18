@@ -21,8 +21,8 @@ export function SiteFooter({ titel = 'Lass uns sprechen.' }: { titel?: string })
         </div>
       </div>
       <div className="container-page flex flex-wrap justify-between gap-4 mt-8 border-t border-white/10 py-6 text-sm text-white/50">
-        <span>© {new Date().getFullYear()} {KONTAKT.name}. Alle Rechte vorbehalten.</span>
-        <span>Mit Liebe zum Detail gestaltet und entwickelt in St. Gallen.</span>
+        <span>© {new Date().getFullYear()} {KONTAKT.name}. All rights reserved.</span>
+        <span>Designed and built with love for detail in St. Gallen.</span>
       </div>
     </footer>
   );

@@ -14,15 +14,15 @@ const STATIONEN: Eintrag[] = [
 ];
 
 // Auf Desktop liegen die Stationen versetzt links und rechts der Linie und greifen ineinander.
-const PUNKT_LINKS = 'md:left-auto md:-right-8 md:translate-x-1/2';
-const PUNKT_RECHTS = 'md:-left-8';
+const PUNKT_LINKS = 'md:left-auto md:-right-12 md:translate-x-1/2';
+const PUNKT_RECHTS = 'md:-left-12';
 
 function Station({ e, i }: { e: Eintrag; i: number }) {
   const reduce = useReducedMotion();
   const links = i % 2 === 0;
   const punkt = cn('absolute left-[11px] top-[0.4rem] size-4 -translate-x-1/2 rounded-full', links ? PUNKT_LINKS : PUNKT_RECHTS);
   return (
-    <li className={cn('relative pl-12 md:row-span-2 md:pl-0', links ? 'md:col-start-1 md:text-right' : 'md:col-start-2')} style={{ gridRowStart: i + 1 }}>
+    <li className={cn('relative pl-12 md:row-span-2 md:pb-24 md:pl-0 md:last:pb-0', links ? 'md:col-start-1 md:text-right' : 'md:col-start-2')} style={{ gridRowStart: i + 1 }}>
       {e.aktuell && !reduce && (
         <motion.span
           aria-hidden
@@ -72,7 +72,7 @@ export function Timeline() {
         {!reduce && <span className="absolute -bottom-3 left-1/2 size-6 -translate-x-1/2 rounded-full bg-eukalyptus/60 blur-md" />}
       </motion.div>
 
-      <ol className="grid gap-y-10 md:grid-cols-2 md:gap-x-16 md:gap-y-8">
+      <ol className="grid gap-y-20 md:grid-cols-2 md:gap-x-24 md:gap-y-12">
         {STATIONEN.map((e, i) => (
           <Station key={e.titel + e.jahre} e={e} i={i} />
         ))}

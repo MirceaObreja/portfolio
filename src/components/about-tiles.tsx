@@ -75,23 +75,13 @@ function App({ children, label, bg = '#ffffff', i, rotate = 0, pad = true }: { c
   );
 }
 
-function Initialen({ t, color }: { t: string; color: string }) {
-  return (
-    <span aria-hidden className="text-[17px] font-bold tracking-tight" style={{ color }}>
-      {t}
-    </span>
-  );
-}
-
 function WerkzeugeVisual() {
   return (
-    <div className="relative grid grid-cols-3 place-items-center gap-3 md:gap-4">
+    <div className="relative grid grid-cols-2 place-items-center gap-4 md:gap-5">
       <App i={0} label="Figma" rotate={-6}><FigmaLogo /></App>
-      <App i={1} label="FigJam" bg="#ffc700" rotate={4}><Initialen t="Fj" color="#1e1e1e" /></App>
-      <App i={2} label="Miro" bg="#ffdd33" rotate={-3} pad={false}><MiroLogo /></App>
-      <App i={3} label="Lookback" rotate={5}><LookbackLogo /></App>
-      <App i={4} label="Testing Time" rotate={-4}><Initialen t="TT" color="#354857" /></App>
-      <App i={5} label="Google Analytics" rotate={3}><AnalyticsLogo /></App>
+      <App i={1} label="Miro" bg="#ffdd33" rotate={-3} pad={false}><MiroLogo /></App>
+      <App i={2} label="Lookback" rotate={4}><LookbackLogo /></App>
+      <App i={3} label="Google Analytics" rotate={3}><AnalyticsLogo /></App>
     </div>
   );
 }
