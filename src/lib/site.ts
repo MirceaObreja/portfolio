@@ -6,17 +6,17 @@ export const KONTAKT = {
   linkedin: 'https://www.linkedin.com/in/mircea-obreja/',
 };
 
-export const PHASEN_TEXT: Record<Sprache, Record<Phase, { name: string; text: string }>> = {
+export const PHASEN_TEXT: Record<Sprache, Record<Phase, { name: string; text: string; methoden: string[] }>> = {
   de: {
-    discover: { name: 'Discover', text: 'Mit Research, Analytics und Desk Research verstehen, wie Menschen heute vorgehen und wo sie scheitern.' },
-    define: { name: 'Define', text: 'Erkenntnisse verdichten, das eigentliche Problem benennen und Hypothesen formulieren.' },
-    develop: { name: 'Develop', text: 'Lösungen entwickeln, als Wireframes ausarbeiten und zu klickbaren Prototypen verbinden.' },
-    deliver: { name: 'Deliver', text: 'Mit Nutzerinnen und Nutzern testen, iterieren, finalisieren und an UI-Design oder Entwicklung übergeben.' },
+    discover: { name: 'Discover', text: 'Mit Research, Analytics und Desk Research verstehen, wie Menschen heute vorgehen und wo sie scheitern.', methoden: ['Desk Research', 'Wettbewerbsanalyse', 'Benchmarking', 'Web Analytics', 'Expert Review', 'Interviews'] },
+    define: { name: 'Define', text: 'Erkenntnisse verdichten, das eigentliche Problem benennen und Hypothesen formulieren.', methoden: ['Insight-Synthese', 'Hypothesen', 'Customer Journey', 'Informationsarchitektur', 'Stakeholder-Workshops'] },
+    develop: { name: 'Develop', text: 'Lösungen entwickeln, als Wireframes ausarbeiten und zu klickbaren Prototypen verbinden.', methoden: ['User Flows', 'Wireframes', 'Klickbare Prototypen', 'Interaction Design', 'Nudging'] },
+    deliver: { name: 'Deliver', text: 'Mit Nutzerinnen und Nutzern testen, iterieren, finalisieren und an UI-Design oder Entwicklung übergeben.', methoden: ['Usability-Tests', 'SUS und SEQ', 'A/B-Test-Konzept', 'Iteration', 'Übergabe an UI und Entwicklung'] },
   },
   en: {
-    discover: { name: 'Discover', text: 'Use research, analytics and desk research to understand how people work today and where they get stuck.' },
-    define: { name: 'Define', text: 'Condense the findings, name the real problem and formulate hypotheses.' },
-    develop: { name: 'Develop', text: 'Develop solutions, work them out as wireframes and connect them into clickable prototypes.' },
-    deliver: { name: 'Deliver', text: 'Test with users, iterate, finalise and hand over to UI design or development.' },
+    discover: { name: 'Discover', text: 'Use research, analytics and desk research to understand how people work today and where they get stuck.', methoden: ['Desk research', 'Competitor analysis', 'Benchmarking', 'Web analytics', 'Expert review', 'Interviews'] },
+    define: { name: 'Define', text: 'Condense the findings, name the real problem and formulate hypotheses.', methoden: ['Insight synthesis', 'Hypotheses', 'Customer journey', 'Information architecture', 'Stakeholder workshops'] },
+    develop: { name: 'Develop', text: 'Develop solutions, work them out as wireframes and connect them into clickable prototypes.', methoden: ['User flows', 'Wireframes', 'Clickable prototypes', 'Interaction design', 'Nudging'] },
+    deliver: { name: 'Deliver', text: 'Test with users, iterate, finalise and hand over to UI design or development.', methoden: ['Usability testing', 'SUS and SEQ', 'A/B test concept', 'Iteration', 'Handover to UI and development'] },
   },
 };

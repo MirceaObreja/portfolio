@@ -65,7 +65,7 @@ export default function Home() {
                 <h2 className="text-[clamp(1.75rem,3.2vw,2.75rem)]">So arbeite ich.</h2>
                 <p className="mx-auto mt-3 max-w-[50ch] text-[17px] text-foreground/65">Entlang des Double Diamond, meist durch alle vier Phasen.</p>
               </div>
-              <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache." />
+              <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze." />
             </div></Reveal>
           </div>
         </section>
