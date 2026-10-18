@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { KONTAKT } from '@/lib/site';
 
@@ -21,11 +21,17 @@ export function SiteFooter({ titel = 'Lass uns sprechen.', text = 'Du hast Frage
           </div>
         </div>
       </div>
-      <div className="container-page flex flex-wrap justify-between gap-4 mt-8 border-t border-white/10 py-6 text-sm text-white/50">
-        <span>© {new Date().getFullYear()} {KONTAKT.name}. All rights reserved.</span>
-        {/* Vorübergehend für die Demo, vor dem Livegang entfernen */}
-        <Link href="/f/beispiel-energie-7k3m9q" className="underline underline-offset-4 transition-colors hover:text-white">Demo: Bewerbungsseite</Link>
-        <span>Designed and built with love for detail in St. Gallen.</span>
+      <div className="container-page flex flex-wrap items-center justify-between gap-4 mt-8 border-t border-white/10 py-6 text-sm text-white/50">
+        <span className="flex flex-wrap gap-x-4 gap-y-1">
+          <span>© {new Date().getFullYear()} {KONTAKT.name}. All rights reserved.</span>
+          {/* Vorübergehend für die Demo, vor dem Livegang entfernen */}
+          <Link href="/f/beispiel-energie-7k3m9q" className="underline underline-offset-4 transition-colors hover:text-white">Demo: Bewerbungsseite</Link>
+        </span>
+        <span>Designed and built with love <span className="text-white" aria-label="Herz">♥</span> for detail in St. Gallen, Switzerland.</span>
+        <a href="#top" className="group inline-flex items-center gap-2 transition-colors hover:text-white">
+          Back to top
+          <span className="grid size-8 place-items-center rounded-full border border-white/20 transition-transform duration-300 group-hover:-translate-y-0.5"><ArrowUp className="size-3.5" aria-hidden /></span>
+        </a>
       </div>
     </footer>
   );

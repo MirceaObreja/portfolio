@@ -8,7 +8,7 @@ export function SectionTitle({ id, titel, text, className }: { id: string; titel
       <h2 id={id} className="text-[clamp(1.925rem,5.25vw,4.9rem)] font-medium leading-[0.9] tracking-[-0.045em] md:col-span-12">
         {titel}
       </h2>
-      {text && <p className="max-w-[40ch] text-[17px] leading-relaxed text-muted-foreground md:col-span-5">{text}</p>}
+      {text && <p className="text-[17px] leading-relaxed text-muted-foreground md:col-span-9">{text}</p>}
     </Reveal>
   );
 }

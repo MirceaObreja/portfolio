@@ -51,7 +51,7 @@ export function Licht({ stil, i }: { stil: FlaechenStil; i: number }) {
 export function CaseCards({ projekte, lang = 'de', stil = 'verlauf' }: { projekte: Projekt[]; lang?: Sprache; stil?: FlaechenStil }) {
   const mehr = lang === 'de' ? 'Fallstudie lesen' : 'Read case study';
   return (
-    <ol className="grid gap-6">
+    <ol className="grid gap-6 md:gap-[12vh]">
       {projekte.map((p, i) => (
         <li key={p.id} className="md:sticky" style={{ top: `calc(6rem + ${i * 1.5}rem)` }}>
           <Link
@@ -72,9 +72,9 @@ export function CaseCards({ projekte, lang = 'de', stil = 'verlauf' }: { projekt
                 <span className="ml-1.5">{mehr}</span>
               </span>
             </div>
-            <div className={`relative isolate min-h-[280px] overflow-hidden rounded-[24px] md:min-h-[440px] ${stil === 'verlauf' ? FLAECHEN[i % FLAECHEN.length] : 'bg-nacht'}`}>
+            <div className={`relative isolate min-h-[280px] overflow-hidden rounded-[24px] md:min-h-[min(62vh,600px)] ${stil === 'verlauf' ? FLAECHEN[i % FLAECHEN.length] : 'bg-nacht'}`}>
             <Licht stil={stil} i={i} />
-            <ParallaxPanel className={`relative z-10 h-full min-h-[280px] p-7 text-white md:min-h-[440px] md:p-10 ${stil === 'verlauf' ? '' : '[&>div]:justify-start [&>div]:gap-8'}`}>
+            <ParallaxPanel className={`relative z-10 h-full min-h-[280px] p-7 text-white md:min-h-[min(62vh,600px)] md:p-10 ${stil === 'verlauf' ? '' : '[&>div]:justify-start [&>div]:gap-8'}`}>
               <DiamondMini phasen={p.phasen} className="relative h-7 w-[75px] [&_.fill-ink]:fill-white [&_.fill-ink]:stroke-white [&_path:not(.fill-ink)]:stroke-white/50" />
               {p.kennzahl && (
                 <p className="relative max-w-[14ch] text-[clamp(1.4rem,2.94vw,2.625rem)] font-semibold leading-[1.02] tracking-[-0.03em]">{p.kennzahl}</p>

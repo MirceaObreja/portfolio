@@ -82,12 +82,12 @@ export function ListeIndex({ projekte, tabs = true }: { projekte: ProjektKarte[]
         {liste.map((p) => {
           const auf = offen === p.id;
           return (
-            <li key={p.id} className="border-b border-foreground/15">
+            <li key={p.id} className={cn('overflow-hidden border-b border-foreground/15 transition-[border-radius,background-color,border-color] duration-300', auf && 'my-2 rounded-[24px] border-transparent bg-ink')}>
               <button
                 type="button"
                 aria-expanded={auf}
                 onClick={() => setOffen(auf ? null : p.id)}
-                className={cn('group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-3 py-6 text-left transition-colors duration-300 md:grid-cols-[minmax(0,1fr)_14rem_auto] md:px-5', auf ? 'bg-ink text-white' : 'hover:bg-ink hover:text-white')}
+                className={cn('group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-[24px] px-4 py-6 text-left transition-colors duration-300 md:grid-cols-[minmax(0,1fr)_14rem_auto] md:px-6', auf ? 'text-white' : 'hover:bg-ink hover:text-white')}
               >
                 <span className="grid gap-1">
                   <span className="text-[clamp(1rem,1.82vw,1.4rem)] font-medium leading-tight tracking-tight">{p.titel}</span>
@@ -99,7 +99,7 @@ export function ListeIndex({ projekte, tabs = true }: { projekte: ProjektKarte[]
                 </span>
               </button>
               <Aufklapp offen={auf}>
-                <div className="grid gap-6 bg-ink px-3 pb-8 text-white md:grid-cols-2 md:px-5">
+                <div className="grid gap-6 px-4 pb-8 text-white md:grid-cols-2 md:px-6">
                   <div className="grid content-start gap-3 text-[15px] leading-relaxed">
                     <p className="text-white/80">{p.kurz}</p>
                     {p.ergebnis && <p><span className="text-white/50">Ergebnis</span><br />{p.ergebnis}</p>}
