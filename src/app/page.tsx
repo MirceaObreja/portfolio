@@ -3,8 +3,9 @@ import { SiteFooter } from '@/components/site-footer';
 import { Hero } from '@/components/hero';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { CaseCards } from '@/components/case-cards';
-import { ProjectExplorer } from '@/components/project-explorer';
-import { Marquee } from '@/components/marquee';
+import { BannerA, BannerB, BannerC } from '@/components/banners';
+import { VariantLabel } from '@/components/variant-label';
+import { ProjekteDiamond, ProjekteKarten, ProjekteMatrix } from '@/components/projekte-varianten';
 import { AboutTiles } from '@/components/about-tiles';
 import { SectionTitle } from '@/components/section-title';
 import { Timeline } from '@/components/timeline';
@@ -30,11 +31,14 @@ export default function Home() {
 
         <Hero />
 
-        <div className="border-y border-foreground/10 bg-card py-5">
-          <div className="container-page">
-            <Marquee items={['Siemens', 'ADAC', 'Bank Cler', 'Retailbanking', 'Privatkredite', 'Öffentliche Verwaltung', 'Gesundheitswesen', 'B2B-Plattformen']} />
-          </div>
-        </div>
+        <section aria-label="Banner-Varianten zur Auswahl" className="pt-10">
+          <VariantLabel name="Banner A" text="Zwei grosse Laufzeilen: Kunden dünn, Methoden als Kontur, gegenläufig" />
+          <BannerA />
+          <VariantLabel name="Banner B" text="Zwei gekreuzte Bänder wie Klebestreifen" />
+          <BannerB />
+          <VariantLabel name="Banner C" text="Etiketten mit Symbol, halten beim Darüberfahren an" />
+          <BannerC />
+        </section>
 
         <section className="container-page pt-28 md:pt-40" aria-label="Arbeitsweise in einem Satz">
           <ScrollText
@@ -44,7 +48,7 @@ export default function Home() {
         </section>
 
         <section id="arbeitsweise" className="container-page pt-28 md:pt-40" aria-labelledby="aw-h">
-          <SectionTitle id="aw-h" titel="Arbeitsweise." text="Ich arbeite entlang des Double Diamond und begleite Projekte meist durch alle vier Phasen. Fahre über eine Phase, um die Methoden zu sehen." />
+          <SectionTitle id="aw-h" titel="Arbeitsweise." text="Ich arbeite entlang des Double Diamond: Im ersten Diamanten verstehe ich das Problem, im zweiten entwickle ich die Lösung. Fahre über eine Phase, um die Methoden zu sehen." />
           <Reveal>
             <div className="rounded-[32px] bg-card px-5 pb-8 pt-10 md:px-12 md:pb-12 md:pt-14">
               <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze." />
@@ -58,8 +62,19 @@ export default function Home() {
         </section>
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
-          <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022. Filtere nach Phase, um die Projekte zu sehen, in denen ich diese Phase verantwortet habe." />
-          <ProjectExplorer projekte={projekte} />
+          <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
+          <div className="-mx-[max(20px,env(safe-area-inset-left,0px))] md:-mx-10">
+            <VariantLabel name="Projekte 1" text="Phasen-Matrix: Balken zeigen, welche Phasen ein Projekt abdeckt" />
+          </div>
+          <ProjekteMatrix projekte={projekte} />
+          <div className="-mx-[max(20px,env(safe-area-inset-left,0px))] mt-16 md:-mx-10">
+            <VariantLabel name="Projekte 2" text="Karten mit eigenem Double Diamond, Klick öffnet die Details" />
+          </div>
+          <ProjekteKarten projekte={projekte} />
+          <div className="-mx-[max(20px,env(safe-area-inset-left,0px))] mt-16 md:-mx-10">
+            <VariantLabel name="Projekte 3" text="Grosser Double Diamond als Filter, zeigt beim Darüberfahren die Phasen eines Projekts" />
+          </div>
+          <ProjekteDiamond projekte={projekte} />
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">

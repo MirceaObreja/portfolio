@@ -105,6 +105,9 @@
 .orb-b { animation: drift-b 26s ease-in-out infinite; }
 .word { display: inline-block; opacity: 0; animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
 .marquee-track { animation: marquee 40s linear infinite; }
+.marquee-reverse { animation-direction: reverse; }
+.marquee-slow { animation-duration: 60s; }
+.pause-on-hover:hover .marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   .orb-a, .orb-b, .marquee-track { animation: none; }
   .word { opacity: 1; animation: none; }

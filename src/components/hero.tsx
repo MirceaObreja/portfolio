@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { Counter } from '@/components/counter';
 import portrait from '../../public/images/fotos/portrait-bw.png';
 
-const ZAHLEN = [
+const ZAHLEN: { wert?: number; suffix?: string; zeichen?: string; label: string }[] = [
   { wert: 4, suffix: '+', label: 'Jahre bei Merkle' },
-  { wert: 11, suffix: '', label: 'Projekte' },
-  { wert: 10, suffix: ' %', label: 'mehr Conversion bei Bank Cler Zak' },
+  { wert: 14, suffix: '+', label: 'Firmen begleitet' },
+  { zeichen: '∞', label: 'Post-its geklebt' },
 ];
 
 export function Hero() {
@@ -24,7 +24,7 @@ export function Hero() {
             {ZAHLEN.map((z) => (
               <div key={z.label}>
                 <dt className="sr-only">{z.label}</dt>
-                <dd className="text-[clamp(2rem,3.4vw,2.75rem)] font-medium leading-none tracking-tight"><Counter to={z.wert} suffix={z.suffix} /></dd>
+                <dd className="text-[clamp(2rem,3.4vw,2.75rem)] font-medium leading-none tracking-tight">{z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}</dd>
                 <p aria-hidden className="mt-2 max-w-[12ch] text-[13px] leading-snug text-muted-foreground">{z.label}</p>
               </div>
             ))}

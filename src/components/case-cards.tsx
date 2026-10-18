@@ -36,7 +36,7 @@ export function CaseCards({ projekte, lang = 'de' }: { projekte: Projekt[]; lang
             </div>
             <ParallaxPanel className={`relative min-h-[280px] overflow-hidden rounded-[24px] p-7 text-white md:min-h-[440px] md:p-10 ${FLAECHEN[i % FLAECHEN.length]}`}>
               <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-white/15 blur-3xl transition-transform duration-700 group-hover:scale-125" />
-              <DiamondMini phasen={p.phasen} className="relative h-7 w-[75px] [&_.fill-brand]:fill-white [&_.fill-brand]:stroke-white [&_path:not(.fill-brand)]:stroke-white/50" />
+              <DiamondMini phasen={p.phasen} className="relative h-7 w-[75px] [&_.fill-ink]:fill-white [&_.fill-ink]:stroke-white [&_path:not(.fill-ink)]:stroke-white/50" />
               {p.kennzahl && (
                 <p className="relative max-w-[14ch] text-[clamp(2rem,4.2vw,3.75rem)] font-semibold leading-[1.02] tracking-[-0.03em]">{p.kennzahl}</p>
               )}

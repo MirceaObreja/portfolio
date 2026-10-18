@@ -18,7 +18,7 @@ export function DiamondMini({ phasen, className }: { phasen: string[]; className
           d={PATHS[p]}
           strokeWidth={1.2}
           strokeLinejoin="round"
-          className={phasen.includes(p) ? 'fill-brand stroke-brand' : 'fill-transparent stroke-[#c4c4c8]'}
+          className={phasen.includes(p) ? 'fill-ink stroke-ink' : 'fill-transparent stroke-[#b5b5b5]'}
         />
       ))}
     </svg>
