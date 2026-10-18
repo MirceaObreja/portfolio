@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight, Plus } from 'lucide-react';
-import { TABS, type TabVariante } from '@/components/projekt-tabs';
+import { ProjektTabs } from '@/components/projekt-tabs';
 import type { ProjektKarte } from '@/components/project-explorer';
 import { cn } from '@/lib/utils';
 
@@ -71,14 +71,13 @@ function Phasen({ p, hell = false }: { p: ProjektKarte; hell?: boolean }) {
    Grosse Typografie, die Zeile wird beim Darüberfahren schwarz. */
 
 /** Index-Liste: grosse Typografie, die Zeile wird beim Darüberfahren schwarz. */
-export function ListeIndex({ projekte, tabs = 'standard' }: { projekte: ProjektKarte[]; tabs?: TabVariante | false }) {
+export function ListeIndex({ projekte, tabs = true }: { projekte: ProjektKarte[]; tabs?: boolean }) {
   const { filter, setFilter, liste } = useFilter(projekte);
   const anzahl = (ph: Phase) => projekte.filter((p) => p.phasen.includes(ph)).length;
-  const Tabs = tabs ? TABS[tabs] : null;
   const [offen, setOffen] = useState<string | null>(null);
   return (
     <div>
-      {Tabs && <Tabs filter={filter} setFilter={setFilter} gesamt={projekte.length} anzahl={anzahl} treffer={liste.length} />}
+      {tabs && <ProjektTabs filter={filter} setFilter={setFilter} gesamt={projekte.length} anzahl={anzahl} treffer={liste.length} />}
       <ul className="border-t border-foreground">
         {liste.map((p) => {
           const auf = offen === p.id;

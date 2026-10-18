@@ -6,14 +6,6 @@ import { CaseCards } from '@/components/case-cards';
 import { Banner } from '@/components/banners';
 import { ListeIndex } from '@/components/projekte-listen';
 
-function Variante({ name, text }: { name: string; text: string }) {
-  return (
-    <div className="mb-4 mt-20 flex flex-wrap items-center gap-3 first:mt-0">
-      <span className="rounded-full bg-brand px-3 py-1 text-[13px] font-medium text-white">{name}</span>
-      <span className="text-[14px] text-muted-foreground">{text}</span>
-    </div>
-  );
-}
 import { AboutTiles } from '@/components/about-tiles';
 import { SectionTitle } from '@/components/section-title';
 import { Timeline } from '@/components/timeline';
@@ -59,26 +51,12 @@ export default function Home() {
 
         <section id="fallstudien" className="container-page pt-28 md:pt-40" aria-labelledby="fs-h">
           <SectionTitle id="fs-h" titel="Fallstudien." text="Drei Projekte, an denen sich zeigt, wie ich arbeite: von der Analyse bis zum messbaren Ergebnis." />
-          <Variante name="Fläche: Verlauf" text="Bisherige Variante" />
-          <CaseCards projekte={cases} stil="verlauf" />
-          <Variante name="Fläche: Sonne" text="Grosse, weiche Lichtkugel mit Korn, steigt von unten auf" />
-          <CaseCards projekte={cases} stil="sonne" />
-          <Variante name="Fläche: Zwei Lichter" text="Zwei unscharfe Farbflecken, die sich überlagern" />
-          <CaseCards projekte={cases} stil="lichter" />
-          <Variante name="Fläche: Horizont" text="Verlauf wie in der Dämmerung, mit hellem Schein am unteren Rand" />
-          <CaseCards projekte={cases} stil="horizont" />
+          <CaseCards projekte={cases} />
         </section>
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
           <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
-          <Variante name="Tabs 1" text="Linie gleitet, Anzahl nur beim Darüberfahren und bei der Auswahl" />
-          <ListeIndex projekte={projekte} tabs="linie" />
-          <Variante name="Tabs 2" text="Farbiger Punkt vor dem gewählten Reiter" />
-          <ListeIndex projekte={projekte} tabs="punkt" />
-          <Variante name="Tabs 3" text="Leuchtmarker gleitet hinter das gewählte Wort" />
-          <ListeIndex projekte={projekte} tabs="marker" />
-          <Variante name="Tabs 4" text="Schrägstriche als Trenner, Phasen-Symbol klappt auf" />
-          <ListeIndex projekte={projekte} tabs="symbol" />
+          <ListeIndex projekte={projekte} />
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">

@@ -20,7 +20,7 @@ export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 
     <>
       <div className="h-24" aria-hidden />
       <header className="fixed inset-x-0 top-3 z-50 px-3 md:top-4" style={{ paddingLeft: 'max(12px, env(safe-area-inset-left, 0px))', paddingRight: 'max(12px, env(safe-area-inset-right, 0px))' }}>
-        <div className="glass mx-auto max-w-[1120px] rounded-[26px]">
+        <div className="glass mx-auto max-w-[clamp(1120px,80vw,1680px)] rounded-[26px]">
           <div className="flex h-14 items-center justify-between gap-2 pl-5 pr-2 md:grid md:grid-cols-[1fr_auto_1fr]">
             <Link href="/" aria-label={`${KONTAKT.name}, Startseite`} className="justify-self-start rounded-md">
               <Image src={logo} alt="" priority className="h-7 w-auto" />
