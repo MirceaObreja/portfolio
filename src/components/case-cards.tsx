@@ -1,45 +1,48 @@
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { DiamondMini } from '@/components/diamond-mini';
 import { zeitraum, type Projekt, type Sprache } from '@/lib/content';
-import { cn } from '@/lib/utils';
+
+const FLAECHEN = [
+  'bg-[radial-gradient(120%_120%_at_0%_0%,#3b82f6_0%,#0071e3_40%,#0b3a8c_100%)]',
+  'bg-[radial-gradient(120%_120%_at_100%_0%,#8b7bff_0%,#5b4bdb_45%,#241a6b_100%)]',
+  'bg-[radial-gradient(120%_120%_at_0%_100%,#38bdf8_0%,#0e7490_55%,#0b3b4a_100%)]',
+];
 
 export function CaseCards({ projekte, lang = 'de' }: { projekte: Projekt[]; lang?: Sprache }) {
   const mehr = lang === 'de' ? 'Fallstudie lesen' : 'Read case study';
   return (
-    <ul className="grid gap-5 md:grid-cols-2">
-      {projekte.map((p, i) => {
-        const gross = i === 0 && projekte.length !== 2;
-        return (
-          <li key={p.id} className={cn(gross && 'md:col-span-2')}>
-            <Link
-              href={`/projekte/${p.id}`}
-              className={cn(
-                'group flex h-full flex-col items-center rounded-[28px] bg-card px-6 pb-10 pt-12 text-center transition-transform duration-300 hover:scale-[1.01] md:px-12',
-                gross && 'md:pb-16 md:pt-16',
-              )}
-            >
-              <p className="text-[15px] font-semibold text-muted-foreground">{p.kunde}</p>
-              <h3 className={cn('mt-3 max-w-[22ch] text-[clamp(1.6rem,3vw,2.4rem)]', gross && 'md:text-5xl')}>{p.titel}</h3>
-              <p className="mt-4 max-w-[52ch] text-[17px] text-muted-foreground">{p.kurz}</p>
-              <span className="mt-5 inline-flex items-center gap-0.5 text-[17px] text-brand group-hover:underline">
-                {mehr}<ChevronRight className="size-4" aria-hidden />
-              </span>
-              <div className="mt-auto flex flex-col items-center gap-4 pt-10">
-                {p.kennzahl && (
-                  <p className={cn('max-w-[18ch] text-[clamp(1.75rem,3.4vw,2.75rem)] font-semibold leading-[1.05] tracking-tight text-brand', gross && 'md:text-6xl md:max-w-[22ch]')}>
-                    {p.kennzahl}
-                  </p>
-                )}
-                <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                  <DiamondMini phasen={p.phasen} className="h-5 w-[54px]" />
-                  <span>{zeitraum(p, lang)}</span>
-                </div>
+    <ol className="grid gap-6">
+      {projekte.map((p, i) => (
+        <li key={p.id} className="md:sticky" style={{ top: `calc(6rem + ${i * 1.5}rem)` }}>
+          <Link
+            href={`/projekte/${p.id}`}
+            className="group grid overflow-hidden rounded-[32px] bg-card p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_30px_80px_-40px_rgba(20,40,90,0.35)] md:grid-cols-2 md:p-4"
+          >
+            <div className="flex flex-col p-6 md:p-10">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px]">
+                <span className="font-semibold">{p.kunde}</span>
+                <span className="text-muted-foreground">{zeitraum(p, lang)}</span>
               </div>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+              <h3 className="mt-5 text-[clamp(1.75rem,3.2vw,2.75rem)]">{p.titel}</h3>
+              <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-muted-foreground">{p.kurz}</p>
+              <span className="mt-auto inline-flex items-center gap-1.5 pt-10 text-[17px] font-medium">
+                <span className="grid size-9 place-items-center rounded-full bg-foreground text-background transition-transform duration-300 group-hover:rotate-45">
+                  <ArrowUpRight className="size-4" aria-hidden />
+                </span>
+                <span className="ml-1.5">{mehr}</span>
+              </span>
+            </div>
+            <div className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-[24px] p-7 text-white md:min-h-[440px] md:p-10 ${FLAECHEN[i % FLAECHEN.length]}`}>
+              <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-white/15 blur-3xl transition-transform duration-700 group-hover:scale-125" />
+              <DiamondMini phasen={p.phasen} className="relative h-7 w-[75px] [&_.fill-brand]:fill-white [&_.fill-brand]:stroke-white [&_path:not(.fill-brand)]:stroke-white/50" />
+              {p.kennzahl && (
+                <p className="relative max-w-[14ch] text-[clamp(2rem,4.2vw,3.75rem)] font-semibold leading-[1.02] tracking-[-0.03em]">{p.kennzahl}</p>
+              )}
+            </div>
+          </Link>
+        </li>
+      ))}
+    </ol>
   );
 }
