@@ -38,8 +38,8 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
         </Link>
         <header className="border-b border-foreground pb-12 pt-10 md:pb-16 md:pt-16">
           <p className="mb-5 font-medium text-muted-foreground">{p.kunde}</p>
-          <h1 className="max-w-[20ch] text-[clamp(2.25rem,5.4vw,4.5rem)] tracking-[-0.04em]">{p.titel}</h1>
-          {p.kennzahl && <p className="mt-8 text-[clamp(1.4rem,2.6vw,2rem)] font-medium tracking-tight text-brand">{p.kennzahl}</p>}
+          <h1 className="max-w-[20ch] text-[clamp(1.575rem,3.78vw,3.15rem)] tracking-[-0.04em]">{p.titel}</h1>
+          {p.kennzahl && <p className="mt-8 text-[clamp(1rem,1.82vw,1.4rem)] font-medium tracking-tight text-brand">{p.kennzahl}</p>}
         </header>
         <div className="grid gap-10 pt-10 md:grid-cols-12 md:pt-14">
           <aside className="md:col-span-4">

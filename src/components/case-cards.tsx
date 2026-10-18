@@ -63,7 +63,7 @@ export function CaseCards({ projekte, lang = 'de', stil = 'verlauf' }: { projekt
                 <span className="font-semibold">{p.kunde}</span>
                 <span className="text-muted-foreground">{zeitraum(p, lang)}</span>
               </div>
-              <h3 className="mt-5 text-[clamp(1.75rem,3.2vw,2.75rem)]">{p.titel}</h3>
+              <h3 className="mt-5 text-[clamp(1.225rem,2.24vw,1.925rem)]">{p.titel}</h3>
               <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed text-muted-foreground">{p.kurz}</p>
               <span className="mt-auto inline-flex items-center gap-1.5 pt-10 text-[17px] font-medium">
                 <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover:rotate-45">
@@ -77,7 +77,7 @@ export function CaseCards({ projekte, lang = 'de', stil = 'verlauf' }: { projekt
             <ParallaxPanel className={`relative z-10 h-full min-h-[280px] p-7 text-white md:min-h-[440px] md:p-10 ${stil === 'verlauf' ? '' : '[&>div]:justify-start [&>div]:gap-8'}`}>
               <DiamondMini phasen={p.phasen} className="relative h-7 w-[75px] [&_.fill-ink]:fill-white [&_.fill-ink]:stroke-white [&_path:not(.fill-ink)]:stroke-white/50" />
               {p.kennzahl && (
-                <p className="relative max-w-[14ch] text-[clamp(2rem,4.2vw,3.75rem)] font-semibold leading-[1.02] tracking-[-0.03em]">{p.kennzahl}</p>
+                <p className="relative max-w-[14ch] text-[clamp(1.4rem,2.94vw,2.625rem)] font-semibold leading-[1.02] tracking-[-0.03em]">{p.kennzahl}</p>
               )}
             </ParallaxPanel>
             </div>

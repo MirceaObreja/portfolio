@@ -24,7 +24,7 @@ export function Hero() {
             {ZAHLEN.map((z) => (
               <div key={z.label}>
                 <dt className="sr-only">{z.label}</dt>
-                <dd className="text-[clamp(2rem,3.4vw,2.75rem)] font-medium leading-none tracking-tight">{z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}</dd>
+                <dd className="text-[clamp(1.4rem,2.38vw,1.925rem)] font-medium leading-none tracking-tight">{z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}</dd>
                 <p aria-hidden className="mt-2 max-w-[12ch] text-[13px] leading-snug text-muted-foreground">{z.label}</p>
               </div>
             ))}
@@ -32,8 +32,8 @@ export function Hero() {
 
           <h1 id="hero-h" className="mt-auto pt-16">
             <span className="block text-[17px] font-medium text-muted-foreground"><span className="word" style={{ animationDelay: '80ms' }}>Hallo, ich bin</span></span>
-            <span className="block whitespace-nowrap text-[clamp(5.25rem,13vw,13.5rem)] font-light leading-[0.86] tracking-[-0.06em]"><span className="word" style={{ animationDelay: '160ms' }}>Mircea</span></span>
-            <span className="block whitespace-nowrap text-[clamp(5.25rem,13vw,13.5rem)] font-light leading-[0.86] tracking-[-0.06em]"><span className="word" style={{ animationDelay: '260ms' }}>Obreja</span></span>
+            <span className="block whitespace-nowrap text-[clamp(3.675rem,9.1vw,9.45rem)] font-light leading-[0.86] tracking-[-0.06em]"><span className="word" style={{ animationDelay: '160ms' }}>Mircea</span></span>
+            <span className="block whitespace-nowrap text-[clamp(3.675rem,9.1vw,9.45rem)] font-light leading-[0.86] tracking-[-0.06em]"><span className="word" style={{ animationDelay: '260ms' }}>Obreja</span></span>
           </h1>
           <div className="mt-8 pb-10 md:pb-14">
             <p className="max-w-[34ch] text-[17px] leading-relaxed text-foreground/75">

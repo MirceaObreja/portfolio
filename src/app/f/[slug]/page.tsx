@@ -64,7 +64,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
                 </p>
                 <div>
                   <p className="text-[15px] text-white/60">{t.art} {t.von}</p>
-                  <h1 className="mt-4 text-[clamp(3rem,7.5vw,7.25rem)] font-light leading-[0.92] tracking-[-0.05em]">{b.stelle}.</h1>
+                  <h1 className="mt-4 text-[clamp(2.1rem,5.25vw,5.075rem)] font-light leading-[0.92] tracking-[-0.05em]">{b.stelle}.</h1>
                   <div className="mt-10 flex flex-wrap gap-3">
                     <a href={`mailto:${KONTAKT.email}?subject=${encodeURIComponent(`${b.stelle} – ${b.firma}`)}`} className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-5 pr-1.5 text-[15px] font-medium text-ink">
                       {t.cta}
@@ -89,7 +89,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
               {b.anrede && <p>{b.anrede}</p>}
               <Markdown>{b.body}</Markdown>
               <p className="mt-10">{t.gruss}</p>
-              <p className="mt-1 text-[clamp(2rem,3.4vw,2.75rem)] font-light tracking-[-0.03em]">{KONTAKT.name}</p>
+              <p className="mt-1 text-[clamp(1.4rem,2.38vw,1.925rem)] font-light tracking-[-0.03em]">{KONTAKT.name}</p>
             </div>
           </Reveal>
         </section>
@@ -104,7 +104,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
                   <Flaeche i={i} />
                   <span className="relative text-[14px] text-tinte/70">0{i + 1}</span>
                   <div className="relative">
-                    <h3 className="text-[clamp(1.4rem,2vw,1.75rem)] leading-tight tracking-tight">{s.titel}</h3>
+                    <h3 className="text-[clamp(1rem,1.4vw,1.225rem)] leading-tight tracking-tight">{s.titel}</h3>
                     <p className="mt-3 text-[15px] leading-relaxed text-foreground/75">{s.text}</p>
                   </div>
                 </li>
@@ -123,7 +123,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
                   <li className="group relative isolate flex h-full min-h-[340px] flex-col justify-end overflow-hidden rounded-[28px] bg-nacht p-7 text-white md:p-10">
                     <Licht stil="lichter" i={i + 1} />
                     <div className="relative">
-                      <h3 className="text-[clamp(1.6rem,2.6vw,2.25rem)] font-medium leading-tight tracking-tight">{o.titel}</h3>
+                      <h3 className="text-[clamp(1.12rem,1.82vw,1.575rem)] font-medium leading-tight tracking-tight">{o.titel}</h3>
                       <p className="mt-4 max-w-[48ch] text-[16px] leading-relaxed text-white/75">{o.text}</p>
                     </div>
                   </li>

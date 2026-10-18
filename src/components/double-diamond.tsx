@@ -43,7 +43,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
         {spaces.map((sp, i) => (
           <span
             key={sp}
-            className={cn('text-[clamp(1rem,2.2vw,1.6rem)] font-medium tracking-tight transition-opacity duration-300', raum !== null && raum !== i && 'opacity-35')}
+            className={cn('text-[clamp(1rem,1.54vw,1.12rem)] font-medium tracking-tight transition-opacity duration-300', raum !== null && raum !== i && 'opacity-35')}
           >
             {sp}
           </span>

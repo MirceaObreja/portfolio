@@ -46,10 +46,10 @@ function Station({ e, i }: { e: Eintrag; i: number }) {
         transition={{ duration: 0.8, ease: [0.2, 0.7, 0.2, 1] }}
       >
         <p className={cn('flex items-center gap-3 text-[13px] text-muted-foreground', links && 'md:flex-row-reverse')}>
-          <span className="text-[clamp(1.75rem,3.2vw,2.75rem)] font-light leading-none tracking-[-0.04em] text-foreground tabular-nums">{e.jahre}</span>
+          <span className="text-[clamp(1.225rem,2.24vw,1.925rem)] font-light leading-none tracking-[-0.04em] text-foreground tabular-nums">{e.jahre}</span>
           <span className={cn('rounded-full px-2.5 py-0.5', e.art === 'Beruf' ? 'bg-tinte text-white' : 'border border-nebel')}>{e.aktuell ? 'Aktuell' : e.art}</span>
         </p>
-        <p className="mt-3 text-[clamp(1.1rem,1.5vw,1.3rem)] font-medium leading-tight tracking-tight">{e.titel}</p>
+        <p className="mt-3 text-[clamp(1.05rem,1.2vw,1.15rem)] font-medium leading-tight tracking-tight">{e.titel}</p>
         <p className="mt-0.5 text-[14px] text-muted-foreground">{e.ort}</p>
         {e.text && <p className={cn('mt-2 max-w-[44ch] text-[15px] leading-relaxed text-foreground/75', links && 'md:ml-auto')}>{e.text}</p>}
       </motion.div>

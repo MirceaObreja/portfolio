@@ -36,7 +36,7 @@ export default function Home() {
         <section className="container-page pt-28 md:pt-40" aria-label="Arbeitsweise in einem Satz">
           <ScrollText
             text="Ich verschaffe mir zuerst einen Überblick über die gesamte Journey, auch über Prozesse und Abhängigkeiten, die Nutzerinnen und Nutzer nie sehen. Danach strukturiere ich das Problem, leite Hypothesen ab und prüfe sie mit Research."
-            className="max-w-[24ch] text-[clamp(2rem,4.4vw,4rem)] font-medium leading-[1.08] tracking-[-0.03em]"
+            className="max-w-[24ch] text-[clamp(1.4rem,3.08vw,2.8rem)] font-medium leading-[1.08] tracking-[-0.03em]"
           />
         </section>
 

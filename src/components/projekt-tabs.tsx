@@ -18,7 +18,7 @@ const feder = { type: 'spring', stiffness: 420, damping: 34 } as const;
 
 
 const items: (Phase | null)[] = [null, ...PHASEN];
-const gross = 'text-[clamp(1.25rem,2.2vw,1.75rem)] font-medium tracking-tight';
+const gross = 'text-[clamp(1rem,1.54vw,1.225rem)] font-medium tracking-tight';
 
 /* Linie gleitet, Anzahl erscheint nur beim Darüberfahren und bei der Auswahl. */
 function TabsLinie({ filter, setFilter, gesamt, anzahl }: TabProps) {

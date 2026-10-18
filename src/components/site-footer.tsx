@@ -6,7 +6,7 @@ export function SiteFooter({ titel = 'Lass uns sprechen.', text = 'Du hast Frage
   return (
     <footer id="kontakt" className="mt-32 overflow-hidden bg-ink text-white">
       <div className="container-page grid gap-12 pb-16 pt-24 md:grid-cols-12 md:pt-32">
-        <h2 className="text-[clamp(3.25rem,9vw,8.5rem)] font-medium leading-[0.9] tracking-[-0.045em] md:col-span-8">{titel}</h2>
+        <h2 className="text-[clamp(2.275rem,6.3vw,5.95rem)] font-medium leading-[0.9] tracking-[-0.045em] md:col-span-8">{titel}</h2>
         <div className="flex flex-col justify-end gap-6 md:col-span-4">
           <p className="max-w-[34ch] text-[17px] leading-relaxed text-white/65">{text}</p>
           <p className="select-all text-xl">{KONTAKT.email}</p>
