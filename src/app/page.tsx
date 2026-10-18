@@ -9,15 +9,11 @@ import { Button } from '@/components/ui/button';
 import { Aurora } from '@/components/aurora';
 import { HeroTitle } from '@/components/hero-title';
 import { Marquee } from '@/components/marquee';
+import { AboutTiles } from '@/components/about-tiles';
 import { ParallaxBg, Reveal, ScrollText } from '@/components/motion-bits';
 import { alleProjekte, fallstudien } from '@/lib/content';
 import { zuKarte } from '@/lib/karten';
 
-const FAKTEN = [
-  ['Werkzeuge', 'Figma, FigJam, Miro, Lookback, Testing Time, Google Analytics'],
-  ['KI im Arbeitsalltag', 'Ich setze Claude und Microsoft Copilot täglich ein und baue mir eigene kleine KI-Tools für wiederkehrende Aufgaben. So bleibt mehr Zeit für Analyse und Konzept.'],
-  ['Ausgleich', 'Fotografie. Nach einem Tag am Bildschirm schaue ich gern durch den Sucher.'],
-];
 
 export default function Home() {
   const projekte = alleProjekte().map((p) => zuKarte(p));
@@ -90,14 +86,7 @@ export default function Home() {
               <p className="mb-4">Seit Mai 2022 arbeite ich bei Merkle in der Schweiz, zuerst als Experience Consultant, seit 2025 als Senior. Ich arbeite für Banken, B2B-Plattformen und die öffentliche Hand und begleite Projekte meist von der ersten Analyse bis zur Übergabe an Design und Entwicklung.</p>
               <p>Bei Siemens habe ich über zwei Jahre die UX auf einem B2B-Marktplatz verantwortet und ein kleines Team geführt. Kolleginnen und Kollegen holen mich dazu, wenn ein Problem verzwickt ist oder Research gebraucht wird.</p>
             </div>
-            <dl className="mx-auto mt-12 grid max-w-[900px] gap-5 md:grid-cols-3">
-              {FAKTEN.map(([dt, dd]) => (
-                <div key={dt} className="rounded-[20px] bg-background p-6">
-                  <dt className="font-semibold">{dt}</dt>
-                  <dd className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{dd}</dd>
-                </div>
-              ))}
-            </dl>
+            <AboutTiles />
           </Reveal>
         </section>
       </main>
