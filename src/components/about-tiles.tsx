@@ -196,17 +196,16 @@ const KACHELN = [
 
 export function AboutTiles() {
   return (
-    <ul className="mt-14 grid gap-5 md:grid-cols-3">
+    <ul className="mt-14 grid gap-x-5 md:grid-cols-3">
       {KACHELN.map((k, i) => (
-        <motion.li key={k.key} initial="rest" animate="rest" whileHover="hover" className="group flex flex-col overflow-hidden rounded-[24px] bg-card p-2">
+        // Subgrid: Bild, Titel und Text liegen in allen Kacheln auf gleicher Höhe
+        <motion.li key={k.key} initial="rest" animate="rest" whileHover="hover" className="group flex flex-col overflow-hidden rounded-[24px] bg-card p-2 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid">
           <div className="relative grid aspect-[4/3] place-items-center overflow-hidden rounded-[18px] p-5">
             <Flaeche i={i} />
             <div className="relative">{k.visual}</div>
           </div>
-          <div className="px-4 pb-5 pt-5">
-            <h3 className="text-lg">{k.titel}</h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{k.text}</p>
-          </div>
+          <h3 className="px-4 pt-5 text-lg">{k.titel}</h3>
+          <p className="px-4 pb-5 pt-2 text-[15px] leading-relaxed text-muted-foreground">{k.text}</p>
         </motion.li>
       ))}
     </ul>

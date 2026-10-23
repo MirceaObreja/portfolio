@@ -7,7 +7,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { CaseCards, Licht } from '@/components/case-cards';
-import { ListeIndex } from '@/components/projekte-listen';
+import { WeitereProjekte } from '@/components/weitere-projekte';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { SectionTitle } from '@/components/section-title';
 import { Flaeche } from '@/components/flaeche';
@@ -16,6 +16,7 @@ import { alleBewerbungen, alleProjekte } from '@/lib/content';
 import { zuKarte } from '@/lib/karten';
 import { KONTAKT, PHASEN_TEXT } from '@/lib/site';
 import portrait from '../../../../public/images/fotos/portrait-bw.png';
+import unterschrift from '../../../../public/images/unterschrift.png';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -89,7 +90,8 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
               {b.anrede && <p>{b.anrede}</p>}
               <Markdown>{b.body}</Markdown>
               <p className="mt-10">{t.gruss}</p>
-              <p className="mt-1 text-[clamp(1.4rem,2.38vw,1.925rem)] font-light tracking-[-0.03em]">{KONTAKT.name}</p>
+              <Image src={unterschrift} alt={`Unterschrift ${KONTAKT.name}`} className="mt-3 h-auto w-[min(60vw,220px)]" />
+              <p className="mt-2 text-[15px] text-muted-foreground">{KONTAKT.name}</p>
             </div>
           </Reveal>
         </section>
@@ -97,39 +99,37 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         {/* Stärken auf hellen Kornflächen */}
         <section className="container-page pt-28 md:pt-40" aria-labelledby="st-h">
           <SectionTitle id="st-h" titel={t.staerken} text={t.staerkenText} />
-          <ul className="grid gap-5 md:grid-cols-3">
-            {b.staerken.map((s, i) => (
-              <Reveal key={s.titel} delay={i * 0.08}>
-                <li className="group relative isolate flex h-full min-h-[300px] flex-col justify-between overflow-hidden rounded-[28px] p-7 md:p-8">
+          {/* Subgrid: Nummer, Titel und Text liegen in allen Kacheln auf gleicher Höhe */}
+          <Reveal>
+            <ul className="grid gap-x-5 md:grid-cols-3 md:grid-rows-[minmax(7rem,1fr)_auto_auto]">
+              {b.staerken.map((s, i) => (
+                <li key={s.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-hidden rounded-[28px] px-7 py-7 md:px-8 md:py-8">
                   <Flaeche i={i} />
                   <span className="relative text-[14px] text-tinte/70">0{i + 1}</span>
-                  <div className="relative">
-                    <h3 className="text-[clamp(1rem,1.4vw,1.225rem)] leading-tight tracking-tight">{s.titel}</h3>
-                    <p className="mt-3 text-[15px] leading-relaxed text-foreground/75">{s.text}</p>
-                  </div>
+                  <h3 className="relative self-start text-[clamp(1rem,1.4vw,1.225rem)] leading-tight tracking-tight max-md:mt-10">{s.titel}</h3>
+                  <p className="relative pt-3 text-[15px] leading-relaxed text-foreground/75">{s.text}</p>
                 </li>
-              </Reveal>
-            ))}
-          </ul>
+              ))}
+            </ul>
+          </Reveal>
         </section>
 
         {/* Beobachtungen auf dunklen Lichtflächen */}
         {n > 0 && (
           <section className="container-page pt-28 md:pt-40" aria-labelledby="bo-h">
             <SectionTitle id="bo-h" titel={t.beob} text={t.beobText} />
-            <ul className="grid gap-5 md:grid-cols-2">
-              {b.beobachtungen!.map((o, i) => (
-                <Reveal key={o.titel} delay={i * 0.08}>
-                  <li className="group relative isolate flex h-full min-h-[340px] flex-col justify-end overflow-hidden rounded-[28px] bg-nacht p-7 text-white md:p-10">
+            <Reveal>
+              <ul className="grid gap-x-5 md:grid-cols-2 md:grid-rows-[minmax(9rem,1fr)_auto_auto]">
+                {b.beobachtungen!.map((o, i) => (
+                  <li key={o.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-hidden rounded-[28px] bg-nacht p-7 text-white md:p-10">
                     <Licht stil="lichter" i={i + 1} />
-                    <div className="relative">
-                      <h3 className="text-[clamp(1.12rem,1.82vw,1.575rem)] font-medium leading-tight tracking-tight">{o.titel}</h3>
-                      <p className="mt-4 max-w-[48ch] text-[16px] leading-relaxed text-white/75">{o.text}</p>
-                    </div>
+                    <span aria-hidden className="max-md:h-24" />
+                    <h3 className="relative self-start text-[clamp(1.12rem,1.82vw,1.575rem)] font-medium leading-tight tracking-tight">{o.titel}</h3>
+                    <p className="relative max-w-[48ch] pt-4 text-[16px] leading-relaxed text-white/75">{o.text}</p>
                   </li>
-                </Reveal>
-              ))}
-            </ul>
+                ))}
+              </ul>
+            </Reveal>
           </section>
         )}
 
@@ -140,7 +140,16 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
           {weitere.length > 0 && (
             <div className="mt-16">
               {cases.length > 0 && <h3 className="mb-5 text-xl">{t.weitere}</h3>}
-              <ListeIndex projekte={weitere} tabs={false} />
+              {/* Vorübergehend: drei Varianten zur Auswahl */}
+              {([['raster', 'Variante A: Raster', 'Karten mit Firma, Titel und Kurzbeschrieb, Details klappen in der Karte auf'], ['zeilen', 'Variante B: Zeilen', 'Klare Spalten mit Vorschau, aufgeklappt Phasen, Ergebnis und Rolle'], ['karussell', 'Variante C: Karussell', 'Dunkle Karten zum Durchblättern, alle Angaben sichtbar']] as const).map(([v, name, text]) => (
+                <div key={v} className="mb-16">
+                  <div className="mb-4 flex flex-wrap items-center gap-3">
+                    <span className="rounded-full bg-brand px-3 py-1 text-[13px] font-medium text-white">{name}</span>
+                    <span className="text-[14px] text-muted-foreground">{text}</span>
+                  </div>
+                  <WeitereProjekte projekte={weitere} lang={l} variante={v} />
+                </div>
+              ))}
             </div>
           )}
           <Link href="/#projekte" className="mt-10 inline-flex items-center gap-1.5 text-[15px] font-medium underline-offset-4 hover:underline">
