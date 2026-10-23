@@ -30,10 +30,10 @@ const HALVES: Record<Phase, string> = {
 };
 const BASIS: Record<Phase, string> = { discover: '#e8e8e1', define: '#dfe1da', develop: '#f6f5f0', deliver: '#ecece5' };
 const LABEL: Record<Phase, { x: string; y: string }> = {
-  discover: { x: '18.4%', y: '49.5%' },
-  define: { x: '34.1%', y: '49.5%' },
-  develop: { x: '65.9%', y: '49.5%' },
-  deliver: { x: '81.6%', y: '49.5%' },
+  discover: { x: '18.33%', y: '49.55%' },
+  define: { x: '34.17%', y: '49.55%' },
+  develop: { x: '65.83%', y: '49.55%' },
+  deliver: { x: '81.67%', y: '49.55%' },
 };
 export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [string, string]; hint: string }) {
   const reduce = useReducedMotion();
@@ -61,6 +61,8 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
       </div>
 
       <div className="relative" onMouseLeave={() => setHover(null)}>
+        {/* Beschriftungen beziehen sich nur auf die Grafik, damit sie genau in der Mitte jeder Hälfte liegen */}
+        <div className="relative">
         <svg ref={svgRef} viewBox="0 0 800 222" className="block h-auto w-full overflow-visible">
           {/* Flächen erscheinen, sobald die Kontur des jeweiligen Diamanten fertig ist */}
           {[0, 1].map((d) => (
@@ -141,13 +143,15 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
             onClick={() => toggle(p)}
             style={{ left: LABEL[p].x, top: LABEL[p].y }}
             className={cn(
-              'absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-1 py-1 text-[11px] font-medium tracking-tight transition-colors sm:px-2 sm:text-[15px] md:text-base',
+              'absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-1 py-1 leading-none text-[11px] font-medium tracking-tight transition-colors sm:px-2 sm:text-[15px] md:text-base',
               aktiv === p ? 'text-white' : 'text-foreground',
             )}
           >
             {texte[p].name}
           </motion.button>
         ))}
+
+        </div>
 
         {/* Beschriftung direkt unter den drei Punkten */}
         <div aria-hidden className="pointer-events-none relative mt-2 h-5 text-[11px] text-muted-foreground sm:text-[14px]">
