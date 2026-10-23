@@ -2,6 +2,8 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { Wrench } from 'lucide-react';
 import { Flaeche } from '@/components/flaeche';
+import Image from 'next/image';
+import foto from '../../public/images/fotos/ausgleich.jpg';
 
 
 // Markenzeichen aus Iconify «logos» und Remix Icon, nur zur Kennzeichnung der genutzten Werkzeuge
@@ -113,9 +115,31 @@ const LAMELLEN = Array.from({ length: 6 }, (_, k) => k * 60);
 function KameraVisual() {
   const reduce = useReducedMotion();
   return (
-    <div className="relative flex flex-col items-center gap-4">
+    <motion.div
+      className="relative flex flex-col items-center gap-4"
+      variants={reduce ? undefined : { rest: { y: 0 }, hover: { y: 52, scale: 0.84, transition: { delay: 0.7, type: 'spring', stiffness: 160, damping: 20 } } }}
+    >
+      {/* Ausdruck: Nach dem Blitz schiebt sich das Foto oben aus der Kamera und entwickelt sich */}
       <motion.div
-        className="relative h-[104px] w-[150px] rounded-[22px] bg-nacht shadow-[0_1px_2px_rgba(0,0,0,0.08),0_18px_36px_-14px_rgba(31,43,51,0.55)]"
+        aria-hidden
+        className="absolute left-1/2 top-2 z-0 w-[86px] -translate-x-1/2 rounded-[6px] bg-white p-1.5 pb-5 shadow-[0_10px_24px_-10px_rgba(31,43,51,0.45)]"
+        variants={reduce ? undefined : {
+          rest: { y: 0, rotate: 0, opacity: 0 },
+          hover: { y: -108, rotate: -5, opacity: 1, transition: { delay: 0.75, duration: 0.9, ease: [0.2, 0.7, 0.2, 1] } },
+        }}
+        initial={false}
+        style={reduce ? { opacity: 0 } : undefined}
+      >
+        <div className="relative aspect-[5/6] overflow-hidden rounded-[3px] bg-stein">
+          <Image src={foto} alt="" fill sizes="86px" className="object-cover" />
+          <motion.span
+            className="absolute inset-0 bg-[#f6f5f0]"
+            variants={reduce ? undefined : { rest: { opacity: 1 }, hover: { opacity: 0, transition: { delay: 1.4, duration: 1.4, ease: 'easeOut' } } }}
+          />
+        </div>
+      </motion.div>
+      <motion.div
+        className="relative z-10 h-[104px] w-[150px] rounded-[22px] bg-nacht shadow-[0_1px_2px_rgba(0,0,0,0.08),0_18px_36px_-14px_rgba(31,43,51,0.55)]"
         variants={reduce ? undefined : { rest: { y: 0, rotate: -4 }, hover: { y: -6, rotate: 0, transition: { type: 'spring', stiffness: 260, damping: 18 } } }}
         style={{ rotate: -4 }}
       >
@@ -164,12 +188,12 @@ function KameraVisual() {
           </div>
         </div>
       </motion.div>
-      <div aria-hidden className="flex gap-2 text-[11px] font-medium tabular-nums tracking-wide text-tinte/80">
+      <motion.div aria-hidden variants={reduce ? undefined : { rest: { opacity: 1 }, hover: { opacity: 0, transition: { delay: 0.6, duration: 0.3 } } }} className="relative z-10 flex gap-2 text-[11px] font-medium tabular-nums tracking-wide text-tinte/80">
         {['f/2.8', '1/250', 'ISO 100'].map((t) => (
           <span key={t} className="rounded-full bg-white/60 px-2.5 py-1 backdrop-blur-sm">{t}</span>
         ))}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
