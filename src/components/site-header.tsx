@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { KONTAKT } from '@/lib/site';
@@ -9,6 +10,7 @@ import logo from '../../public/images/logo.png';
 
 export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 'de' | 'en' }) {
   const [offen, setOffen] = useState(false);
+  const pfad = usePathname();
   const reduce = useReducedMotion();
   const links = lang === 'de'
     ? [['/#arbeitsweise', 'Arbeitsweise'], ['/#fallstudien', 'Fallstudien'], ['/#werdegang', 'Werdegang'], ['/#ueber-mich', 'Über mich']]
@@ -22,7 +24,20 @@ export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 
       <header className="fixed inset-x-0 top-3 z-50 px-3 md:top-4" style={{ paddingLeft: 'max(12px, env(safe-area-inset-left, 0px))', paddingRight: 'max(12px, env(safe-area-inset-right, 0px))' }}>
         <div className="glass mx-auto max-w-[clamp(1120px,80vw,1680px)] rounded-[26px]">
           <div className="flex h-14 items-center justify-between gap-2 pl-5 pr-2 md:grid md:grid-cols-[1fr_auto_1fr]">
-            <Link href="/" aria-label={`${KONTAKT.name}, Startseite`} className="justify-self-start rounded-md">
+            <Link
+              href="/"
+              aria-label={`${KONTAKT.name}, Startseite`}
+              className="justify-self-start rounded-md"
+              onClick={(e) => {
+                // Auf der Startseite selbst zurück an den Anfang scrollen
+                if (pfad === '/') {
+                  e.preventDefault();
+                  setOffen(false);
+                  window.history.replaceState(null, '', '/');
+                  window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+                }
+              }}
+            >
               <Image src={logo} alt="" priority className="h-7 w-auto" />
             </Link>
 
