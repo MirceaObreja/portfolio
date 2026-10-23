@@ -105,7 +105,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
               {b.staerken.map((s, i) => (
                 <li key={s.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-hidden rounded-[28px] px-7 py-7 md:px-8 md:py-8">
                   <Flaeche i={i} />
-                  <span className="relative text-[14px] text-tinte/70">0{i + 1}</span>
+                  <span className="relative text-[28px] font-light leading-none tracking-tight text-tinte/80">0{i + 1}</span>
                   <h3 className="relative self-start text-[clamp(1rem,1.4vw,1.225rem)] leading-tight tracking-tight max-md:mt-10">{s.titel}</h3>
                   <p className="relative pt-3 text-[15px] leading-relaxed text-foreground/75">{s.text}</p>
                 </li>

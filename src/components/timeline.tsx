@@ -26,16 +26,16 @@ function Station({ e, i }: { e: Eintrag; i: number }) {
       {e.aktuell && !reduce && (
         <motion.span
           aria-hidden
-          className={cn(punkt, 'bg-tinte')}
+          className={cn(punkt, 'bg-eukalyptus')}
           animate={{ scale: [1, 2.4], opacity: [0.35, 0] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
         />
       )}
       <motion.span
         aria-hidden
-        className={cn(punkt, 'z-10 border-2 border-tinte')}
+        className={cn(punkt, 'z-10 border-2', e.aktuell ? 'border-eukalyptus' : 'border-tinte')}
         initial={reduce ? false : { scale: 0.4, backgroundColor: 'var(--stein)' }}
-        whileInView={{ scale: 1, backgroundColor: e.aktuell ? 'var(--tinte)' : 'var(--stein)' }}
+        whileInView={{ scale: 1, backgroundColor: e.aktuell ? 'var(--eukalyptus)' : 'var(--stein)' }}
         viewport={{ once: true, margin: '0px 0px -40% 0px' }}
         transition={{ type: 'spring', stiffness: 300, damping: 18 }}
       />
@@ -47,7 +47,17 @@ function Station({ e, i }: { e: Eintrag; i: number }) {
       >
         <p className={cn('flex items-center gap-3 text-[13px] text-muted-foreground', links && 'md:flex-row-reverse')}>
           <span className="text-[clamp(1.225rem,2.24vw,1.925rem)] font-light leading-none tracking-[-0.04em] text-foreground tabular-nums">{e.jahre}</span>
-          <span className={cn('rounded-full px-2.5 py-0.5', e.art === 'Beruf' ? 'bg-tinte text-white' : 'border border-nebel')}>{e.aktuell ? 'Aktuell' : e.art}</span>
+          {e.aktuell ? (
+            <span className="inline-flex items-center gap-2 rounded-full border border-eukalyptus/40 bg-eukalyptus/15 px-2.5 py-0.5 font-medium text-tinte">
+              <span aria-hidden className="relative grid size-2 place-items-center">
+                {!reduce && <span className="absolute inline-flex size-full animate-ping rounded-full bg-eukalyptus opacity-70" />}
+                <span className="relative inline-flex size-2 rounded-full bg-eukalyptus" />
+              </span>
+              Aktuell
+            </span>
+          ) : (
+            <span className={cn('rounded-full px-2.5 py-0.5', e.art === 'Beruf' ? 'bg-tinte text-white' : 'border border-nebel')}>{e.art}</span>
+          )}
         </p>
         <p className="mt-3 text-[clamp(1.05rem,1.2vw,1.15rem)] font-medium leading-tight tracking-tight">{e.titel}</p>
         <p className="mt-0.5 text-[14px] text-muted-foreground">{e.ort}</p>
