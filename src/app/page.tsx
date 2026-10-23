@@ -71,16 +71,7 @@ export default function Home() {
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
           <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
-          {/* Vorübergehend: vier Varianten für den aufgeklappten Inhalt */}
-          {([['a', 'Inhalt A: Drei Spalten', 'Ausgangslage, Ergebnis hervorgehoben, Rolle mit Phasen als Balken'], ['b', 'Inhalt B: Ergebnis zuerst', 'Ergebnis gross links, Kontext und Rolle rechts'], ['c', 'Inhalt C: Steckbrief', 'Zeilen mit Bezeichnung links, gut zum Überfliegen'], ['d', 'Inhalt D: Kacheln', 'Drei Kacheln im Panel, Ergebnis hell hervorgehoben']] as const).map(([v, name, text]) => (
-            <div key={v} className="mb-20">
-              <div className="mb-4 flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-brand px-3 py-1 text-[13px] font-medium text-white">{name}</span>
-                <span className="text-[14px] text-muted-foreground">{text}</span>
-              </div>
-              <ListeIndex projekte={projekte} detail={v} />
-            </div>
-          ))}
+          <ListeIndex projekte={projekte} />
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">

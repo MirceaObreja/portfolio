@@ -7,7 +7,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { CaseCards, Licht } from '@/components/case-cards';
-import { WeitereProjekte } from '@/components/weitere-projekte';
+import { ListeIndex } from '@/components/projekte-listen';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { SectionTitle } from '@/components/section-title';
 import { Flaeche } from '@/components/flaeche';
@@ -140,16 +140,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
           {weitere.length > 0 && (
             <div className="mt-16">
               {cases.length > 0 && <h3 className="mb-5 text-xl">{t.weitere}</h3>}
-              {/* Vorübergehend: drei Varianten zur Auswahl */}
-              {([['raster', 'Variante A: Raster', 'Karten mit Firma, Titel und Kurzbeschrieb, Details klappen in der Karte auf'], ['zeilen', 'Variante B: Zeilen', 'Klare Spalten mit Vorschau, aufgeklappt Phasen, Ergebnis und Rolle'], ['karussell', 'Variante C: Karussell', 'Dunkle Karten zum Durchblättern, alle Angaben sichtbar']] as const).map(([v, name, text]) => (
-                <div key={v} className="mb-16">
-                  <div className="mb-4 flex flex-wrap items-center gap-3">
-                    <span className="rounded-full bg-brand px-3 py-1 text-[13px] font-medium text-white">{name}</span>
-                    <span className="text-[14px] text-muted-foreground">{text}</span>
-                  </div>
-                  <WeitereProjekte projekte={weitere} lang={l} variante={v} />
-                </div>
-              ))}
+              <ListeIndex projekte={weitere} tabs={false} />
             </div>
           )}
           <Link href="/#projekte" className="mt-10 inline-flex items-center gap-1.5 text-[15px] font-medium underline-offset-4 hover:underline">

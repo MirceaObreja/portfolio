@@ -6,7 +6,6 @@ import { ArrowUpRight, Plus } from 'lucide-react';
 import { ProjektTabs } from '@/components/projekt-tabs';
 import type { ProjektKarte } from '@/components/project-explorer';
 import { cn } from '@/lib/utils';
-import { DiamondMini } from '@/components/diamond-mini';
 
 const PHASEN = ['discover', 'define', 'develop', 'deliver'] as const;
 type Phase = (typeof PHASEN)[number];
@@ -69,10 +68,8 @@ function Phasen({ p, hell = false }: { p: ProjektKarte; hell?: boolean }) {
 }
 
 
-/* Inhalt der aufgeklappten Zeile, vier Varianten -------------------------- */
+/* Inhalt der aufgeklappten Zeile ------------------------------------------ */
 
-export type DetailVariante = 'a' | 'b' | 'c' | 'd';
-const WEISS_RAUTE = '[&_.fill-ink]:fill-white [&_.fill-ink]:stroke-white [&_path:not(.fill-ink)]:stroke-white/45';
 
 function Label({ children }: { children: React.ReactNode }) {
   return <span className="mb-1.5 block text-[12px] uppercase tracking-[0.08em] text-white/45">{children}</span>;
@@ -95,71 +92,15 @@ function PhasenBalken({ p }: { p: ProjektKarte }) {
   );
 }
 
-function Detail({ p, variante }: { p: ProjektKarte; variante: DetailVariante }) {
-  // A: Drei Spalten mit Überschriften, Ergebnis in der Mitte hervorgehoben
-  if (variante === 'a') {
-    return (
-      <div className="grid gap-8 border-t border-white/10 px-4 pb-8 pt-6 text-[15px] leading-relaxed text-white md:grid-cols-3 md:gap-10 md:px-6">
-        <div><Label>Ausgangslage</Label><p className="text-white/80">{p.kurz}</p></div>
-        <div><Label>Ergebnis</Label><p className="text-[clamp(1.05rem,1.4vw,1.25rem)] font-medium leading-snug">{p.ergebnis ?? '–'}</p></div>
-        <div className="grid content-start gap-5">
-          <div><Label>Meine Rolle</Label><p className="text-white/80">{p.rolle}</p></div>
-          <PhasenBalken p={p} />
-          <FallstudieLink p={p} hell />
-        </div>
-      </div>
-    );
-  }
-  // B: Ergebnis gross links, Kontext rechts
-  if (variante === 'b') {
-    return (
-      <div className="grid gap-8 px-4 pb-8 pt-2 text-white md:grid-cols-12 md:px-6">
-        <div className="md:col-span-5">
-          <DiamondMini phasen={p.phasen} className={cn('h-6 w-[64px]', WEISS_RAUTE)} />
-          <p className="mt-5 text-[clamp(1.25rem,2vw,1.75rem)] font-medium leading-tight tracking-tight">{p.ergebnis ?? p.kurz}</p>
-          <div className="mt-6"><FallstudieLink p={p} hell /></div>
-        </div>
-        <div className="grid content-start gap-5 text-[15px] leading-relaxed md:col-span-6 md:col-start-7">
-          {p.ergebnis && <p className="text-white/80">{p.kurz}</p>}
-          <p className="text-white/60">{p.rolle}</p>
-          <Phasen p={p} hell />
-        </div>
-      </div>
-    );
-  }
-  // C: Steckbrief mit Zeilen und Bezeichnungen links
-  if (variante === 'c') {
-    const zeilen: [string, React.ReactNode][] = [
-      ['Ausgangslage', p.kurz],
-      ...(p.ergebnis ? [['Ergebnis', <span key="e" className="font-medium">{p.ergebnis}</span>] as [string, React.ReactNode]] : []),
-      ['Meine Rolle', p.rolle],
-      ['Phasen', <Phasen key="p" p={p} hell />],
-      ['Zeitraum', p.zeitraum],
-    ];
-    return (
-      <div className="px-4 pb-6 text-[15px] leading-relaxed text-white md:px-6">
-        <dl className="border-t border-white/10">
-          {zeilen.map(([k, v]) => (
-            <div key={k} className="grid gap-1 border-b border-white/10 py-3.5 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-6">
-              <dt className="text-[13px] text-white/45 md:pt-0.5">{k}</dt>
-              <dd className="text-white/85">{v}</dd>
-            </div>
-          ))}
-        </dl>
-        <div className="pt-5"><FallstudieLink p={p} hell /></div>
-      </div>
-    );
-  }
-  // D: Drei helle Kacheln im dunklen Panel, Phasen als Balken darunter
+/** Inhalt der aufgeklappten Zeile: Ausgangslage, Ergebnis hervorgehoben, Rolle mit Phasen als Balken. */
+function Detail({ p }: { p: ProjektKarte }) {
   return (
-    <div className="grid gap-3 px-3 pb-4 text-[15px] leading-relaxed md:px-4">
-      <div className="grid gap-3 md:grid-cols-3">
-        <div className="rounded-[18px] bg-white/[0.07] p-5 text-white"><Label>Ausgangslage</Label><p className="text-white/80">{p.kurz}</p></div>
-        <div className="rounded-[18px] bg-white p-5 text-ink"><span className="mb-1.5 block text-[12px] uppercase tracking-[0.08em] text-ink/50">Ergebnis</span><p className="font-medium">{p.ergebnis ?? '–'}</p></div>
-        <div className="rounded-[18px] bg-white/[0.07] p-5 text-white"><Label>Meine Rolle</Label><p className="text-white/80">{p.rolle}</p></div>
-      </div>
-      <div className="flex flex-wrap items-end justify-between gap-4 rounded-[18px] bg-white/[0.07] p-5">
-        <div className="w-full max-w-md"><PhasenBalken p={p} /></div>
+    <div className="grid gap-8 border-t border-white/10 px-4 pb-8 pt-6 text-[15px] leading-relaxed text-white md:grid-cols-3 md:gap-10 md:px-6">
+      <div><Label>Ausgangslage</Label><p className="text-white/80">{p.kurz}</p></div>
+      <div><Label>Ergebnis</Label><p className="text-[clamp(1.05rem,1.4vw,1.25rem)] font-medium leading-snug">{p.ergebnis ?? '–'}</p></div>
+      <div className="grid content-start gap-5">
+        <div><Label>Meine Rolle</Label><p className="text-white/80">{p.rolle}</p></div>
+        <PhasenBalken p={p} />
         <FallstudieLink p={p} hell />
       </div>
     </div>
@@ -170,7 +111,7 @@ function Detail({ p, variante }: { p: ProjektKarte; variante: DetailVariante }) 
    Grosse Typografie, die Zeile wird beim Darüberfahren schwarz. */
 
 /** Index-Liste: grosse Typografie, die Zeile wird beim Darüberfahren schwarz. */
-export function ListeIndex({ projekte, tabs = true, detail = 'a' }: { projekte: ProjektKarte[]; tabs?: boolean; detail?: DetailVariante }) {
+export function ListeIndex({ projekte, tabs = true }: { projekte: ProjektKarte[]; tabs?: boolean }) {
   const { filter, setFilter, liste } = useFilter(projekte);
   const anzahl = (ph: Phase) => projekte.filter((p) => p.phasen.includes(ph)).length;
   const [offen, setOffen] = useState<string | null>(null);
@@ -198,7 +139,7 @@ export function ListeIndex({ projekte, tabs = true, detail = 'a' }: { projekte: 
                 </span>
               </button>
               <Aufklapp offen={auf}>
-                <Detail p={p} variante={detail} />
+                <Detail p={p} />
               </Aufklapp>
             </li>
           );
