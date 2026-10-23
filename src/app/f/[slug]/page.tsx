@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Markdown from 'react-markdown';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { CaseCards, Licht } from '@/components/case-cards';
@@ -47,8 +47,8 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
   const weitere = auswahl.filter((p) => !p.fallstudie).map((p) => zuKarte(p, l));
   const n = b.beobachtungen?.length ?? 0;
   const t = l === 'de'
-    ? { fuer: `Für ${b.firma}`, art: 'Bewerbung', von: `von ${KONTAKT.name}`, brief: 'Anschreiben', gruss: 'Freundliche Grüsse', staerken: 'Was ich mitbringe.', staerkenText: `Drei Gründe, warum ich zur Stelle als ${b.stelle} passe.`, beob: `${ZAHL_DE[n] || 'Beobachtungen'}.`, beobText: 'Aus Sicht eines Kunden und ohne Kenntnis Ihrer internen Gründe. Als Ausgangspunkt für ein erstes Gespräch.', proj: 'Passende Projekte.', projText: 'Eine Auswahl aus meiner Arbeit bei Merkle, die zu Ihrer Stelle passt.', weitere: 'Weitere Projekte', alle: 'Alle Projekte ansehen', arbeit: 'So arbeite ich.', arbeitText: 'Ich begleite Projekte durch alle vier Phasen, vom ersten Interview bis zum Go-live.', spaces: ['Problem verstehen', 'Lösung entwickeln'] as [string, string], hint: 'Fahren Sie über eine Phase oder tippen Sie darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze.', foot: 'Ich freue mich auf ein Gespräch.', footText: 'Am einfachsten erreichen Sie mich per E-Mail. Ich melde mich innert eines Arbeitstages.', mail: 'E-Mail schreiben', cta: 'Gespräch vereinbaren', lesen: 'Anschreiben lesen' }
-    : { fuer: `For ${b.firma}`, art: 'Application', von: `by ${KONTAKT.name}`, brief: 'Cover letter', gruss: 'Kind regards', staerken: 'What I bring.', staerkenText: `Three reasons why I fit the role of ${b.stelle}.`, beob: 'Observations.', beobText: 'From a customer’s point of view, without knowing your internal reasons. A starting point for a first conversation.', proj: 'Relevant projects.', projText: 'A selection of my work at Merkle that matches the role.', weitere: 'More projects', alle: 'See all projects', arbeit: 'How I work.', arbeitText: 'I take projects through all four phases, from the first interview to go-live.', spaces: ['Understand the problem', 'Develop the solution'] as [string, string], hint: 'Hover over or tap a phase to see what I do there and which methods I use.', foot: 'I look forward to talking.', footText: 'The easiest way to reach me is by email. I reply within one working day.', mail: 'Write an email', cta: 'Schedule a call', lesen: 'Read the letter' };
+    ? { fuer: `Für ${b.firma}`, art: 'Bewerbung', von: `von ${KONTAKT.name} als`, brief: 'Anschreiben', gruss: 'Freundliche Grüsse', staerken: 'Was ich mitbringe.', staerkenText: `Drei Punkte aus meiner Arbeit, die zur Stelle als ${b.stelle} passen.`, beob: `${ZAHL_DE[n] || 'Beobachtungen'}.`, beobText: 'Ich habe Ihr Angebot aus Kundensicht angeschaut. Die Punkte sind als Einstieg in ein erstes Gespräch gedacht.', proj: 'Passende Projekte.', projText: 'Eine Auswahl aus meiner Arbeit bei Merkle, die zu Ihrer Stelle passt.', weitere: 'Weitere Projekte', alle: 'Alle Projekte ansehen', arbeit: 'So arbeite ich.', arbeitText: 'Ich begleite Projekte durch alle vier Phasen, von der ersten Analyse bis zur Umsetzung.', spaces: ['Problem verstehen', 'Lösung entwickeln'] as [string, string], hint: 'Fahren Sie über eine Phase oder tippen Sie darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze.', foot: 'Ich freue mich auf ein Gespräch.', footText: 'Am einfachsten erreichen Sie mich per E-Mail. Ich antworte innert eines Arbeitstages.', mail: 'E-Mail schreiben', cta: 'Gespräch vereinbaren', lesen: 'Anschreiben lesen' }
+    : { fuer: `For ${b.firma}`, art: 'Application', von: `by ${KONTAKT.name} for`, brief: 'Cover letter', gruss: 'Kind regards', staerken: 'What I bring.', staerkenText: `Three reasons why I fit the role of ${b.stelle}.`, beob: 'Observations.', beobText: 'From a customer’s point of view, without knowing your internal reasons. A starting point for a first conversation.', proj: 'Relevant projects.', projText: 'A selection of my work at Merkle that matches the role.', weitere: 'More projects', alle: 'See all projects', arbeit: 'How I work.', arbeitText: 'I take projects through all four phases, from the first interview to go-live.', spaces: ['Understand the problem', 'Develop the solution'] as [string, string], hint: 'Hover over or tap a phase to see what I do there and which methods I use.', foot: 'I look forward to talking.', footText: 'The easiest way to reach me is by email. I reply within one working day.', mail: 'Write an email', cta: 'Schedule a call', lesen: 'Read the letter' };
 
   return (
     <div lang={l}>
@@ -67,11 +67,11 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
                   <p className="text-[15px] text-white/60">{t.art} {t.von}</p>
                   <h1 className="mt-4 text-[clamp(2.1rem,5.25vw,5.075rem)] font-light leading-[0.92] tracking-[-0.05em]">{b.stelle}.</h1>
                   <div className="mt-10 flex flex-wrap gap-3">
-                    <a href={`mailto:${KONTAKT.email}?subject=${encodeURIComponent(`${b.stelle} – ${b.firma}`)}`} className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-5 pr-1.5 text-[15px] font-medium text-ink">
-                      {t.cta}
-                      <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:rotate-45"><ArrowUpRight className="size-4" aria-hidden /></span>
+                    <a href="#brief" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-5 pr-1.5 text-[15px] font-medium text-ink">
+                      {t.lesen}
+                      <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:translate-y-0.5"><ArrowDown className="size-4" aria-hidden /></span>
                     </a>
-                    <a href="#brief" className="inline-flex h-12 items-center rounded-full border border-white/25 px-5 text-[15px] transition-colors hover:bg-white/10">{t.lesen}</a>
+                    <a href={`mailto:${KONTAKT.email}?subject=${encodeURIComponent(`${b.stelle} – ${b.firma}`)}`} className="inline-flex h-12 items-center rounded-full border border-white/25 px-5 text-[15px] transition-colors hover:bg-white/10">{t.cta}</a>
                   </div>
                 </div>
               </div>

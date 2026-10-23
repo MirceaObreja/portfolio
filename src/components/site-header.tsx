@@ -15,7 +15,7 @@ export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 
   const links = lang === 'de'
     ? [['/#arbeitsweise', 'Arbeitsweise'], ['/#fallstudien', 'Fallstudien'], ['/#werdegang', 'Werdegang'], ['/#ueber-mich', 'Über mich']]
     : [['/#arbeitsweise', 'Approach'], ['/#fallstudien', 'Case studies'], ['/#werdegang', 'Experience'], ['/#ueber-mich', 'About']];
-  const cta = lang === 'de' ? 'Kontaktiere mich' : 'Get in touch';
+  const cta = lang === 'de' ? 'Schreib mir' : 'Get in touch';
   const ctaKurz = lang === 'de' ? 'Kontakt' : 'Contact';
 
   return (

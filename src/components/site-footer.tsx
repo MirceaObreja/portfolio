@@ -2,7 +2,7 @@ import { ArrowUp, ArrowUpRight, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { KONTAKT } from '@/lib/site';
 
-export function SiteFooter({ titel = 'Lass uns sprechen.', text = 'Du hast Fragen zu einem Projekt oder möchtest über eine Zusammenarbeit sprechen? Schreib mir.', button = 'E-Mail schreiben' }: { titel?: string; text?: string; button?: string }) {
+export function SiteFooter({ titel = 'Lass uns sprechen.', text = 'Du hast eine Frage zu einem Projekt oder möchtest dich austauschen? Schreib mir eine E-Mail.', button = 'E-Mail schreiben' }: { titel?: string; text?: string; button?: string }) {
   return (
     <footer id="kontakt" className="mt-32 overflow-hidden bg-ink text-white">
       <div className="container-page grid gap-12 pb-16 pt-24 md:grid-cols-12 md:pt-32">
@@ -23,11 +23,11 @@ export function SiteFooter({ titel = 'Lass uns sprechen.', text = 'Du hast Frage
       </div>
       <div className="container-page flex flex-wrap items-center justify-between gap-4 mt-8 border-t border-white/10 py-6 text-sm text-white/50">
         <span className="flex flex-wrap gap-x-4 gap-y-1">
-          <span>© {new Date().getFullYear()} {KONTAKT.name}. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} {KONTAKT.name}</span>
           {/* Vorübergehend für die Demo, vor dem Livegang entfernen */}
           <Link href="/f/beispiel-energie-7k3m9q" className="underline underline-offset-4 transition-colors hover:text-white">Demo: Bewerbungsseite</Link>
         </span>
-        <span>Designed and built with love <span className="text-white" aria-label="Herz">♥</span> for detail in St. Gallen, Switzerland.</span>
+        <span>Konzipiert und entwickelt in St. Gallen.</span>
         <a href="#top" aria-label="Zurück zum Seitenanfang" title="Zurück zum Seitenanfang" className="group grid size-10 place-items-center rounded-full border border-white/20 transition-colors hover:border-white/50 hover:text-white">
           <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" aria-hidden />
         </a>

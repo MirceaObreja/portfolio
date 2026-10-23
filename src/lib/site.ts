@@ -8,10 +8,10 @@ export const KONTAKT = {
 
 export const PHASEN_TEXT: Record<Sprache, Record<Phase, { name: string; text: string; methoden: string[] }>> = {
   de: {
-    discover: { name: 'Discover', text: 'Mit Research, Analytics und Desk Research verstehen, wie Menschen heute vorgehen und wo sie scheitern.', methoden: ['Desk Research', 'Wettbewerbsanalyse', 'Benchmarking', 'Web Analytics', 'Expert Review', 'Interviews'] },
-    define: { name: 'Define', text: 'Erkenntnisse verdichten, das eigentliche Problem benennen und Hypothesen formulieren.', methoden: ['Insight-Synthese', 'Hypothesen', 'Customer Journey', 'Informationsarchitektur', 'Stakeholder-Workshops'] },
-    develop: { name: 'Develop', text: 'Lösungen entwickeln, als Wireframes ausarbeiten und zu klickbaren Prototypen verbinden.', methoden: ['User Flows', 'Wireframes', 'Klickbare Prototypen', 'Interaction Design', 'Nudging'] },
-    deliver: { name: 'Deliver', text: 'Mit Nutzerinnen und Nutzern testen, iterieren, finalisieren und an UI-Design oder Entwicklung übergeben.', methoden: ['Usability-Tests', 'SUS und SEQ', 'A/B-Test-Konzept', 'Iteration', 'Übergabe an UI und Entwicklung'] },
+    discover: { name: 'Discover', text: 'Verstehen, wie Menschen heute vorgehen und wo sie hängen bleiben. Dafür kombiniere ich Research, Web Analytics und Desk Research.', methoden: ['Desk Research', 'Wettbewerbsanalyse', 'Benchmarking', 'Web Analytics', 'Expert Review', 'Interviews'] },
+    define: { name: 'Define', text: 'Erkenntnisse verdichten, das eigentliche Problem benennen und daraus prüfbare Hypothesen ableiten.', methoden: ['Insight-Synthese', 'Hypothesen', 'Customer Journey', 'Informationsarchitektur', 'Stakeholder-Workshops'] },
+    develop: { name: 'Develop', text: 'Lösungen als User Flows und Wireframes ausarbeiten und zu klickbaren Prototypen verbinden.', methoden: ['User Flows', 'Wireframes', 'Klickbare Prototypen', 'Interaction Design', 'Nudging'] },
+    deliver: { name: 'Deliver', text: 'Mit Nutzerinnen und Nutzern testen, nachbessern und das fertige Konzept an UI-Design und Entwicklung übergeben.', methoden: ['Usability-Tests', 'SUS und SEQ', 'A/B-Test-Konzept', 'Iteration', 'Übergabe an UI und Entwicklung'] },
   },
   en: {
     discover: { name: 'Discover', text: 'Use research, analytics and desk research to understand how people work today and where they get stuck.', methoden: ['Desk research', 'Competitor analysis', 'Benchmarking', 'Web analytics', 'Expert review', 'Interviews'] },

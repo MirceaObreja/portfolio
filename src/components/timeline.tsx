@@ -9,7 +9,7 @@ const STATIONEN: Eintrag[] = [
   { jahre: '2025 – heute', titel: 'Senior Experience Consultant', ort: 'Merkle, St. Gallen', art: 'Beruf', aktuell: true, text: 'Research und Konzeption für Banken, Mobilität und Gesundheitswesen. Bis April 2026 UX-Lead auf dem Siemens Xcelerator Marketplace.' },
   { jahre: '2022 – 2025', titel: 'Experience Consultant', ort: 'Merkle, St. Gallen', art: 'Beruf', text: 'Research, Konzepte und Prototypen für Banking, B2B-Plattformen und öffentliche Verwaltung. Ab 2024 im Siemens-Team.' },
   { jahre: '2021 – 2022', titel: 'Praktikum UX Design und UX Research', ort: 'Sunrise UPC, Zürich', art: 'Beruf' },
-  { jahre: '2018 – 2021', titel: 'B. Sc. Digital Business Management', ort: 'Bachelorstudium', art: 'Ausbildung', text: 'Module unter anderem Design Thinking, Behavioral Economics, Innovation Management, Psychologie, Usability Testing, Projektmanagement und Kommunikation.' },
+  { jahre: '2018 – 2021', titel: 'B. Sc. Digital Business Management', ort: 'Fachhochschule Graubünden (FHGR)', art: 'Ausbildung', text: 'Module unter anderem in Design Thinking, Behavioral Economics, Innovation Management, Psychologie, Usability Testing, Projektmanagement und Kommunikation.' },
   { jahre: '2020', titel: 'Praktikum Marketing, Sales und Social Media', ort: 'Einstoffen, St. Gallen', art: 'Beruf' },
 ];
 

@@ -50,13 +50,13 @@ export default function Home() {
 
         <section className="container-page pt-28 md:pt-40" aria-label="Arbeitsweise in einem Satz">
           <ScrollText
-            text="Ich verschaffe mir zuerst einen Überblick über die gesamte Journey, auch über Prozesse und Abhängigkeiten, die Nutzerinnen und Nutzer nie sehen. Danach strukturiere ich das Problem, leite Hypothesen ab und prüfe sie mit Research."
+            text="Bevor ich etwas gestalte, will ich die ganze Journey verstehen, auch die Prozesse und Abhängigkeiten im Hintergrund, die Nutzerinnen und Nutzer nie zu sehen bekommen. Dann strukturiere ich das Problem, formuliere Hypothesen und prüfe sie mit Research."
             className="text-[clamp(1.4rem,3.08vw,2.8rem)] font-medium leading-[1.08] tracking-[-0.03em]"
           />
         </section>
 
         <section id="arbeitsweise" className="container-page pt-28 md:pt-40" aria-labelledby="aw-h">
-          <SectionTitle id="aw-h" titel="Arbeitsweise." text="Ich arbeite entlang des Double Diamond: Im ersten Diamanten verstehe ich das Problem, im zweiten entwickle ich die Lösung. Fahre über eine Phase, um die Methoden zu sehen." />
+          <SectionTitle id="aw-h" titel="Arbeitsweise." text="Ich arbeite nach dem Double Diamond, einem Prozessmodell, das auf den Prinzipien des Design Thinking aufbaut. Es hilft mir, komplexe Probleme strukturiert zu lösen. Im ersten Diamanten suche ich das eigentliche Problem, im zweiten die passende Lösung." />
           <Reveal>
             <div className="rounded-[32px] bg-card px-5 pb-8 pt-10 md:px-12 md:pb-12 md:pt-14">
               <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze." />
@@ -65,12 +65,12 @@ export default function Home() {
         </section>
 
         <section id="fallstudien" className="container-page pt-28 md:pt-40" aria-labelledby="fs-h">
-          <SectionTitle id="fs-h" titel="Fallstudien." text="Drei Projekte, an denen sich zeigt, wie ich arbeite: von der Analyse bis zum messbaren Ergebnis." />
+          <SectionTitle id="fs-h" titel="Fallstudien." text="Drei Projekte im Detail, von der Analyse bis zum messbaren Ergebnis." />
           <CaseCards projekte={cases} />
         </section>
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
-          <SectionTitle id="pr-h" titel="Projekte." text="Alle Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
+          <SectionTitle id="pr-h" titel="Projekte." text="Eine Auswahl meiner Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
           <ListeIndex projekte={projekte} />
         </section>
 
@@ -83,10 +83,10 @@ export default function Home() {
           <SectionTitle id="um-h" titel="Über mich." />
           <Reveal className="grid gap-8 md:grid-cols-12">
             <p className="text-[clamp(1.35rem,2.2vw,1.9rem)] font-medium leading-snug tracking-tight md:col-span-7">
-              Seit Mai 2022 arbeite ich bei Merkle in St. Gallen, zuerst als Experience Consultant, seit 2025 als Senior. Ich arbeite für Banken, B2B-Plattformen und die öffentliche Hand.
+              Ich bin Mircea und arbeite seit Mai 2022 bei Merkle in St. Gallen, seit 2025 als Senior Experience Consultant. Meine Projekte kommen aus dem Banking, von B2B-Plattformen und aus der öffentlichen Verwaltung.
             </p>
             <p className="text-[17px] leading-relaxed text-muted-foreground md:col-span-5">
-              Bei Siemens habe ich über zwei Jahre die UX auf einem B2B-Marktplatz verantwortet und ein kleines Team geführt. Kolleginnen und Kollegen holen mich dazu, wenn ein Problem verzwickt ist oder Research gebraucht wird.
+              Als Experience Consultant arbeite ich zwischen Kunde, Design und Entwicklung. Ich schaue mir an, wie Menschen ein digitales Angebot nutzen, entwickle daraus ein Konzept und prüfe es mit Tests, bevor es gestaltet und gebaut wird. Im Büro holen mich Kolleginnen und Kollegen oft dazu, wenn ein Problem verzwickt ist oder es Research braucht.
             </p>
           </Reveal>
           <AboutTiles />

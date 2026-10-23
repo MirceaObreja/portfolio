@@ -96,7 +96,7 @@ function PhasenBalken({ p }: { p: ProjektKarte }) {
 function Detail({ p }: { p: ProjektKarte }) {
   return (
     <div className="grid gap-8 border-t border-white/10 px-4 pb-8 pt-6 text-[15px] leading-relaxed text-white md:grid-cols-3 md:gap-10 md:px-6">
-      <div><Label>Ausgangslage</Label><p className="text-white/80">{p.kurz}</p></div>
+      <div><Label>Aufgabe</Label><p className="text-white/80">{p.kurz}</p></div>
       <div><Label>Ergebnis</Label><p className="text-[clamp(1.05rem,1.4vw,1.25rem)] font-medium leading-snug">{p.ergebnis ?? '–'}</p></div>
       <div className="grid content-start gap-5">
         <div><Label>Meine Rolle</Label><p className="text-white/80">{p.rolle}</p></div>

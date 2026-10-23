@@ -31,7 +31,7 @@ function Buttons({ dunkel = false }: { dunkel?: boolean }) {
   return (
     <div className="flex flex-wrap gap-3">
       <a href="#kontakt" className={`group/cta inline-flex h-12 items-center gap-2 rounded-full pl-5 pr-1.5 text-[15px] font-medium ${dunkel ? 'bg-ink text-white' : 'bg-white text-ink'}`}>
-        Kontaktiere mich
+        Schreib mir
         <span className={`grid size-9 place-items-center rounded-full transition-transform duration-300 group-hover/cta:rotate-45 ${dunkel ? 'bg-white text-ink' : 'bg-ink text-white'}`}><ArrowUpRight className="size-4" aria-hidden /></span>
       </a>
       <a href="#fallstudien" className={`inline-flex h-12 items-center rounded-full border px-5 text-[15px] transition-colors ${dunkel ? 'border-nacht/25 text-nacht hover:bg-nacht/5' : 'border-white/25 text-white hover:bg-white/10'}`}>Fallstudien ansehen</a>
@@ -42,7 +42,7 @@ function Buttons({ dunkel = false }: { dunkel?: boolean }) {
 // Blendet die geraden Bildkanten des Porträts unten und seitlich weich aus
 const KANTEN = '[mask-image:linear-gradient(to_top,transparent_0%,black_22%),linear-gradient(to_right,transparent_0%,black_14%,black_86%,transparent_100%)] [mask-composite:intersect]';
 
-const SUB = 'Service Design und UX-Strategie. Ich mache digitale Strecken von Anfang bis Ende einfacher, mit Research statt Bauchgefühl.';
+const SUB = 'Service Designer und UX-Stratege. Ich sorge dafür, dass digitale Abläufe von Anfang bis Ende funktionieren, und stütze meine Entscheidungen auf Research statt auf Bauchgefühl.';
 
 /** Variante A: Dunkle Fläche mit zwei Lichtern, Porträt rechts, wie auf der Bewerbungsseite. */
 export function HeroPanel() {
@@ -113,7 +113,7 @@ export function HeroKarte() {
             <p className="mt-6 max-w-[36ch] text-[17px] leading-relaxed text-foreground/75">{SUB}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#kontakt" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-ink pl-5 pr-1.5 text-[15px] font-medium text-white">
-                Kontaktiere mich
+                Schreib mir
                 <span className="grid size-9 place-items-center rounded-full bg-white text-ink transition-transform duration-300 group-hover/cta:rotate-45"><ArrowUpRight className="size-4" aria-hidden /></span>
               </a>
               <a href="#fallstudien" className="inline-flex h-12 items-center rounded-full border border-foreground/20 px-5 text-[15px] transition-colors hover:bg-foreground/5">Fallstudien ansehen</a>

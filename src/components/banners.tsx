@@ -1,4 +1,4 @@
-import { Building, Building2, Car, CreditCard, Factory, FlaskConical, HeartPulse, Landmark, LayoutTemplate, MessagesSquare, MousePointerClick, Network, Route, Users, type LucideIcon } from 'lucide-react';
+import { Building, Building2, Car, CreditCard, Factory, ChartLine, Layers, HeartPulse, Landmark, LayoutTemplate, MessagesSquare, MousePointerClick, Network, Route, Users, type LucideIcon } from 'lucide-react';
 
 type Eintrag = { name: string; icon: LucideIcon };
 
@@ -17,8 +17,9 @@ const METHODEN: Eintrag[] = [
   { name: 'Interviews', icon: MessagesSquare },
   { name: 'Customer Journeys', icon: Route },
   { name: 'Wireframes', icon: LayoutTemplate },
+  { name: 'Prototyping', icon: Layers },
   { name: 'Workshops', icon: Users },
-  { name: 'Hypothesen', icon: FlaskConical },
+  { name: 'Web Analytics', icon: ChartLine },
 ];
 
 function Reihe({ eintraege, reverse = false, dunkel = false }: { eintraege: Eintrag[]; reverse?: boolean; dunkel?: boolean }) {

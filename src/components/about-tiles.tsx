@@ -177,19 +177,19 @@ const KACHELN = [
   {
     key: 'werkzeuge',
     titel: 'Werkzeuge',
-    text: 'Figma, FigJam, Miro, Lookback, Testing Time und Google Analytics gehören zu meinem Alltag, von der Recherche bis zum klickbaren Prototyp.',
+    text: 'Figma, FigJam, Miro, Lookback, Testing Time und Google Analytics. Damit arbeite ich jeden Tag, von der ersten Recherche bis zum klickbaren Prototyp.',
     visual: <WerkzeugeVisual />,
   },
   {
     key: 'ki',
     titel: 'KI im Arbeitsalltag',
-    text: 'Ich setze Claude und Microsoft Copilot täglich ein und baue mir eigene kleine KI-Tools für wiederkehrende Aufgaben. So bleibt mehr Zeit für Analyse und Konzept.',
+    text: 'Claude und Microsoft Copilot nutze ich täglich. Für wiederkehrende Aufgaben baue ich mir eigene kleine Tools. Die Zeit, die ich so spare, fliesst in Analyse und Konzept.',
     visual: <KiVisual />,
   },
   {
     key: 'ausgleich',
     titel: 'Ausgleich',
-    text: 'Fotografie. Nach einem Tag am Bildschirm schaue ich gern durch den Sucher.',
+    text: 'Fotografie. Nach einem Tag am Bildschirm schaue ich gern durch den Sucher meiner Sony-Kamera.',
     visual: <KameraVisual />,
   },
 ];
