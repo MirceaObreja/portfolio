@@ -119,24 +119,37 @@ function KameraVisual() {
       className="relative flex flex-col items-center gap-4"
       variants={reduce ? undefined : { rest: { y: 0 }, hover: { y: 52, scale: 0.84, transition: { delay: 0.7, type: 'spring', stiffness: 160, damping: 20 } } }}
     >
-      {/* Ausdruck: Nach dem Blitz schiebt sich das Foto oben aus der Kamera und entwickelt sich */}
+      {/* Ausdruck: Nach dem Blitz schiebt sich das Foto oben aus der Kamera, kommt nach vorne und entwickelt sich */}
       <motion.div
         aria-hidden
-        className="absolute left-1/2 top-2 z-0 w-[86px] -translate-x-1/2 rounded-[6px] bg-white p-1.5 pb-5 shadow-[0_10px_24px_-10px_rgba(31,43,51,0.45)]"
+        className="absolute left-1/2 top-2 z-0 w-[86px] -translate-x-1/2 rounded-[6px] bg-white p-1.5 pb-5 shadow-[0_14px_30px_-12px_rgba(31,43,51,0.55)]"
         variants={reduce ? undefined : {
           rest: { y: 0, rotate: 0, opacity: 0 },
-          hover: { y: -108, rotate: -5, opacity: 1, transition: { delay: 0.75, duration: 0.9, ease: [0.2, 0.7, 0.2, 1] } },
+          hover: {
+            y: [0, -108, -108, -68],
+            rotate: [0, -5, -5, -3],
+            scale: [1, 1, 1, 1.85],
+            zIndex: [0, 0, 20, 20],
+            opacity: [0, 1, 1, 1],
+            transition: { delay: 0.75, duration: 1.9, times: [0, 0.42, 0.55, 1], ease: [0.2, 0.7, 0.2, 1] },
+          },
         }}
         initial={false}
         style={reduce ? { opacity: 0 } : undefined}
       >
         <div className="relative aspect-[5/6] overflow-hidden rounded-[3px] bg-stein">
-          <Image src={foto} alt="" fill sizes="86px" className="object-cover" />
+          <Image src={foto} alt="" fill sizes="240px" className="object-cover" />
           <motion.span
             className="absolute inset-0 bg-[#f6f5f0]"
             variants={reduce ? undefined : { rest: { opacity: 1 }, hover: { opacity: 0, transition: { delay: 1.4, duration: 1.4, ease: 'easeOut' } } }}
           />
         </div>
+        <motion.p
+          className="absolute inset-x-0 bottom-[5px] text-center text-[6.5px] font-medium tracking-wide text-tinte/80"
+          variants={reduce ? undefined : { rest: { opacity: 0 }, hover: { opacity: 1, transition: { delay: 2.5, duration: 0.5 } } }}
+        >
+          Côte d’Azur, 2016
+        </motion.p>
       </motion.div>
       <motion.div
         className="relative z-10 h-[104px] w-[150px] rounded-[22px] bg-nacht shadow-[0_1px_2px_rgba(0,0,0,0.08),0_18px_36px_-14px_rgba(31,43,51,0.55)]"
