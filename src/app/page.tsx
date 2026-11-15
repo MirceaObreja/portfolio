@@ -44,10 +44,10 @@ export default function Home() {
         {/* Arbeitsweise als dunkle Bühne: dasselbe Material wie der Einstieg */}
         <section id="arbeitsweise" className="container-page pt-28 md:pt-40" aria-labelledby="aw-h">
           <Reveal>
-            <Buehne i={0} className="rounded-[32px] px-5 pb-8 pt-10 md:rounded-[44px] md:px-14 md:pb-14 md:pt-16">
+            <Buehne i={0} ruhig className="rounded-[32px] px-5 pb-8 pt-10 md:rounded-[44px] md:px-14 md:pb-14 md:pt-16">
               <div className="mb-12 grid gap-5 md:mb-16 md:grid-cols-12">
                 <h2 id="aw-h" className="text-[clamp(1.75rem,4.725vw,4.41rem)] font-medium leading-[0.9] tracking-[-0.045em] md:col-span-12">Arbeitsweise.</h2>
-                <p className="text-[17px] leading-relaxed text-white/70 md:col-span-8">
+                <p className="text-[17px] leading-relaxed text-white/90 md:col-span-8">
                   Ich arbeite nach dem Double Diamond, einem Prozessmodell, das auf den Prinzipien des Design Thinking aufbaut. Es hilft mir, komplexe Probleme strukturiert zu lösen. Im ersten Diamanten suche ich das eigentliche Problem, im zweiten die passende Lösung.
                 </p>
               </div>

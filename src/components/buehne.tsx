@@ -13,12 +13,15 @@ export function Buehne({
   stil = 'lichter',
   i = 0,
   kegel = true,
+  ruhig = false,
 }: {
   children: React.ReactNode;
   className?: string;
   stil?: FlaechenStil;
   i?: number;
   kegel?: boolean;
+  /** Dämpft das Licht und legt einen dunklen Schleier hinter den Text, damit Fliesstext lesbar bleibt. */
+  ruhig?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   return (
@@ -37,7 +40,14 @@ export function Buehne({
       }
       className={cn('group relative isolate overflow-clip bg-nacht text-white', className)}
     >
-      <Licht stil={stil} i={i} />
+      {ruhig ? (
+        <>
+          <div aria-hidden className="absolute inset-0 opacity-60"><Licht stil={stil} i={i} /></div>
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(31,43,51,0.7)_0%,rgba(31,43,51,0.45)_55%,rgba(31,43,51,0.2)_100%),linear-gradient(0deg,rgba(31,43,51,0.65)_0%,rgba(31,43,51,0)_40%)]" />
+        </>
+      ) : (
+        <Licht stil={stil} i={i} />
+      )}
       {kegel && (
         <div
           aria-hidden

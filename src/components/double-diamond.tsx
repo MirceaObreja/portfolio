@@ -156,7 +156,7 @@ export function DoubleDiamond({ texte, spaces, hint, dunkel = false }: { texte: 
         </div>
 
         {/* Beschriftung direkt unter den drei Punkten */}
-        <div aria-hidden className={cn('pointer-events-none relative mt-2 h-5 text-[11px] sm:text-[14px]', dunkel ? 'text-white/55' : 'text-muted-foreground')}>
+        <div aria-hidden className={cn('pointer-events-none relative mt-2 h-5 text-[11px] sm:text-[14px]', dunkel ? 'text-white/80' : 'text-muted-foreground')}>
           <span className="absolute left-0 whitespace-nowrap">Ausgangslage</span>
           <span className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap">Problemdefinition</span>
           <span className="absolute right-0 whitespace-nowrap">Lösung</span>
@@ -174,7 +174,7 @@ export function DoubleDiamond({ texte, spaces, hint, dunkel = false }: { texte: 
           >
             {aktiv ? (
               <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-10">
-                <p className={cn('max-w-[48ch]', dunkel && 'text-white/75')}>
+                <p className={cn('max-w-[48ch]', dunkel && 'text-white/90')}>
                   <span className={cn('mb-1 block text-xl font-semibold tracking-tight', dunkel && 'text-white')}>{texte[aktiv].name}</span>
                   {texte[aktiv].text}
                 </p>
@@ -193,7 +193,7 @@ export function DoubleDiamond({ texte, spaces, hint, dunkel = false }: { texte: 
                 </ul>
               </div>
             ) : (
-              <p className={dunkel ? 'text-white/65' : 'text-muted-foreground'}>{hint}</p>
+              <p className={dunkel ? 'text-white/85' : 'text-muted-foreground'}>{hint}</p>
             )}
           </motion.div>
         </AnimatePresence>
