@@ -124,6 +124,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
                   <li key={o.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-clip rounded-[28px] bg-nacht p-7 text-white md:p-10">
                     <div aria-hidden className="absolute inset-0 opacity-55"><Licht stil="lichter" i={i + 1} /></div>
                     <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(31,43,51,0.75)_0%,rgba(31,43,51,0.55)_60%,rgba(31,43,51,0.3)_100%)]" />
+                    <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_75%_at_100%_0%,rgba(241,239,232,0.75)_0%,rgba(199,204,194,0.45)_30%,rgba(158,170,162,0.18)_55%,rgba(31,43,51,0)_78%)] transition-transform duration-1000 group-hover:scale-110" />
                     <span aria-hidden className="max-md:h-24" />
                     <h3 className="relative self-start text-[clamp(1.12rem,1.82vw,1.575rem)] font-medium leading-tight tracking-tight">{o.titel}</h3>
                     <p className="relative max-w-[48ch] pt-4 text-[16px] leading-relaxed text-white/90">{o.text}</p>
