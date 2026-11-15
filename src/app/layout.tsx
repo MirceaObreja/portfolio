@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ScrollRuhe } from '@/components/scroll-ruhe';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -9,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de">
-      <body id="top">{children}</body>
+    <html lang="de" data-scroll-behavior="smooth">
+      <body id="top">
+        <ScrollRuhe />
+        {children}
+      </body>
     </html>
   );
 }
