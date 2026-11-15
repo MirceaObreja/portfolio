@@ -8,7 +8,7 @@ const PATHS: Record<(typeof ORDER)[number], string> = {
   deliver: 'M48 1 L63 12 L48 23 Z',
 };
 
-export function DiamondMini({ phasen, className }: { phasen: string[]; className?: string }) {
+export function DiamondMini({ phasen, className, hell = false }: { phasen: string[]; className?: string; hell?: boolean }) {
   const label = 'Phasen: ' + ORDER.filter((p) => phasen.includes(p)).map((p) => p[0].toUpperCase() + p.slice(1)).join(', ');
   return (
     <svg viewBox="0 0 64 24" role="img" aria-label={label} className={cn('h-[18px] w-12 shrink-0 overflow-visible', className)}>
@@ -18,7 +18,7 @@ export function DiamondMini({ phasen, className }: { phasen: string[]; className
           d={PATHS[p]}
           strokeWidth={1.2}
           strokeLinejoin="round"
-          className={phasen.includes(p) ? 'fill-ink stroke-ink' : 'fill-transparent stroke-salbei'}
+          className={phasen.includes(p) ? (hell ? 'fill-white stroke-white' : 'fill-ink stroke-ink') : hell ? 'fill-transparent stroke-white/45' : 'fill-transparent stroke-salbei'}
         />
       ))}
     </svg>

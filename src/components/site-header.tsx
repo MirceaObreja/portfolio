@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import logo from '../../public/images/logo.png';
 
 /** `eigene` ersetzt die Links der Startseite durch Anker auf der aktuellen Seite (Bewerbungsseiten). */
-export function SiteHeader({ nav = true, lang = 'de', eigene, cta: ctaEigen }: { nav?: boolean; lang?: 'de' | 'en'; eigene?: [string, string][]; cta?: { label: string; kurz: string; href: string } }) {
+export function SiteHeader({ nav = true, lang = 'de', eigene, cta: ctaEigen, stage = false }: { stage?: boolean; nav?: boolean; lang?: 'de' | 'en'; eigene?: [string, string][]; cta?: { label: string; kurz: string; href: string } }) {
   const [offen, setOffen] = useState(false);
   const pfad = usePathname();
   const reduce = useReducedMotion();
@@ -22,11 +22,13 @@ export function SiteHeader({ nav = true, lang = 'de', eigene, cta: ctaEigen }: {
   // Bewerbungsseiten haben mehr und längere Einträge: die volle Leiste erst ab grossen Breiten
   const bp = eigene ? { zeile: 'xl:grid xl:grid-cols-[1fr_auto_1fr]', nav: 'hidden xl:flex', menue: 'xl:hidden', mobil: 'xl:hidden' } : { zeile: 'md:grid md:grid-cols-[1fr_auto_1fr]', nav: 'hidden md:flex', menue: 'md:hidden', mobil: 'md:hidden' };
   // Über dem dunklen Einstieg wird die Leiste selbst dunkel, danach hell
-  const [dunkel, setDunkel] = useState(daheim);
+  // `stage`: Unterseite mit dunklem Einstieg (Fallstudie)
+  const mitStage = daheim || stage;
+  const [dunkel, setDunkel] = useState(mitStage);
   const [aktiv, setAktiv] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!daheim) {
+    if (!mitStage) {
       setDunkel(false);
       setAktiv(null);
       return;
@@ -56,7 +58,7 @@ export function SiteHeader({ nav = true, lang = 'de', eigene, cta: ctaEigen }: {
       if (frame) cancelAnimationFrame(frame);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [daheim, lang]);
+  }, [mitStage, lang]);
   const ctaKurz = ctaEigen?.kurz ?? (lang === 'de' ? 'Kontakt' : 'Contact');
 
   return (
