@@ -5,7 +5,7 @@ import { Buehne } from '@/components/buehne';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { CaseCards } from '@/components/case-cards';
 import { Banner } from '@/components/banners';
-import { ProjekteWahl } from '@/components/projekte-varianten';
+import { ListeIndex } from '@/components/projekte-listen';
 
 import { AboutTiles } from '@/components/about-tiles';
 import { SectionTitle } from '@/components/section-title';
@@ -63,7 +63,7 @@ export default function Home() {
 
         <section id="projekte" className="container-page pt-28 md:pt-40" aria-labelledby="pr-h">
           <SectionTitle id="pr-h" titel="Projekte." text="Eine Auswahl meiner Projekte seit Mai 2022, jeweils mit den Phasen des Double Diamond, die ich verantwortet habe." />
-          <ProjekteWahl projekte={projekte} />
+          <ListeIndex projekte={projekte} />
         </section>
 
         <section id="werdegang" className="container-page pt-28 md:pt-40" aria-labelledby="wg-h">

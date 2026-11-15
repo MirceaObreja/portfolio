@@ -7,7 +7,7 @@ import { ZurueckLink } from '@/components/zurueck-link';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { DiamondMini } from '@/components/diamond-mini';
-import { Buehne } from '@/components/buehne';
+import { Flaeche } from '@/components/flaeche';
 import { Licht } from '@/components/licht';
 import { KapitelNav } from '@/components/kapitel-nav';
 import { Reveal } from '@/components/motion-bits';
@@ -46,52 +46,51 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
   const andere = alle.filter((x) => x.id !== slug);
   const phasenText = PHASEN.filter((x) => p.phasen.includes(x)).map((x) => PHASEN_TEXT.de[x].name).join(', ');
   const kapitel = kapitelAus(p.body);
-  const fakt = 'mb-2 text-[13px] text-white/60';
+  const fakt = 'mb-2 text-[13px] text-foreground/60';
 
   return (
     <>
-      <SiteHeader stage />
+      <SiteHeader />
       <main>
-        {/* Einstieg: dunkle Bühne wie auf der Startseite */}
-        <section id="einstieg" aria-labelledby="fs-titel" className="-mt-24">
-          <Buehne i={index} ruhig className="rounded-b-[32px] pt-24 md:rounded-b-[44px]">
-            <div className="container-page flex min-h-[560px] flex-col pb-8 pt-6 md:min-h-[min(78svh,760px)] md:pb-12 md:pt-10">
-              <ZurueckLink
-                className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3.5 py-2 text-[14px] text-white/85 backdrop-blur-md transition-colors hover:bg-white/15"
-                bewerbung={<><ArrowLeft className="size-4" aria-hidden />Zurück zur Bewerbung</>}
-              >
-                <ArrowLeft className="size-4" aria-hidden />Alle Fallstudien
-              </ZurueckLink>
+        {/* Einstieg: helle Bühne mit Korn. Die dunkle Bühne bleibt der Startseite und den Bewerbungsseiten vorbehalten. */}
+        <section aria-labelledby="fs-titel" className="group relative isolate -mt-24 overflow-clip rounded-b-[32px] pt-24 md:rounded-b-[44px]">
+          <Flaeche i={index} />
+          <div className="container-page relative flex min-h-[540px] flex-col pb-8 pt-6 md:min-h-[min(74svh,720px)] md:pb-12 md:pt-10">
+            <ZurueckLink
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-foreground/15 bg-white/60 px-3.5 py-2 text-[14px] text-foreground/80 backdrop-blur-md transition-colors hover:bg-white"
+              bewerbung={<><ArrowLeft className="size-4" aria-hidden />Zurück zur Bewerbung</>}
+            >
+              <ArrowLeft className="size-4" aria-hidden />Alle Fallstudien
+            </ZurueckLink>
 
-              <div className="mt-auto grid gap-8 pt-14 md:grid-cols-12 md:items-end md:gap-6">
-                <div className="md:col-span-7">
-                  <p className="text-[15px] text-white/65 md:text-[clamp(1rem,1.5vw,1.4rem)]">{p.kunde}</p>
-                  <h1 id="fs-titel" className="mt-3 text-[clamp(2rem,8.4vw,2.9rem)] font-light leading-[1] tracking-[-0.045em] md:mt-5 md:text-[clamp(2.3rem,4.2vw,4.6rem)]">{p.titel}</h1>
-                </div>
-                {p.kennzahl && (
-                  <div className="rounded-[24px] border border-white/15 bg-nacht/45 p-6 backdrop-blur-md md:col-span-4 md:col-start-9 md:p-7">
-                    <p className="text-[13px] text-white/60">Ergebnis</p>
-                    <p className="mt-2 text-[clamp(1.15rem,1.7vw,1.5rem)] font-medium leading-snug tracking-tight">{p.kennzahl}</p>
-                  </div>
-                )}
+            <div className="mt-auto grid gap-8 pt-14 md:grid-cols-12 md:items-end md:gap-6">
+              <div className="md:col-span-7">
+                <p className="text-[15px] text-foreground/65 md:text-[clamp(1rem,1.5vw,1.4rem)]">{p.kunde}</p>
+                <h1 id="fs-titel" className="mt-3 text-[clamp(2rem,8.4vw,2.9rem)] font-light leading-[1] tracking-[-0.045em] md:mt-5 md:text-[clamp(2.3rem,4.2vw,4.6rem)]">{p.titel}</h1>
               </div>
-
-              <dl className="mt-8 grid gap-x-6 gap-y-6 border-t border-white/15 pt-6 text-[15px] sm:grid-cols-2 md:mt-12 md:grid-cols-12 md:pt-8">
-                <div className="md:col-span-2"><dt className={fakt}>Zeitraum</dt><dd>{zeitraum(p)}</dd></div>
-                <div className="md:col-span-3"><dt className={fakt}>Rolle</dt><dd className="text-white/90">{p.rolle}</dd></div>
-                <div className="md:col-span-3">
-                  <dt className={fakt}>Phasen</dt>
-                  <dd className="flex items-center gap-3"><DiamondMini hell phasen={p.phasen} className="h-6 w-16" /><span className="text-white/90">{phasenText}</span></dd>
+              {p.kennzahl && (
+                <div className="rounded-[24px] bg-nacht p-6 text-white md:col-span-4 md:col-start-9 md:p-7">
+                  <p className="text-[13px] text-white/60">Ergebnis</p>
+                  <p className="mt-2 text-[clamp(1.15rem,1.7vw,1.5rem)] font-medium leading-snug tracking-tight">{p.kennzahl}</p>
                 </div>
-                <div className="sm:col-span-2 md:col-span-4">
-                  <dt className={fakt}>Methoden</dt>
-                  <dd className="flex flex-wrap gap-1.5">
-                    {p.methoden.map((m) => <span key={m} className="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[13px] text-white/90">{m}</span>)}
-                  </dd>
-                </div>
-              </dl>
+              )}
             </div>
-          </Buehne>
+
+            <dl className="mt-8 grid gap-x-6 gap-y-6 border-t border-foreground/15 pt-6 text-[15px] sm:grid-cols-2 md:mt-12 md:grid-cols-12 md:pt-8">
+              <div className="md:col-span-2"><dt className={fakt}>Zeitraum</dt><dd>{zeitraum(p)}</dd></div>
+              <div className="md:col-span-3"><dt className={fakt}>Rolle</dt><dd>{p.rolle}</dd></div>
+              <div className="md:col-span-3">
+                <dt className={fakt}>Phasen</dt>
+                <dd className="flex items-center gap-3"><DiamondMini phasen={p.phasen} className="h-6 w-16" /><span>{phasenText}</span></dd>
+              </div>
+              <div className="sm:col-span-2 md:col-span-4">
+                <dt className={fakt}>Methoden</dt>
+                <dd className="flex flex-wrap gap-1.5">
+                  {p.methoden.map((m) => <span key={m} className="rounded-full border border-foreground/15 bg-white/60 px-3 py-1 text-[13px]">{m}</span>)}
+                </dd>
+              </div>
+            </dl>
+          </div>
         </section>
 
         {/* Kapitel: links das Inhaltsverzeichnis, rechts der Text */}
