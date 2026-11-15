@@ -9,15 +9,16 @@ import { KONTAKT } from '@/lib/site';
 import { cn } from '@/lib/utils';
 import logo from '../../public/images/logo.png';
 
-export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 'de' | 'en' }) {
+/** `eigene` ersetzt die Links der Startseite durch Anker auf der aktuellen Seite (Bewerbungsseiten). */
+export function SiteHeader({ nav = true, lang = 'de', eigene }: { nav?: boolean; lang?: 'de' | 'en'; eigene?: [string, string][] }) {
   const [offen, setOffen] = useState(false);
   const pfad = usePathname();
   const reduce = useReducedMotion();
-  const links = lang === 'de'
+  const links = eigene ?? (lang === 'de'
     ? [['/#arbeitsweise', 'Arbeitsweise'], ['/#fallstudien', 'Fallstudien'], ['/#werdegang', 'Werdegang'], ['/#ueber-mich', 'Über mich']]
-    : [['/#arbeitsweise', 'Approach'], ['/#fallstudien', 'Case studies'], ['/#werdegang', 'Experience'], ['/#ueber-mich', 'About']];
+    : [['/#arbeitsweise', 'Approach'], ['/#fallstudien', 'Case studies'], ['/#werdegang', 'Experience'], ['/#ueber-mich', 'About']]);
   const cta = lang === 'de' ? 'Schreib mir' : 'Get in touch';
-  const daheim = pfad === '/';
+  const daheim = pfad === '/' || !!eigene;
   // Über dem dunklen Einstieg wird die Leiste selbst dunkel, danach hell
   const [dunkel, setDunkel] = useState(daheim);
   const [aktiv, setAktiv] = useState<string | null>(null);
@@ -68,10 +69,10 @@ export function SiteHeader({ nav = true, lang = 'de' }: { nav?: boolean; lang?: 
               className="justify-self-start rounded-md"
               onClick={(e) => {
                 // Auf der Startseite selbst zurück an den Anfang scrollen
-                if (pfad === '/') {
+                if (daheim) {
                   e.preventDefault();
                   setOffen(false);
-                  window.history.replaceState(null, '', '/');
+                  window.history.replaceState(null, '', pfad);
                   window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
                 }
               }}

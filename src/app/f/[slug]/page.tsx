@@ -7,6 +7,8 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { CaseCards, Licht } from '@/components/case-cards';
+import { Einstieg } from '@/components/hero';
+import { Buehne } from '@/components/buehne';
 import { ListeIndex } from '@/components/projekte-listen';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { SectionTitle } from '@/components/section-title';
@@ -15,7 +17,6 @@ import { Reveal } from '@/components/motion-bits';
 import { alleBewerbungen, alleProjekte } from '@/lib/content';
 import { zuKarte } from '@/lib/karten';
 import { KONTAKT, PHASEN_TEXT } from '@/lib/site';
-import portrait from '../../../../public/images/fotos/portrait-bw.png';
 import unterschrift from '../../../../public/images/unterschrift.png';
 
 export const dynamicParams = false;
@@ -50,40 +51,38 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
     ? { fuer: `Für ${b.firma}`, art: 'Bewerbung', von: `von ${KONTAKT.name} als`, brief: 'Anschreiben', gruss: 'Freundliche Grüsse', staerken: 'Was ich mitbringe.', staerkenText: `Drei Punkte aus meiner Arbeit, die zur Stelle als ${b.stelle} passen.`, beob: `${ZAHL_DE[n] || 'Beobachtungen'}.`, beobText: 'Ich habe Ihr Angebot aus Kundensicht angeschaut. Die Punkte sind als Einstieg in ein erstes Gespräch gedacht.', proj: 'Passende Projekte.', projText: 'Eine Auswahl aus meiner Arbeit bei Merkle, die zu Ihrer Stelle passt.', weitere: 'Weitere Projekte', alle: 'Alle Projekte ansehen', arbeit: 'So arbeite ich.', arbeitText: 'Ich begleite Projekte durch alle vier Phasen, von der ersten Analyse bis zur Umsetzung.', spaces: ['Problem verstehen', 'Lösung entwickeln'] as [string, string], hint: 'Fahren Sie über eine Phase oder tippen Sie darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze.', foot: 'Ich freue mich auf ein Gespräch.', footText: 'Am einfachsten erreichen Sie mich per E-Mail. Ich antworte innert eines Arbeitstages.', mail: 'E-Mail schreiben', cta: 'Gespräch vereinbaren', lesen: 'Anschreiben lesen' }
     : { fuer: `For ${b.firma}`, art: 'Application', von: `by ${KONTAKT.name} for`, brief: 'Cover letter', gruss: 'Kind regards', staerken: 'What I bring.', staerkenText: `Three reasons why I fit the role of ${b.stelle}.`, beob: 'Observations.', beobText: 'From a customer’s point of view, without knowing your internal reasons. A starting point for a first conversation.', proj: 'Relevant projects.', projText: 'A selection of my work at Merkle that matches the role.', weitere: 'More projects', alle: 'See all projects', arbeit: 'How I work.', arbeitText: 'I take projects through all four phases, from the first interview to go-live.', spaces: ['Understand the problem', 'Develop the solution'] as [string, string], hint: 'Hover over or tap a phase to see what I do there and which methods I use.', foot: 'I look forward to talking.', footText: 'The easiest way to reach me is by email. I reply within one working day.', mail: 'Write an email', cta: 'Schedule a call', lesen: 'Read the letter' };
 
+  const nav: [string, string][] = [
+    ['#brief', t.brief],
+    ['#staerken', t.staerken.replace(/\.$/, '')],
+    ...(n > 0 ? [['#beobachtungen', t.beob.replace(/\.$/, '')] as [string, string]] : []),
+    ['#projekte', l === 'de' ? 'Projekte' : 'Projects'],
+    ['#arbeitsweise', l === 'de' ? 'Arbeitsweise' : 'Approach'],
+  ];
+
   return (
     <div lang={l}>
-      <SiteHeader nav={false} lang={l} />
+      <SiteHeader lang={l} eigene={nav} />
       <main>
-        {/* Einstieg: dunkle Fläche mit Lichtverlauf und Porträt */}
-        <section className="container-page pt-24 md:pt-28">
-          <div className="group relative isolate overflow-clip rounded-[36px] bg-nacht text-white">
-            <Licht stil="lichter" i={0} />
-            <div className="relative z-10 grid min-h-[520px] md:min-h-[min(82vh,760px)] md:grid-cols-12">
-              <div className="flex flex-col justify-between gap-12 p-7 md:col-span-7 md:p-12">
-                <p className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[14px] backdrop-blur-md">
-                  <span className="size-1.5 rounded-full bg-salbei" aria-hidden />{t.fuer}
-                </p>
-                <div>
-                  <p className="text-[15px] text-white/60">{t.art} {t.von}</p>
-                  <h1 className="mt-4 text-[clamp(2.1rem,5.25vw,5.075rem)] font-light leading-[0.92] tracking-[-0.05em]">{b.stelle}.</h1>
-                  <div className="mt-10 flex flex-wrap gap-3">
-                    <a href="#brief" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-5 pr-1.5 text-[15px] font-medium text-ink">
-                      {t.lesen}
-                      <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:translate-y-0.5"><ArrowDown className="size-4" aria-hidden /></span>
-                    </a>
-                    <a href={`mailto:${KONTAKT.email}?subject=${encodeURIComponent(`${b.stelle} – ${b.firma}`)}`} className="inline-flex h-12 items-center rounded-full border border-white/25 px-5 text-[15px] transition-colors hover:bg-white/10">{t.cta}</a>
-                  </div>
-                </div>
-              </div>
-              <div className="relative hidden md:col-span-5 md:block">
-                <Image src={portrait} alt={`Porträt von ${KONTAKT.name}`} priority sizes="40vw" className="absolute bottom-0 right-0 w-[min(40vw,560px)] max-w-none opacity-95 [mask-image:linear-gradient(to_right,transparent_0%,black_30%)]" />
-              </div>
-            </div>
+        {/* Einstieg: dieselbe Stage wie die Startseite */}
+        <Einstieg lang={l}>
+          <p className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[14px] backdrop-blur-md">
+            <span className="size-1.5 rounded-full bg-salbei" aria-hidden />{t.fuer}
+          </p>
+          <h1 className="mt-6 font-light md:mt-8">
+            <span className="block text-[15px] text-white/65 md:text-[clamp(1rem,1.5vw,1.4rem)]">{t.art} {t.von}</span>
+            <span className="mt-3 block text-[clamp(2.1rem,9vw,3.2rem)] leading-[0.98] tracking-[-0.05em] md:mt-5 md:text-[clamp(2.4rem,4.6vw,5.2rem)]">{b.stelle}.</span>
+          </h1>
+          <div className="mt-auto flex flex-wrap gap-2.5 md:mt-9 md:gap-3">
+            <a href="#brief" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 text-[15px] font-medium text-ink md:pl-5">
+              {t.lesen}
+              <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:translate-y-0.5"><ArrowDown className="size-4" aria-hidden /></span>
+            </a>
+            <a href={`mailto:${KONTAKT.email}?subject=${encodeURIComponent(`${b.stelle} – ${b.firma}`)}`} className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] text-white backdrop-blur-md transition-colors hover:bg-white/15 md:px-5">{t.cta}</a>
           </div>
-        </section>
+        </Einstieg>
 
         {/* Anschreiben */}
-        <section id="brief" className="container-page scroll-mt-28 pt-28 md:pt-40">
+        <section id="brief" className="container-page scroll-mt-20 pt-28 md:pt-40">
           <Reveal className="grid gap-8 md:grid-cols-12">
             <p className="text-[14px] text-muted-foreground md:col-span-3">{t.brief}</p>
             <div className="max-w-[60ch] text-[clamp(1.15rem,1.6vw,1.375rem)] leading-[1.55] md:col-span-8 md:col-start-5 [&_p]:mb-5">
@@ -97,7 +96,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         </section>
 
         {/* Stärken auf hellen Kornflächen */}
-        <section className="container-page pt-28 md:pt-40" aria-labelledby="st-h">
+        <section id="staerken" className="container-page scroll-mt-20 pt-28 md:pt-40" aria-labelledby="st-h">
           <SectionTitle id="st-h" titel={t.staerken} text={t.staerkenText} />
           {/* Subgrid: Nummer, Titel und Text liegen in allen Kacheln auf gleicher Höhe */}
           <Reveal>
@@ -116,7 +115,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
 
         {/* Beobachtungen auf dunklen Lichtflächen */}
         {n > 0 && (
-          <section className="container-page pt-28 md:pt-40" aria-labelledby="bo-h">
+          <section id="beobachtungen" className="container-page scroll-mt-20 pt-28 md:pt-40" aria-labelledby="bo-h">
             <SectionTitle id="bo-h" titel={t.beob} text={t.beobText} />
             <Reveal>
               <ul className="grid gap-x-5 md:grid-cols-2 md:grid-rows-[minmax(9rem,1fr)_auto_auto]">
@@ -134,7 +133,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
         )}
 
         {/* Projekte */}
-        <section className="container-page pt-28 md:pt-40" aria-labelledby="pj-h">
+        <section id="projekte" className="container-page scroll-mt-20 pt-28 md:pt-40" aria-labelledby="pj-h">
           <SectionTitle id="pj-h" titel={t.proj} text={t.projText} />
           {cases.length > 0 && <CaseCards projekte={cases} lang={l} stil="sonne" />}
           {weitere.length > 0 && (
@@ -148,11 +147,16 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
           </Link>
         </section>
 
-        {/* Arbeitsweise */}
-        <section className="container-page pt-28 md:pt-40" aria-labelledby="aw-h">
-          <SectionTitle id="aw-h" titel={t.arbeit} text={t.arbeitText} />
-          <Reveal className="rounded-[32px] bg-white p-6 md:p-12">
-            <DoubleDiamond texte={PHASEN_TEXT[l]} spaces={t.spaces} hint={t.hint} />
+        {/* Arbeitsweise: dunkle Bühne wie auf der Startseite */}
+        <section id="arbeitsweise" className="container-page scroll-mt-20 pt-28 md:pt-40" aria-labelledby="aw-h">
+          <Reveal>
+            <Buehne i={0} ruhig className="rounded-[32px] px-5 pb-8 pt-10 md:rounded-[44px] md:px-14 md:pb-14 md:pt-16">
+              <div className="mb-12 grid gap-5 md:mb-16 md:grid-cols-12">
+                <h2 id="aw-h" className="text-[clamp(1.75rem,4.725vw,4.41rem)] font-medium leading-[0.9] tracking-[-0.045em] md:col-span-12">{t.arbeit}</h2>
+                <p className="text-[17px] leading-relaxed text-white/90 md:col-span-8">{t.arbeitText}</p>
+              </div>
+              <DoubleDiamond dunkel texte={PHASEN_TEXT[l]} spaces={t.spaces} hint={t.hint} />
+            </Buehne>
           </Reveal>
         </section>
       </main>

@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import {
   motion,
@@ -23,6 +23,11 @@ const ZAHLEN: {
   { zeichen: "∞", label: "Post-its geklebt" },
 ];
 
+const ZAHLEN_EN = ["Years at Merkle", "Companies supported", "Post-its stuck"];
+function beschriftung(z: { label: string }, i: number, lang: "de" | "en") {
+  return lang === "en" ? ZAHLEN_EN[i] : z.label;
+}
+
 const SUB =
   "Service Designer und UX-Stratege. Ich sorge dafür, dass digitale Abläufe von Anfang bis Ende funktionieren, und stütze meine Entscheidungen auf Research statt auf Bauchgefühl.";
 
@@ -37,7 +42,7 @@ const KANTEN =
  * Einstieg: links Begrüssung, Name, Text und Buttons, rechts das Porträt vor einem aufgehenden Licht.
  * Unter dem Porträt stehen die drei Zahlen. Beim Scrollen wird das Licht heller und der Text blendet aus.
  */
-export function Hero() {
+export function Einstieg({ children, lang = "de" }: { children: ReactNode; lang?: "de" | "en" }) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -48,26 +53,6 @@ export function Hero() {
   const lichtScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 0.6], [0, -40]);
-
-  const knoepfe = (
-    <div className="mt-5 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
-      <a
-        href="#kontakt"
-        className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 text-[15px] font-medium text-ink md:pl-5"
-      >
-        Schreib mir
-        <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:rotate-45">
-          <ArrowUpRight className="size-4" aria-hidden />
-        </span>
-      </a>
-      <a
-        href="#fallstudien"
-        className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] text-white backdrop-blur-md transition-colors hover:bg-white/15 md:px-5"
-      >
-        Fallstudien ansehen
-      </a>
-    </div>
-  );
 
   return (
     <section
@@ -117,17 +102,17 @@ export function Hero() {
 
         {/* Zahlen unter dem Porträt */}
         <dl className="absolute bottom-10 right-[3%] z-20 hidden divide-x divide-white/15 rounded-[22px] border border-white/15 bg-nacht/45 px-2 py-3.5 backdrop-blur-md md:flex">
-          {ZAHLEN.map((z) => (
+          {ZAHLEN.map((z, zi) => (
             <div key={z.label} className="px-5">
-              <dt className="sr-only">{z.label}</dt>
+              <dt className="sr-only">{beschriftung(z, zi, lang)}</dt>
               <dd className="text-[clamp(1.25rem,1.9vw,1.6rem)] font-medium leading-none tracking-tight">
-                {z.zeichen ?? `${z.wert}${z.suffix ?? ''}`}
+                {z.zeichen ?? `${z.wert}${z.suffix ?? ""}`}
               </dd>
               <p
                 aria-hidden
                 className="mt-1.5 whitespace-nowrap text-[12px] leading-snug text-white/70"
               >
-                {z.label}
+                {beschriftung(z, zi, lang)}
               </p>
             </div>
           ))}
@@ -138,6 +123,37 @@ export function Hero() {
           className="relative z-20 flex flex-1 flex-col pb-6 pt-4 md:max-w-[54%] md:flex-none md:pb-10 md:pt-0"
           style={reduce ? undefined : { opacity: textOpacity, y: textY }}
         >
+          {children}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/** Startseite: Begrüssung mit Name, Rolle als Titel, Text und Buttons. */
+export function Hero() {
+  const knoepfe = (
+    <div className="mt-5 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
+      <a
+        href="#kontakt"
+        className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 text-[15px] font-medium text-ink md:pl-5"
+      >
+        Schreib mir
+        <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:rotate-45">
+          <ArrowUpRight className="size-4" aria-hidden />
+        </span>
+      </a>
+      <a
+        href="#fallstudien"
+        className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] text-white backdrop-blur-md transition-colors hover:bg-white/15 md:px-5"
+      >
+        Fallstudien ansehen
+      </a>
+    </div>
+  );
+
+  return (
+    <Einstieg>
           <h1 className="font-light">
             <span className="block text-[15px] text-white/65 md:text-[clamp(1rem,1.5vw,1.4rem)]">
               Ciao, ich bin <span className="text-white">{KONTAKT.name}</span>
@@ -154,8 +170,6 @@ export function Hero() {
             </p>
             {knoepfe}
           </div>
-        </motion.div>
-      </div>
-    </section>
+    </Einstieg>
   );
 }
