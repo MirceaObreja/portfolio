@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Markdown from 'react-markdown';
 import { ArrowLeft } from 'lucide-react';
+import { ZurueckLink } from '@/components/zurueck-link';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { DiamondMini } from '@/components/diamond-mini';
@@ -34,9 +35,9 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
       <SiteHeader />
       <main>
         <div className="container-page">
-        <Link href="/#fallstudien" className="mt-8 inline-flex items-center gap-2 text-[15px] text-muted-foreground hover:text-foreground">
+        <ZurueckLink className="mt-8 inline-flex items-center gap-2 text-[15px] text-muted-foreground hover:text-foreground">
           <ArrowLeft className="size-4" aria-hidden />Alle Fallstudien
-        </Link>
+        </ZurueckLink>
         <header className="border-b border-foreground pb-12 pt-10 md:pb-16 md:pt-16">
           <p className="mb-5 font-medium text-muted-foreground">{p.kunde}</p>
           <h1 className="max-w-[20ch] text-[clamp(1.575rem,3.78vw,3.15rem)] tracking-[-0.04em]">{p.titel}</h1>
