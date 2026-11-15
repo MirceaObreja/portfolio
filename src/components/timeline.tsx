@@ -60,8 +60,8 @@ function Station({ e, i }: { e: Eintrag; i: number }) {
           )}
         </p>
         <p className="mt-3 text-[clamp(1.05rem,1.2vw,1.15rem)] font-medium leading-tight tracking-tight">{e.titel}</p>
-        <p className="mt-0.5 text-[14px] text-muted-foreground">{e.ort}</p>
-        {e.text && <p className={cn('mt-2 max-w-[44ch] text-[15px] leading-relaxed text-foreground/75', links && 'md:ml-auto')}>{e.text}</p>}
+        <p className="mt-0.5 text-[15px] text-muted-foreground">{e.ort}</p>
+        {e.text && <p className={cn('mt-2 max-w-[44ch] text-[17px] leading-relaxed text-foreground/75', links && 'md:ml-auto')}>{e.text}</p>}
       </motion.div>
     </li>
   );

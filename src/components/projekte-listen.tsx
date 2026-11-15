@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight, Plus } from 'lucide-react';
 import { ProjektTabs } from '@/components/projekt-tabs';
-import type { ProjektKarte } from '@/components/project-explorer';
+import type { ProjektKarte } from '@/lib/karten';
 import { cn } from '@/lib/utils';
 
 const PHASEN = ['discover', 'define', 'develop', 'deliver'] as const;

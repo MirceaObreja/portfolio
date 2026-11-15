@@ -15,12 +15,12 @@ export function SiteHeader({ nav = true, lang = 'de', eigene, cta: ctaEigen, sta
   const pfad = usePathname();
   const reduce = useReducedMotion();
   const links = eigene ?? (lang === 'de'
-    ? [['/#arbeitsweise', 'Arbeitsweise'], ['/#fallstudien', 'Fallstudien'], ['/#werdegang', 'Werdegang'], ['/#ueber-mich', 'Über mich']]
-    : [['/#arbeitsweise', 'Approach'], ['/#fallstudien', 'Case studies'], ['/#werdegang', 'Experience'], ['/#ueber-mich', 'About']]);
+    ? [['/#arbeitsweise', 'Arbeitsweise'], ['/#fallstudien', 'Fallstudien'], ['/#projekte', 'Projekte'], ['/#werdegang', 'Werdegang'], ['/#ueber-mich', 'Über mich']]
+    : [['/#arbeitsweise', 'Approach'], ['/#fallstudien', 'Case studies'], ['/#projekte', 'Projects'], ['/#werdegang', 'Experience'], ['/#ueber-mich', 'About']]);
   const cta = ctaEigen?.label ?? (lang === 'de' ? 'Schreib mir' : 'Get in touch');
   const daheim = pfad === '/' || !!eigene;
   // Bewerbungsseiten haben mehr und längere Einträge: die volle Leiste erst ab grossen Breiten
-  const bp = eigene ? { zeile: 'xl:grid xl:grid-cols-[1fr_auto_1fr]', nav: 'hidden xl:flex', menue: 'xl:hidden', mobil: 'xl:hidden' } : { zeile: 'md:grid md:grid-cols-[1fr_auto_1fr]', nav: 'hidden md:flex', menue: 'md:hidden', mobil: 'md:hidden' };
+  const bp = eigene ? { zeile: 'xl:grid xl:grid-cols-[1fr_auto_1fr]', nav: 'hidden xl:flex', menue: 'xl:hidden', mobil: 'xl:hidden' } : { zeile: 'lg:grid lg:grid-cols-[1fr_auto_1fr]', nav: 'hidden lg:flex', menue: 'lg:hidden', mobil: 'lg:hidden' };
   // Über dem dunklen Einstieg wird die Leiste selbst dunkel, danach hell
   // `stage`: Unterseite mit dunklem Einstieg (Fallstudie)
   const mitStage = daheim || stage;
@@ -30,7 +30,8 @@ export function SiteHeader({ nav = true, lang = 'de', eigene, cta: ctaEigen, sta
   useEffect(() => {
     if (!mitStage) {
       setDunkel(false);
-      setAktiv(null);
+      // Auf einer Fallstudie bleibt «Fallstudien» markiert
+      setAktiv(pfad.startsWith('/projekte/') ? 'fallstudien' : null);
       return;
     }
     const ids = links.map(([href]) => href.split('#')[1]);
@@ -58,7 +59,7 @@ export function SiteHeader({ nav = true, lang = 'de', eigene, cta: ctaEigen, sta
       if (frame) cancelAnimationFrame(frame);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mitStage, lang]);
+  }, [mitStage, lang, pfad]);
   const ctaKurz = ctaEigen?.kurz ?? (lang === 'de' ? 'Kontakt' : 'Contact');
 
   return (

@@ -1,5 +1,17 @@
 import { zeitraum, type Projekt, type Sprache } from './content';
-import type { ProjektKarte } from '@/components/project-explorer';
+
+export type ProjektKarte = {
+  id: string;
+  titel: string;
+  kunde: string;
+  zeitraum: string;
+  rolle: string;
+  kurz: string;
+  ergebnis?: string;
+  tags: string[];
+  phasen: string[];
+  fallstudie: boolean;
+};
 
 export const zuKarte = (p: Projekt, l: Sprache = 'de'): ProjektKarte => ({
   id: p.id,
