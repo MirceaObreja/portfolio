@@ -1,6 +1,6 @@
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
-import { Hero } from '@/components/hero';
+import { HeroWahl } from '@/components/hero-wahl';
 import { Buehne } from '@/components/buehne';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { CaseCards } from '@/components/case-cards';
@@ -30,7 +30,7 @@ export default function Home() {
           </div>
         )}
 
-        <Hero />
+        <HeroWahl />
 
         <Banner />
 

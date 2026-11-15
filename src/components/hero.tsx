@@ -16,6 +16,9 @@ const ZAHLEN: { wert?: number; suffix?: string; zeichen?: string; label: string 
 
 const SUB = 'Service Designer und UX-Stratege. Ich sorge dafür, dass digitale Abläufe von Anfang bis Ende funktionieren, und stütze meine Entscheidungen auf Research statt auf Bauchgefühl.';
 
+const ROLLE = 'Service Designer und UX-Stratege.';
+const REST = SUB.slice(ROLLE.length + 1);
+
 // Blendet die geraden Bildkanten des Porträts unten und seitlich weich aus
 const KANTEN = '[mask-image:linear-gradient(to_top,transparent_0%,black_20%),linear-gradient(to_right,transparent_0%,black_14%,black_86%,transparent_100%)] [mask-composite:intersect]';
 
@@ -36,7 +39,9 @@ function Buchstaben({ wort, start }: { wort: string; start: number }) {
  * Einstieg: links Begrüssung, Name, Text und Buttons, rechts das Porträt vor einem aufgehenden Licht.
  * Unter dem Porträt stehen die drei Zahlen. Beim Scrollen wird das Licht heller und der Text blendet aus.
  */
-export function Hero() {
+export type StageVariante = 'a' | 'b' | 'c';
+
+export function Hero({ variante = 'a' }: { variante?: StageVariante }) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
@@ -44,6 +49,20 @@ export function Hero() {
   const lichtScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 0.6], [0, -40]);
+
+  const knoepfe = (
+    <div className="mt-5 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
+      <a href="#kontakt" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 text-[15px] font-medium text-ink md:pl-5">
+        Schreib mir
+        <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:rotate-45">
+          <ArrowUpRight className="size-4" aria-hidden />
+        </span>
+      </a>
+      <a href="#fallstudien" className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] text-white backdrop-blur-md transition-colors hover:bg-white/15 md:px-5">
+        Fallstudien ansehen
+      </a>
+    </div>
+  );
 
   return (
     <section ref={ref} id="einstieg" aria-label="Einstieg" className="relative isolate -mt-24 h-[100svh] max-h-[1080px] min-h-[640px] overflow-clip rounded-b-[32px] bg-nacht text-white md:rounded-b-[44px]">
@@ -85,35 +104,69 @@ export function Hero() {
           ))}
         </dl>
 
-        {/* Links: Begrüssung, Name, Text, Buttons */}
+        {/* Links: je nach Variante */}
         <motion.div
           className="relative z-20 flex flex-1 flex-col pb-6 pt-4 md:max-w-[54%] md:flex-none md:pb-10 md:pt-0"
           style={reduce ? undefined : { opacity: textOpacity, y: textY }}
         >
-          <p className="hero-text text-[15px] text-white/65 md:text-[17px]">Ciao, ich bin</p>
-          <h1 className="mt-2 font-light leading-[0.86] tracking-[-0.06em] md:mt-3">
-            <span className="sr-only">{KONTAKT.name}</span>
-            <span aria-hidden className="block text-[clamp(4rem,20vw,6.5rem)] md:text-[clamp(4.5rem,9.4vw,10.5rem)]">
-              <Buchstaben wort="Mircea" start={0.15} />
-              <br />
-              <Buchstaben wort="Obreja" start={0.42} />
-            </span>
-          </h1>
-          <div className="hero-text mt-auto md:mt-9">
-            <p className="text-[15px] leading-normal text-white/85 [text-shadow:0_1px_18px_rgba(31,43,51,0.55)] md:max-w-[40ch] md:text-[17px] md:leading-relaxed">{SUB}</p>
-            <div className="mt-5 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
-              <a href="#kontakt" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 text-[15px] font-medium text-ink md:pl-5">
-                Schreib mir
-                <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:rotate-45">
-                  <ArrowUpRight className="size-4" aria-hidden />
+          {variante === 'a' && (
+            <>
+              <p className="hero-text text-[15px] text-white/65 md:text-[17px]">Ciao, ich bin</p>
+              <h1 className="mt-2 font-light leading-[0.9] tracking-[-0.05em] md:mt-3">
+                <span className="sr-only">{KONTAKT.name}</span>
+                <span aria-hidden className="block text-[clamp(2.6rem,12vw,3.6rem)] md:text-[clamp(2.6rem,5vw,5.4rem)]">
+                  <Buchstaben wort="Mircea" start={0.15} />
+                  <br />
+                  <Buchstaben wort="Obreja" start={0.42} />
                 </span>
-              </a>
-              <a href="#fallstudien" className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] text-white backdrop-blur-md transition-colors hover:bg-white/15 md:px-5">
-                Fallstudien ansehen
-              </a>
-            </div>
-          </div>
+              </h1>
+              <div className="hero-text mt-auto md:mt-8">
+                <p className="text-[17px] leading-snug text-white/90 [text-shadow:0_1px_18px_rgba(31,43,51,0.55)] md:max-w-[30ch] md:text-[clamp(1.2rem,1.9vw,1.9rem)] md:font-light md:tracking-[-0.01em]">{SUB}</p>
+                {knoepfe}
+              </div>
+            </>
+          )}
+
+          {variante === 'b' && (
+            <>
+              <h1 className="font-light">
+                <span className="hero-text block text-[15px] text-white/65 md:text-[clamp(1rem,1.5vw,1.4rem)]">
+                  Ciao, ich bin <span className="text-white">{KONTAKT.name}</span>
+                </span>
+                <span className="mt-3 block text-[clamp(2.4rem,10.5vw,3.4rem)] leading-[0.98] tracking-[-0.05em] md:mt-5 md:text-[clamp(2.6rem,4.6vw,5.2rem)]">
+                  <Buchstaben wort="Service" start={0.15} /> <Buchstaben wort="Designer" start={0.3} />
+                  <br />
+                  <Buchstaben wort="und" start={0.5} /> <Buchstaben wort="UX-Stratege." start={0.6} />
+                </span>
+              </h1>
+              <div className="hero-text mt-auto md:mt-9">
+                <p className="text-[15px] leading-normal text-white/85 [text-shadow:0_1px_18px_rgba(31,43,51,0.55)] md:max-w-[40ch] md:text-[17px] md:leading-relaxed">{REST}</p>
+                {knoepfe}
+              </div>
+            </>
+          )}
+
+          {variante === 'c' && (
+            <>
+              <h1 className="sr-only">{KONTAKT.name}, {ROLLE}</h1>
+              <p aria-hidden className="hero-text text-[13px] uppercase tracking-[0.14em] text-white/60">{ROLLE.replace('.', '')}</p>
+              <p aria-hidden className="mt-4 text-[clamp(1.55rem,6.4vw,2rem)] font-light leading-[1.08] tracking-[-0.035em] md:mt-6 md:text-[clamp(1.8rem,3.3vw,3.7rem)]">
+                {REST.split(' ').map((w, i) => (
+                  <span key={i} className="word mr-[0.26em]" style={{ animationDelay: `${0.15 + i * 0.035}s` }}>{w}</span>
+                ))}
+              </p>
+              <div className="hero-text mt-auto md:mt-9">{knoepfe}</div>
+            </>
+          )}
         </motion.div>
+
+        {/* Variante C: Name als Schild am Porträt */}
+        {variante === 'c' && (
+          <div className="hero-text absolute bottom-[calc(25%-0.5rem)] left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-[18px] border border-white/20 bg-nacht/45 px-5 py-3 text-center backdrop-blur-md md:bottom-[7.6rem] md:left-auto md:right-[3%] md:translate-x-0 md:text-left">
+            <p className="text-[clamp(1.1rem,1.6vw,1.45rem)] font-medium leading-none tracking-tight">{KONTAKT.name}</p>
+            <p className="mt-1.5 text-[12px] text-white/70">Service Designer und UX-Stratege</p>
+          </div>
+        )}
       </div>
     </section>
   );
