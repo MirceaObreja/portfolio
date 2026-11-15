@@ -35,7 +35,10 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
       <SiteHeader />
       <main>
         <div className="container-page">
-        <ZurueckLink className="mt-8 inline-flex items-center gap-2 text-[15px] text-muted-foreground hover:text-foreground">
+        <ZurueckLink
+          className="mt-8 inline-flex items-center gap-2 text-[15px] text-muted-foreground hover:text-foreground"
+          bewerbung={<><ArrowLeft className="size-4" aria-hidden />Zurück zur Bewerbung</>}
+        >
           <ArrowLeft className="size-4" aria-hidden />Alle Fallstudien
         </ZurueckLink>
         <header className="border-b border-foreground pb-12 pt-10 md:pb-16 md:pt-16">

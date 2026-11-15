@@ -1,27 +1,35 @@
 'use client';
 
+import { useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import type { ReactNode } from 'react';
 
-/* Führt wie «Zurück» zur Startseite, wenn man von dort kam (gleiche Scrollposition),
-   sonst zum Abschnitt «Fallstudien». */
-export function ZurueckLink({ className, children }: { className?: string; children: ReactNode }) {
+/**
+ * Führt zurück an den Ort, von dem man kam: Startseite oder Bewerbungsseite, jeweils an die
+ * vorherige Scrollposition. Ohne bekannte Herkunft geht es zum Abschnitt «Fallstudien».
+ */
+export function ZurueckLink({ className, children, bewerbung }: { className?: string; children: ReactNode; bewerbung: ReactNode }) {
   const router = useRouter();
+  const [herkunft, setHerkunft] = useState<string | null>(null);
+  useEffect(() => {
+    try { setHerkunft(sessionStorage.getItem('herkunft')); } catch {}
+  }, []);
+  const vonBewerbung = !!herkunft && herkunft.startsWith('/f/');
+
   return (
     <Link
-      href="/#fallstudien"
+      href={vonBewerbung ? herkunft : '/#fallstudien'}
       className={className}
       onClick={(e) => {
-        let kamVonStart = false;
-        try { kamVonStart = sessionStorage.getItem('vorher') === '/'; } catch {}
-        if (kamVonStart && window.history.length > 1) {
+        let vorher: string | null = null;
+        try { vorher = sessionStorage.getItem('vorher'); } catch {}
+        if (vorher && vorher === herkunft && window.history.length > 1) {
           e.preventDefault();
           router.back();
         }
       }}
     >
-      {children}
+      {vonBewerbung ? bewerbung : children}
     </Link>
   );
 }
