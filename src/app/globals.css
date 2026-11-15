@@ -127,23 +127,17 @@
 @keyframes drift-a { 0%, 100% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(6%, 8%, 0) scale(1.12); } }
 @keyframes drift-b { 0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); } 50% { transform: translate3d(-8%, -4%, 0) scale(0.92); } }
 @keyframes rise { from { opacity: 0; transform: translateY(0.35em); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
-@keyframes hero-auf { from { opacity: 0; transform: translateY(56px) scale(0.97); filter: blur(12px); } }
-@keyframes hero-ein { from { opacity: 0; } }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 .orb-a { animation: drift-a 22s ease-in-out infinite; }
 .orb-b { animation: drift-b 26s ease-in-out infinite; }
 .word { display: inline-block; opacity: 0; animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
-.hero-licht { animation: hero-ein 1.8s ease-out backwards; }
-.hero-bild img { animation: hero-auf 1.3s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s backwards; }
-.hero-text { animation: hero-ein 0.9s ease-out 1.05s backwards; }
 .marquee-track { animation: marquee 40s linear infinite; }
 .marquee-reverse { animation-direction: reverse; }
 .marquee-slow { animation-duration: 60s; }
 .pause-on-hover:hover .marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
-  .orb-a, .orb-b, .marquee-track, .hero-licht, .hero-bild img, .hero-text { animation: none; }
-  .word { opacity: 1; animation: none; }
+  .orb-a, .orb-b, .marquee-track, .word { opacity: 1; animation: none; }
 }
 
 /* Feines Korn über der ganzen Seite: nimmt den hellen Flächen das Sterile, auf dunklen Flächen kaum sichtbar */

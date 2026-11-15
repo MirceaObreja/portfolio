@@ -8,7 +8,6 @@ import {
   useTransform,
 } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import { Counter } from "@/components/counter";
 import { Korn } from "@/components/licht";
 import { KONTAKT } from "@/lib/site";
 import portrait from "../../public/images/fotos/portrait-bw.png";
@@ -33,23 +32,6 @@ const REST = SUB.slice(ROLLE.length + 1);
 // Blendet die geraden Bildkanten des Porträts unten und seitlich weich aus
 const KANTEN =
   "[mask-image:linear-gradient(to_top,transparent_0%,black_20%),linear-gradient(to_right,transparent_0%,black_14%,black_86%,transparent_100%)] [mask-composite:intersect]";
-
-/** Ein Wort des Namens, Buchstabe für Buchstabe eingeblendet. */
-function Buchstaben({ wort, start }: { wort: string; start: number }) {
-  return (
-    <span className="inline-block whitespace-nowrap">
-      {wort.split("").map((b, i) => (
-        <span
-          key={i}
-          className="word"
-          style={{ animationDelay: `${start + i * 0.045}s` }}
-        >
-          {b}
-        </span>
-      ))}
-    </span>
-  );
-}
 
 /**
  * Einstieg: links Begrüssung, Name, Text und Buttons, rechts das Porträt vor einem aufgehenden Licht.
@@ -97,7 +79,7 @@ export function Hero() {
       {/* Licht: geht hinter dem Porträt auf, die linke Seite bleibt dunkel für den Text. Auf dem Handy liegt es mittig hinter dem Bild. */}
       <motion.div
         aria-hidden
-        className="hero-licht pointer-events-none absolute inset-0 origin-bottom-right max-md:hidden"
+        className="pointer-events-none absolute inset-0 origin-bottom-right max-md:hidden"
         style={{
           scale: reduce ? 1 : lichtScale,
           background:
@@ -106,7 +88,7 @@ export function Hero() {
       />
       <div
         aria-hidden
-        className="hero-licht pointer-events-none absolute inset-0 md:hidden"
+        className="pointer-events-none absolute inset-0 md:hidden"
         style={{
           background:
             "radial-gradient(95% 34% at 50% 60%, #9eaaa2 0%, #758a87 26%, rgba(81,104,111,0.7) 52%, rgba(53,72,87,0.35) 76%, rgba(31,43,51,0) 100%)",
@@ -121,7 +103,7 @@ export function Hero() {
       <div className="container-page relative flex h-full flex-col pt-24 md:justify-center">
         {/* Porträt: auf dem Handy mittig, sonst rechts */}
         <motion.div
-          className="hero-bild absolute inset-x-0 bottom-[25%] z-10 flex h-[45%] justify-center md:bottom-0 md:left-auto md:right-[3%] md:h-[86%] md:justify-end"
+          className="absolute inset-x-0 bottom-[25%] z-10 flex h-[45%] justify-center md:bottom-0 md:left-auto md:right-[3%] md:h-[86%] md:justify-end"
           style={reduce ? undefined : { y: bildY }}
         >
           <Image
@@ -134,12 +116,12 @@ export function Hero() {
         </motion.div>
 
         {/* Zahlen unter dem Porträt */}
-        <dl className="hero-text absolute bottom-10 right-[3%] z-20 hidden divide-x divide-white/15 rounded-[22px] border border-white/15 bg-nacht/45 px-2 py-3.5 backdrop-blur-md md:flex">
+        <dl className="absolute bottom-10 right-[3%] z-20 hidden divide-x divide-white/15 rounded-[22px] border border-white/15 bg-nacht/45 px-2 py-3.5 backdrop-blur-md md:flex">
           {ZAHLEN.map((z) => (
             <div key={z.label} className="px-5">
               <dt className="sr-only">{z.label}</dt>
               <dd className="text-[clamp(1.25rem,1.9vw,1.6rem)] font-medium leading-none tracking-tight">
-                {z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}
+                {z.zeichen ?? `${z.wert}${z.suffix ?? ''}`}
               </dd>
               <p
                 aria-hidden
@@ -157,18 +139,16 @@ export function Hero() {
           style={reduce ? undefined : { opacity: textOpacity, y: textY }}
         >
           <h1 className="font-light">
-            <span className="hero-text block text-[15px] text-white/65 md:text-[clamp(1rem,1.5vw,1.4rem)]">
+            <span className="block text-[15px] text-white/65 md:text-[clamp(1rem,1.5vw,1.4rem)]">
               Ciao, ich bin <span className="text-white">{KONTAKT.name}</span>
             </span>
             <span className="mt-3 block text-[clamp(2.4rem,10.5vw,3.4rem)] leading-[0.98] tracking-[-0.05em] md:mt-5 md:text-[clamp(2.6rem,4.6vw,5.2rem)]">
-              <Buchstaben wort="Service" start={0.15} />{" "}
-              <Buchstaben wort="Designer" start={0.3} />
+              Service Designer
               <br />
-              <Buchstaben wort="und" start={0.5} />{" "}
-              <Buchstaben wort="UX-Stratege." start={0.6} />
+              und UX-Stratege.
             </span>
           </h1>
-          <div className="hero-text mt-auto md:mt-9">
+          <div className="mt-auto md:mt-9">
             <p className="text-[15px] leading-normal text-white/85 [text-shadow:0_1px_18px_rgba(31,43,51,0.55)] md:max-w-[40ch] md:text-[17px] md:leading-relaxed">
               {REST}
             </p>
