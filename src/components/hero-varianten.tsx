@@ -48,7 +48,7 @@ const SUB = 'Service Designer und UX-Stratege. Ich sorge dafür, dass digitale A
 export function HeroPanel() {
   return (
     <section className="container-page pt-24 md:pt-28" aria-label="Einstieg">
-      <div className="group relative isolate overflow-hidden rounded-[36px] bg-nacht text-white">
+      <div className="group relative isolate overflow-clip rounded-[36px] bg-nacht text-white">
         <Licht stil="lichter" i={0} />
         <div className="relative z-10 grid min-h-[560px] md:min-h-[min(84vh,780px)] md:grid-cols-12">
           <div className="flex flex-col justify-between gap-12 p-7 md:col-span-7 md:p-12">
@@ -75,7 +75,7 @@ export function HeroPanel() {
 /** Variante B: Randlos über die ganze Breite, heller Horizont unten, Name hinter dem Porträt. */
 export function HeroVollbild() {
   return (
-    <section className="group relative isolate -mt-24 overflow-hidden bg-nacht pt-24 text-white" aria-label="Einstieg">
+    <section className="group relative isolate -mt-24 overflow-clip bg-nacht pt-24 text-white" aria-label="Einstieg">
       <Licht stil="horizont" i={0} />
       <div className="container-page relative flex min-h-[620px] flex-col md:min-h-[min(96vh,920px)]">
         <div className="relative z-10 flex flex-wrap items-start justify-between gap-6 pt-10 md:pt-14">
@@ -120,7 +120,7 @@ export function HeroKarte() {
             </div>
           </div>
         </div>
-        <div className="group relative isolate min-h-[520px] overflow-hidden rounded-[36px] bg-nacht text-white md:col-span-6">
+        <div className="group relative isolate min-h-[520px] overflow-clip rounded-[36px] bg-nacht text-white md:col-span-6">
           <Licht stil="lichter" i={2} />
           <div aria-hidden className="pointer-events-none absolute left-1/2 top-[52%] aspect-square w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[30px] transition-transform duration-1000 group-hover:scale-110" style={{ background: 'radial-gradient(circle, #c7ccc2 0%, rgba(158,170,162,0.7) 30%, rgba(117,138,135,0.35) 55%, rgba(31,43,51,0) 72%)' }} />
           <Image src={portrait} alt={`Porträt von ${KONTAKT.name}`} priority sizes="45vw" className={`absolute bottom-0 left-1/2 w-[min(92%,560px)] max-w-none -translate-x-1/2 ${KANTEN}`} />

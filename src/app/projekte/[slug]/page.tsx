@@ -32,7 +32,8 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
   return (
     <>
       <SiteHeader />
-      <main className="container-page">
+      <main>
+        <div className="container-page">
         <Link href="/#fallstudien" className="mt-8 inline-flex items-center gap-2 text-[15px] text-muted-foreground hover:text-foreground">
           <ArrowLeft className="size-4" aria-hidden />Alle Fallstudien
         </Link>
@@ -67,6 +68,7 @@ export default async function Fallstudie({ params }: { params: Promise<{ slug: s
             ))}
           </ul>
         </nav>
+        </div>
       </main>
       <SiteFooter />
     </>

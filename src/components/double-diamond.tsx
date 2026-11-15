@@ -29,13 +29,15 @@ const HALVES: Record<Phase, string> = {
   deliver: 'M590 16 L780 110 L590 204 Z',
 };
 const BASIS: Record<Phase, string> = { discover: '#e8e8e1', define: '#dfe1da', develop: '#f6f5f0', deliver: '#ecece5' };
+// Auf dunklem Grund: durchscheinende Flächen statt heller Töne
+const BASIS_DUNKEL: Record<Phase, string> = { discover: 'rgba(255,255,255,0.05)', define: 'rgba(255,255,255,0.1)', develop: 'rgba(255,255,255,0.05)', deliver: 'rgba(255,255,255,0.1)' };
 const LABEL: Record<Phase, { x: string; y: string }> = {
   discover: { x: '18.33%', y: '49.55%' },
   define: { x: '34.17%', y: '49.55%' },
   develop: { x: '65.83%', y: '49.55%' },
   deliver: { x: '81.67%', y: '49.55%' },
 };
-export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [string, string]; hint: string }) {
+export function DoubleDiamond({ texte, spaces, hint, dunkel = false }: { texte: Text; spaces: [string, string]; hint: string; dunkel?: boolean }) {
   const reduce = useReducedMotion();
   const svgRef = useRef<SVGSVGElement>(null);
   const sichtbar = useInView(svgRef, { once: true, amount: 0.4 }) || !!reduce;
@@ -79,7 +81,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
                   onMouseEnter={() => setHover(p)}
                   onClick={() => toggle(p)}
                   className="cursor-pointer transition-[fill] duration-200"
-                  fill={aktiv === p ? 'var(--tinte)' : aktiv && PHASEN.indexOf(p) < PHASEN.indexOf(aktiv) ? 'var(--salbei)' : BASIS[p]}
+                  fill={aktiv === p ? (dunkel ? 'var(--stein)' : 'var(--tinte)') : aktiv && PHASEN.indexOf(p) < PHASEN.indexOf(aktiv) ? (dunkel ? 'rgba(158,170,162,0.5)' : 'var(--salbei)') : (dunkel ? BASIS_DUNKEL : BASIS)[p]}
                   aria-hidden
                 />
               ))}
@@ -91,7 +93,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
                 key={pfad}
                 d={pfad}
                 fill="none"
-                stroke="var(--nacht)"
+                stroke={dunkel ? 'rgba(255,255,255,0.9)' : 'var(--nacht)'}
                 strokeWidth={1.75}
                 strokeLinejoin="round"
                 strokeLinecap="round"
@@ -108,7 +110,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
             <motion.line
               key={'l' + p.join()}
               x1={p[0]} y1={p[1] + 8} x2={p[0]} y2={220}
-              stroke="var(--salbei)" strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" pointerEvents="none"
+              stroke={dunkel ? 'rgba(255,255,255,0.35)' : 'var(--salbei)'} strokeWidth={1} strokeDasharray="2 4" vectorEffect="non-scaling-stroke" pointerEvents="none"
               initial={reduce ? false : { opacity: 0 }}
               animate={sichtbar ? { opacity: 1 } : { opacity: 0 }}
               transition={{ delay: [0.2, START_ZEIT[1], START_ZEIT[1] + DAUER][i], duration: 0.4 }}
@@ -119,7 +121,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
             <motion.circle
               key={p.join()}
               cx={p[0]} cy={p[1]} r={6}
-              fill="#ffffff" stroke="var(--nacht)" strokeWidth={2} pointerEvents="none"
+              fill={dunkel ? 'var(--nacht)' : '#ffffff'} stroke={dunkel ? '#ffffff' : 'var(--nacht)'} strokeWidth={2} pointerEvents="none"
               style={{ transformOrigin: `${p[0]}px ${p[1]}px` }}
               initial={reduce ? false : { scale: 0 }}
               animate={sichtbar ? { scale: 1 } : { scale: 0 }}
@@ -144,7 +146,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
             style={{ left: LABEL[p].x, top: LABEL[p].y }}
             className={cn(
               'absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full px-1 py-1 leading-none text-[11px] font-medium tracking-tight transition-colors sm:px-2 sm:text-[15px] md:text-base',
-              aktiv === p ? 'text-white' : 'text-foreground',
+              dunkel ? (aktiv === p ? 'text-nacht' : 'text-white') : aktiv === p ? 'text-white' : 'text-foreground',
             )}
           >
             {texte[p].name}
@@ -154,14 +156,14 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
         </div>
 
         {/* Beschriftung direkt unter den drei Punkten */}
-        <div aria-hidden className="pointer-events-none relative mt-2 h-5 text-[11px] text-muted-foreground sm:text-[14px]">
+        <div aria-hidden className={cn('pointer-events-none relative mt-2 h-5 text-[11px] sm:text-[14px]', dunkel ? 'text-white/55' : 'text-muted-foreground')}>
           <span className="absolute left-0 whitespace-nowrap">Ausgangslage</span>
           <span className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap">Problemdefinition</span>
           <span className="absolute right-0 whitespace-nowrap">Lösung</span>
         </div>
       </div>
 
-      <div id="phase-text" aria-live="polite" className="mt-8 min-h-[9.5rem] border-t border-foreground/10 pt-6">
+      <div id="phase-text" aria-live="polite" className={cn('mt-8 min-h-[9.5rem] border-t pt-6', dunkel ? 'border-white/10' : 'border-foreground/10')}>
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={aktiv ?? 'hint'}
@@ -172,8 +174,8 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
           >
             {aktiv ? (
               <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-10">
-                <p className="max-w-[48ch]">
-                  <span className="mb-1 block text-xl font-semibold tracking-tight">{texte[aktiv].name}</span>
+                <p className={cn('max-w-[48ch]', dunkel && 'text-white/75')}>
+                  <span className={cn('mb-1 block text-xl font-semibold tracking-tight', dunkel && 'text-white')}>{texte[aktiv].name}</span>
                   {texte[aktiv].text}
                 </p>
                 <ul className="flex flex-wrap content-start gap-2" aria-label="Methoden">
@@ -183,7 +185,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
                       initial={reduce ? false : { opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.04 * i, duration: 0.2 }}
-                      className="rounded-full border border-foreground/15 bg-background px-3.5 py-1.5 text-[14px]"
+                      className={cn('rounded-full border px-3.5 py-1.5 text-[14px]', dunkel ? 'border-white/20 bg-nacht/45 text-white backdrop-blur-md' : 'border-foreground/15 bg-background')}
                     >
                       {m}
                     </motion.li>
@@ -191,7 +193,7 @@ export function DoubleDiamond({ texte, spaces, hint }: { texte: Text; spaces: [s
                 </ul>
               </div>
             ) : (
-              <p className="text-muted-foreground">{hint}</p>
+              <p className={dunkel ? 'text-white/65' : 'text-muted-foreground'}>{hint}</p>
             )}
           </motion.div>
         </AnimatePresence>

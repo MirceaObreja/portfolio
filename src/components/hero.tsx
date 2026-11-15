@@ -1,5 +1,11 @@
+'use client';
+import { useRef } from 'react';
 import Image from 'next/image';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { ArrowUpRight } from 'lucide-react';
 import { Counter } from '@/components/counter';
+import { Korn } from '@/components/licht';
+import { KONTAKT } from '@/lib/site';
 import portrait from '../../public/images/fotos/portrait-bw.png';
 
 const ZAHLEN: { wert?: number; suffix?: string; zeichen?: string; label: string }[] = [
@@ -8,49 +14,111 @@ const ZAHLEN: { wert?: number; suffix?: string; zeichen?: string; label: string 
   { zeichen: '∞', label: 'Post-its geklebt' },
 ];
 
-export function Hero() {
+const SUB = 'Service Designer und UX-Stratege. Ich sorge dafür, dass digitale Abläufe von Anfang bis Ende funktionieren, und stütze meine Entscheidungen auf Research statt auf Bauchgefühl.';
+
+// Blendet die geraden Bildkanten des Porträts unten und seitlich weich aus
+const KANTEN = '[mask-image:linear-gradient(to_top,transparent_0%,black_20%),linear-gradient(to_right,transparent_0%,black_14%,black_86%,transparent_100%)] [mask-composite:intersect]';
+
+/** Ein Wort des Namens, Buchstabe für Buchstabe eingeblendet. */
+function Buchstaben({ wort, start }: { wort: string; start: number }) {
   return (
-    <section className="relative -mt-24 overflow-hidden pt-24" aria-labelledby="hero-h">
-      <div className="container-page relative grid min-h-[min(92vh,880px)] grid-cols-1 md:grid-cols-12">
-        {/* Seitenbeschriftung, nur Desktop */}
-        <div aria-hidden className="absolute left-0 top-28 hidden h-[60%] flex-col items-center gap-4 text-[13px] text-muted-foreground lg:flex">
-          <span className="[writing-mode:vertical-rl] rotate-180">Service Design</span>
-          <span className="w-px flex-1 bg-foreground/20" />
-          <span className="[writing-mode:vertical-rl] rotate-180">seit 2022</span>
-        </div>
+    <span className="inline-block whitespace-nowrap">
+      {wort.split('').map((b, i) => (
+        <span key={i} className="word" style={{ animationDelay: `${start + i * 0.045}s` }}>
+          {b}
+        </span>
+      ))}
+    </span>
+  );
+}
 
-        <div className="relative z-10 flex flex-col pt-10 md:col-span-7 md:pt-16 lg:pl-14">
-          <dl className="flex flex-wrap gap-x-10 gap-y-4">
-            {ZAHLEN.map((z) => (
-              <div key={z.label}>
-                <dt className="sr-only">{z.label}</dt>
-                <dd className="text-[clamp(1.4rem,2.38vw,1.925rem)] font-medium leading-none tracking-tight">{z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}</dd>
-                <p aria-hidden className="mt-2 max-w-[12ch] text-[13px] leading-snug text-muted-foreground">{z.label}</p>
-              </div>
-            ))}
-          </dl>
+/**
+ * Einstieg: Der Name steht gross hinter dem Porträt, dahinter geht ein Licht auf.
+ * Beim Scrollen bleibt der Name zurück und das Licht wird heller.
+ */
+export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const nameY = useTransform(scrollYProgress, [0, 1], [0, 160]);
+  const nameScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const bildY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const lichtScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.55], [0, -30]);
 
-          <h1 id="hero-h" className="mt-auto pt-16">
-            <span className="block text-[17px] font-medium text-muted-foreground"><span className="word" style={{ animationDelay: '80ms' }}>Hallo, ich bin</span></span>
-            <span className="block whitespace-nowrap text-[clamp(3.675rem,9.1vw,9.45rem)] font-light leading-[0.86] tracking-[-0.06em]"><span className="word" style={{ animationDelay: '160ms' }}>Mircea</span></span>
-            <span className="block whitespace-nowrap text-[clamp(3.675rem,9.1vw,9.45rem)] font-light leading-[0.86] tracking-[-0.06em]"><span className="word" style={{ animationDelay: '260ms' }}>Obreja</span></span>
-          </h1>
-          <div className="mt-8 pb-10 md:pb-14">
-            <p className="max-w-[34ch] text-[17px] leading-relaxed text-foreground/75">
-              <span className="text-foreground">— Service Design und UX-Strategie.</span> Ich mache digitale Strecken von Anfang bis Ende einfacher, mit Research statt Bauchgefühl.
-            </p>
+  return (
+    <section ref={ref} id="einstieg" aria-label="Einstieg" className="relative isolate -mt-24 h-[100svh] max-h-[1080px] min-h-[640px] overflow-clip rounded-b-[32px] bg-nacht text-white md:rounded-b-[44px]">
+      {/* Licht: geht hinter dem Porträt auf, die Ecken bleiben dunkel. Auf dem Handy liegt es höher, damit der Text unten auf dunklem Grund steht. */}
+      <motion.div
+        aria-hidden
+        className="hero-licht pointer-events-none absolute inset-0 origin-bottom max-md:hidden"
+        style={{
+          scale: reduce ? 1 : lichtScale,
+          background:
+            'radial-gradient(64% 62% at 50% 108%, #dfe3dc 0%, #c7ccc2 14%, #9eaaa2 30%, #758a87 46%, rgba(81,104,111,0.75) 62%, rgba(53,72,87,0.4) 80%, rgba(31,43,51,0) 100%)',
+        }}
+      />
+      <div
+        aria-hidden
+        className="hero-licht pointer-events-none absolute inset-0 md:hidden"
+        style={{ background: 'radial-gradient(95% 34% at 50% 60%, #9eaaa2 0%, #758a87 26%, rgba(81,104,111,0.7) 52%, rgba(53,72,87,0.35) 76%, rgba(31,43,51,0) 100%)' }}
+      />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(60%_100%_at_85%_0%,rgba(81,104,111,0.45),rgba(31,43,51,0))]" />
+      <Korn className="opacity-[0.34]" />
+
+      <div className="container-page relative flex h-full flex-col pt-24">
+        {/* Name hinter dem Porträt */}
+        <motion.h1
+          className="pointer-events-none absolute left-1/2 top-[17%] z-0 w-max -translate-x-1/2 text-center font-light leading-[0.84] tracking-[-0.06em] md:top-[20%] md:whitespace-nowrap"
+          style={reduce ? undefined : { y: nameY, scale: nameScale }}
+        >
+          <span className="sr-only">{KONTAKT.name}</span>
+          <span aria-hidden className="block text-[clamp(5.2rem,25vw,9rem)] md:text-[clamp(6rem,15.2vw,17.5rem)]">
+            <Buchstaben wort="Mircea" start={0.15} />
+            <span className="max-md:hidden"> </span>
+            <br className="md:hidden" />
+            <Buchstaben wort="Obreja" start={0.42} />
+          </span>
+        </motion.h1>
+
+        {/* Porträt */}
+        <motion.div className="hero-bild absolute inset-x-0 bottom-[25%] z-10 flex h-[47%] justify-center md:bottom-0 md:h-[80%]" style={reduce ? undefined : { y: bildY }}>
+          <Image src={portrait} alt={`Porträt von ${KONTAKT.name}`} priority sizes="(min-width: 768px) 45vw, 100vw" className={`h-full w-auto max-w-none ${KANTEN}`} />
+        </motion.div>
+
+        {/* Unterer Rand: links der Text, rechts Zahlen und Buttons */}
+        <motion.div
+          className="hero-text relative z-20 mt-auto grid items-end gap-5 pb-6 md:grid-cols-12 md:gap-6 md:pb-12"
+          style={reduce ? undefined : { opacity: textOpacity, y: textY }}
+        >
+          <div className="md:col-span-4">
+            <p className="text-[14px] text-white/60 md:text-[15px]">Hallo, ich bin Mircea.</p>
+            <p className="mt-1.5 text-[15px] leading-normal text-white/85 md:mt-2 md:max-w-[30ch] md:leading-relaxed [text-shadow:0_1px_18px_rgba(31,43,51,0.55)] md:text-[17px]">{SUB}</p>
           </div>
-        </div>
-
-        <div className="relative md:col-span-5">
-          <Image
-            src={portrait}
-            alt="Porträt von Mircea Obreja"
-            priority
-            sizes="(min-width: 768px) 45vw, 90vw"
-            className="relative bottom-0 mx-auto w-[min(88vw,420px)] md:absolute md:right-0 md:w-[min(46vw,620px)] md:max-w-none"
-          />
-        </div>
+          <div className="flex flex-col gap-5 md:col-span-5 md:col-start-8 md:items-end">
+            <dl className="hidden divide-x divide-white/20 md:flex">
+              {ZAHLEN.map((z) => (
+                <div key={z.label} className="px-5 first:pl-0 last:pr-0">
+                  <dt className="sr-only">{z.label}</dt>
+                  <dd className="text-[clamp(1.25rem,1.9vw,1.6rem)] font-medium leading-none tracking-tight">{z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}</dd>
+                  <p aria-hidden className="mt-1.5 whitespace-nowrap text-[12px] leading-snug text-white/65">{z.label}</p>
+                </div>
+              ))}
+            </dl>
+            <div className="flex flex-wrap gap-2.5 md:gap-3">
+              <a href="#kontakt" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 md:pl-5 text-[15px] font-medium text-ink">
+                Schreib mir
+                <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:rotate-45">
+                  <ArrowUpRight className="size-4" aria-hidden />
+                </span>
+              </a>
+              <a href="#fallstudien" className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] md:px-5 text-white backdrop-blur-md transition-colors hover:bg-white/15">
+                Fallstudien ansehen
+              </a>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

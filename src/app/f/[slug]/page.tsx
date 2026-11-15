@@ -56,7 +56,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
       <main>
         {/* Einstieg: dunkle Fläche mit Lichtverlauf und Porträt */}
         <section className="container-page pt-24 md:pt-28">
-          <div className="group relative isolate overflow-hidden rounded-[36px] bg-nacht text-white">
+          <div className="group relative isolate overflow-clip rounded-[36px] bg-nacht text-white">
             <Licht stil="lichter" i={0} />
             <div className="relative z-10 grid min-h-[520px] md:min-h-[min(82vh,760px)] md:grid-cols-12">
               <div className="flex flex-col justify-between gap-12 p-7 md:col-span-7 md:p-12">
@@ -103,7 +103,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
           <Reveal>
             <ul className="grid gap-x-5 md:grid-cols-3 md:grid-rows-[minmax(7rem,1fr)_auto_auto]">
               {b.staerken.map((s, i) => (
-                <li key={s.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-hidden rounded-[28px] px-7 py-7 md:px-8 md:py-8">
+                <li key={s.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-clip rounded-[28px] px-7 py-7 md:px-8 md:py-8">
                   <Flaeche i={i} />
                   <span className="relative text-[28px] font-light leading-none tracking-tight text-tinte/80">0{i + 1}</span>
                   <h3 className="relative self-start text-[clamp(1rem,1.4vw,1.225rem)] leading-tight tracking-tight max-md:mt-10">{s.titel}</h3>
@@ -121,7 +121,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
             <Reveal>
               <ul className="grid gap-x-5 md:grid-cols-2 md:grid-rows-[minmax(9rem,1fr)_auto_auto]">
                 {b.beobachtungen!.map((o, i) => (
-                  <li key={o.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-hidden rounded-[28px] bg-nacht p-7 text-white md:p-10">
+                  <li key={o.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-clip rounded-[28px] bg-nacht p-7 text-white md:p-10">
                     <Licht stil="lichter" i={i + 1} />
                     <span aria-hidden className="max-md:h-24" />
                     <h3 className="relative self-start text-[clamp(1.12rem,1.82vw,1.575rem)] font-medium leading-tight tracking-tight">{o.titel}</h3>
@@ -156,7 +156,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
           </Reveal>
         </section>
       </main>
-      <SiteFooter titel={t.foot} text={t.footText} button={t.mail} />
+      <SiteFooter titel={t.foot} text={t.footText} button={t.mail} lang={l} />
     </div>
   );
 }

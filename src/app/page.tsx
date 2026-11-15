@@ -1,6 +1,7 @@
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
-import { HeroPanel, HeroVollbild, HeroKarte } from '@/components/hero-varianten';
+import { Hero } from '@/components/hero';
+import { Buehne } from '@/components/buehne';
 import { DoubleDiamond } from '@/components/double-diamond';
 import { CaseCards } from '@/components/case-cards';
 import { Banner } from '@/components/banners';
@@ -13,15 +14,6 @@ import { Reveal, ScrollText } from '@/components/motion-bits';
 import { PHASEN_TEXT } from '@/lib/site';
 import { alleProjekte, fallstudien } from '@/lib/content';
 import { zuKarte } from '@/lib/karten';
-
-function Variante({ name, text }: { name: string; text: string }) {
-  return (
-    <div className="container-page mt-6 flex flex-wrap items-center gap-3 pb-10">
-      <span className="rounded-full bg-brand px-3 py-1 text-[13px] font-medium text-white">{name}</span>
-      <span className="text-[14px] text-muted-foreground">{text}</span>
-    </div>
-  );
-}
 
 export default function Home() {
   const projekte = alleProjekte().map((p) => zuKarte(p));
@@ -38,13 +30,7 @@ export default function Home() {
           </div>
         )}
 
-        {/* Vorübergehend: drei Varianten für den Einstieg */}
-        <HeroVollbild />
-        <Variante name="Header A: Vollbild" text="Randlos, Name hinter dem Porträt, heller Horizont unten" />
-        <HeroPanel />
-        <Variante name="Header B: Panel" text="Wie auf der Bewerbungsseite, Zahlen als Glas-Chips" />
-        <HeroKarte />
-        <Variante name="Header C: Karte" text="Name auf hellem Grund, Porträt in dunkler Karte mit Lichtkugel" />
+        <Hero />
 
         <Banner />
 
@@ -55,12 +41,18 @@ export default function Home() {
           />
         </section>
 
+        {/* Arbeitsweise als dunkle Bühne: dasselbe Material wie der Einstieg */}
         <section id="arbeitsweise" className="container-page pt-28 md:pt-40" aria-labelledby="aw-h">
-          <SectionTitle id="aw-h" titel="Arbeitsweise." text="Ich arbeite nach dem Double Diamond, einem Prozessmodell, das auf den Prinzipien des Design Thinking aufbaut. Es hilft mir, komplexe Probleme strukturiert zu lösen. Im ersten Diamanten suche ich das eigentliche Problem, im zweiten die passende Lösung." />
           <Reveal>
-            <div className="rounded-[32px] bg-card px-5 pb-8 pt-10 md:px-12 md:pb-12 md:pt-14">
-              <DoubleDiamond texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze." />
-            </div>
+            <Buehne i={0} className="rounded-[32px] px-5 pb-8 pt-10 md:rounded-[44px] md:px-14 md:pb-14 md:pt-16">
+              <div className="mb-12 grid gap-5 md:mb-16 md:grid-cols-12">
+                <h2 id="aw-h" className="text-[clamp(1.75rem,4.725vw,4.41rem)] font-medium leading-[0.9] tracking-[-0.045em] md:col-span-12">Arbeitsweise.</h2>
+                <p className="text-[17px] leading-relaxed text-white/70 md:col-span-8">
+                  Ich arbeite nach dem Double Diamond, einem Prozessmodell, das auf den Prinzipien des Design Thinking aufbaut. Es hilft mir, komplexe Probleme strukturiert zu lösen. Im ersten Diamanten suche ich das eigentliche Problem, im zweiten die passende Lösung.
+                </p>
+              </div>
+              <DoubleDiamond dunkel texte={PHASEN_TEXT.de} spaces={['Problem verstehen', 'Lösung entwickeln']} hint="Fahre über eine Phase oder tippe darauf, um zu sehen, was ich dort mache und welche Methoden ich einsetze." />
+            </Buehne>
           </Reveal>
         </section>
 
