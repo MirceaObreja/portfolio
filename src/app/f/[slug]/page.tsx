@@ -55,7 +55,7 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
   const nav: [string, string][] = [
     ['#brief', t.brief],
     ['#staerken', t.staerken.replace(/\.$/, '')],
-    ...(n > 0 ? [['#beobachtungen', t.beob.replace(/\.$/, '')] as [string, string]] : []),
+    ...(n > 0 ? [['#beobachtungen', l === 'de' ? 'Beobachtungen' : 'Observations'] as [string, string]] : []),
     ['#projekte', l === 'de' ? 'Projekte' : 'Projects'],
     ['#arbeitsweise', l === 'de' ? 'Arbeitsweise' : 'Approach'],
   ];
@@ -122,10 +122,11 @@ export default async function Bewerbung({ params }: { params: Promise<{ slug: st
               <ul className="grid gap-x-5 md:grid-cols-2 md:grid-rows-[minmax(9rem,1fr)_auto_auto]">
                 {b.beobachtungen!.map((o, i) => (
                   <li key={o.titel} className="group relative isolate flex flex-col gap-0 max-md:mb-5 md:row-span-3 md:grid md:grid-rows-subgrid overflow-clip rounded-[28px] bg-nacht p-7 text-white md:p-10">
-                    <Licht stil="lichter" i={i + 1} />
+                    <div aria-hidden className="absolute inset-0 opacity-55"><Licht stil="lichter" i={i + 1} /></div>
+                    <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgba(31,43,51,0.75)_0%,rgba(31,43,51,0.55)_60%,rgba(31,43,51,0.3)_100%)]" />
                     <span aria-hidden className="max-md:h-24" />
                     <h3 className="relative self-start text-[clamp(1.12rem,1.82vw,1.575rem)] font-medium leading-tight tracking-tight">{o.titel}</h3>
-                    <p className="relative max-w-[48ch] pt-4 text-[16px] leading-relaxed text-white/75">{o.text}</p>
+                    <p className="relative max-w-[48ch] pt-4 text-[16px] leading-relaxed text-white/90">{o.text}</p>
                   </li>
                 ))}
               </ul>
