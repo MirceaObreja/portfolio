@@ -33,30 +33,28 @@ function Buchstaben({ wort, start }: { wort: string; start: number }) {
 }
 
 /**
- * Einstieg: Der Name steht gross hinter dem Porträt, dahinter geht ein Licht auf.
- * Beim Scrollen bleibt der Name zurück und das Licht wird heller.
+ * Einstieg: links Begrüssung, Name, Text und Buttons, rechts das Porträt vor einem aufgehenden Licht.
+ * Unter dem Porträt stehen die drei Zahlen. Beim Scrollen wird das Licht heller und der Text blendet aus.
  */
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const nameY = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const nameScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const bildY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const bildY = useTransform(scrollYProgress, [0, 1], [0, 70]);
   const lichtScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const textY = useTransform(scrollYProgress, [0, 0.55], [0, -30]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.6], [0, -40]);
 
   return (
     <section ref={ref} id="einstieg" aria-label="Einstieg" className="relative isolate -mt-24 h-[100svh] max-h-[1080px] min-h-[640px] overflow-clip rounded-b-[32px] bg-nacht text-white md:rounded-b-[44px]">
-      {/* Licht: geht hinter dem Porträt auf, die Ecken bleiben dunkel. Auf dem Handy liegt es höher, damit der Text unten auf dunklem Grund steht. */}
+      {/* Licht: geht hinter dem Porträt auf, die linke Seite bleibt dunkel für den Text. Auf dem Handy liegt es mittig hinter dem Bild. */}
       <motion.div
         aria-hidden
-        className="hero-licht pointer-events-none absolute inset-0 origin-bottom max-md:hidden"
+        className="hero-licht pointer-events-none absolute inset-0 origin-bottom-right max-md:hidden"
         style={{
           scale: reduce ? 1 : lichtScale,
           background:
-            'radial-gradient(64% 62% at 50% 108%, #dfe3dc 0%, #c7ccc2 14%, #9eaaa2 30%, #758a87 46%, rgba(81,104,111,0.75) 62%, rgba(53,72,87,0.4) 80%, rgba(31,43,51,0) 100%)',
+            'radial-gradient(50% 70% at 74% 110%, #dfe3dc 0%, #c7ccc2 14%, #9eaaa2 30%, #758a87 46%, rgba(81,104,111,0.75) 62%, rgba(53,72,87,0.4) 80%, rgba(31,43,51,0) 100%)',
         }}
       />
       <div
@@ -64,56 +62,53 @@ export function Hero() {
         className="hero-licht pointer-events-none absolute inset-0 md:hidden"
         style={{ background: 'radial-gradient(95% 34% at 50% 60%, #9eaaa2 0%, #758a87 26%, rgba(81,104,111,0.7) 52%, rgba(53,72,87,0.35) 76%, rgba(31,43,51,0) 100%)' }}
       />
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(60%_100%_at_85%_0%,rgba(81,104,111,0.45),rgba(31,43,51,0))]" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(50%_100%_at_10%_0%,rgba(81,104,111,0.4),rgba(31,43,51,0))]" />
       <Korn className="opacity-[0.34]" />
 
-      <div className="container-page relative flex h-full flex-col pt-24">
-        {/* Name hinter dem Porträt */}
-        <motion.h1
-          className="pointer-events-none absolute left-1/2 top-[17%] z-0 w-max -translate-x-1/2 text-center font-light leading-[0.84] tracking-[-0.06em] md:top-[20%] md:whitespace-nowrap"
-          style={reduce ? undefined : { y: nameY, scale: nameScale }}
+      <div className="container-page relative flex h-full flex-col pt-24 md:justify-center">
+        {/* Porträt: auf dem Handy mittig, sonst rechts */}
+        <motion.div
+          className="hero-bild absolute inset-x-0 bottom-[25%] z-10 flex h-[45%] justify-center md:bottom-0 md:left-auto md:right-[3%] md:h-[86%] md:justify-end"
+          style={reduce ? undefined : { y: bildY }}
         >
-          <span className="sr-only">{KONTAKT.name}</span>
-          <span aria-hidden className="block text-[clamp(5.2rem,25vw,9rem)] md:text-[clamp(6rem,15.2vw,17.5rem)]">
-            <Buchstaben wort="Mircea" start={0.15} />
-            <span className="max-md:hidden"> </span>
-            <br className="md:hidden" />
-            <Buchstaben wort="Obreja" start={0.42} />
-          </span>
-        </motion.h1>
-
-        {/* Porträt */}
-        <motion.div className="hero-bild absolute inset-x-0 bottom-[25%] z-10 flex h-[47%] justify-center md:bottom-0 md:h-[80%]" style={reduce ? undefined : { y: bildY }}>
           <Image src={portrait} alt={`Porträt von ${KONTAKT.name}`} priority sizes="(min-width: 768px) 45vw, 100vw" className={`h-full w-auto max-w-none ${KANTEN}`} />
         </motion.div>
 
-        {/* Unterer Rand: links der Text, rechts Zahlen und Buttons */}
+        {/* Zahlen unter dem Porträt */}
+        <dl className="hero-text absolute bottom-10 right-[3%] z-20 hidden divide-x divide-white/15 rounded-[22px] border border-white/15 bg-nacht/45 px-2 py-3.5 backdrop-blur-md md:flex">
+          {ZAHLEN.map((z) => (
+            <div key={z.label} className="px-5">
+              <dt className="sr-only">{z.label}</dt>
+              <dd className="text-[clamp(1.25rem,1.9vw,1.6rem)] font-medium leading-none tracking-tight">{z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}</dd>
+              <p aria-hidden className="mt-1.5 whitespace-nowrap text-[12px] leading-snug text-white/70">{z.label}</p>
+            </div>
+          ))}
+        </dl>
+
+        {/* Links: Begrüssung, Name, Text, Buttons */}
         <motion.div
-          className="hero-text relative z-20 mt-auto grid items-end gap-5 pb-6 md:grid-cols-12 md:gap-6 md:pb-12"
+          className="relative z-20 flex flex-1 flex-col pb-6 pt-4 md:max-w-[54%] md:flex-none md:pb-10 md:pt-0"
           style={reduce ? undefined : { opacity: textOpacity, y: textY }}
         >
-          <div className="md:col-span-4">
-            <p className="text-[14px] text-white/60 md:text-[15px]">Hallo, ich bin Mircea.</p>
-            <p className="mt-1.5 text-[15px] leading-normal text-white/85 md:mt-2 md:max-w-[30ch] md:leading-relaxed [text-shadow:0_1px_18px_rgba(31,43,51,0.55)] md:text-[17px]">{SUB}</p>
-          </div>
-          <div className="flex flex-col gap-5 md:col-span-5 md:col-start-8 md:items-end">
-            <dl className="hidden divide-x divide-white/20 md:flex">
-              {ZAHLEN.map((z) => (
-                <div key={z.label} className="px-5 first:pl-0 last:pr-0">
-                  <dt className="sr-only">{z.label}</dt>
-                  <dd className="text-[clamp(1.25rem,1.9vw,1.6rem)] font-medium leading-none tracking-tight">{z.zeichen ?? <Counter to={z.wert ?? 0} suffix={z.suffix} />}</dd>
-                  <p aria-hidden className="mt-1.5 whitespace-nowrap text-[12px] leading-snug text-white/65">{z.label}</p>
-                </div>
-              ))}
-            </dl>
-            <div className="flex flex-wrap gap-2.5 md:gap-3">
-              <a href="#kontakt" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 md:pl-5 text-[15px] font-medium text-ink">
+          <p className="hero-text text-[15px] text-white/65 md:text-[17px]">Ciao, ich bin</p>
+          <h1 className="mt-2 font-light leading-[0.86] tracking-[-0.06em] md:mt-3">
+            <span className="sr-only">{KONTAKT.name}</span>
+            <span aria-hidden className="block text-[clamp(4rem,20vw,6.5rem)] md:text-[clamp(4.5rem,9.4vw,10.5rem)]">
+              <Buchstaben wort="Mircea" start={0.15} />
+              <br />
+              <Buchstaben wort="Obreja" start={0.42} />
+            </span>
+          </h1>
+          <div className="hero-text mt-auto md:mt-9">
+            <p className="text-[15px] leading-normal text-white/85 [text-shadow:0_1px_18px_rgba(31,43,51,0.55)] md:max-w-[40ch] md:text-[17px] md:leading-relaxed">{SUB}</p>
+            <div className="mt-5 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
+              <a href="#kontakt" className="group/cta inline-flex h-12 items-center gap-2 rounded-full bg-white pl-4 pr-1.5 text-[15px] font-medium text-ink md:pl-5">
                 Schreib mir
                 <span className="grid size-9 place-items-center rounded-full bg-ink text-white transition-transform duration-300 group-hover/cta:rotate-45">
                   <ArrowUpRight className="size-4" aria-hidden />
                 </span>
               </a>
-              <a href="#fallstudien" className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] md:px-5 text-white backdrop-blur-md transition-colors hover:bg-white/15">
+              <a href="#fallstudien" className="inline-flex h-12 items-center rounded-full border border-white/30 bg-white/5 px-4 text-[15px] text-white backdrop-blur-md transition-colors hover:bg-white/15 md:px-5">
                 Fallstudien ansehen
               </a>
             </div>
