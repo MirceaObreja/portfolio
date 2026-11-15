@@ -44,8 +44,23 @@ export function ScrollRuhe() {
 
     const klick = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest?.('a[href]');
-      if (!a || eingefroren) return;
+      if (!a) return;
       const href = a.getAttribute('href') ?? '';
+
+      // Sprung zu einem Anker auf derselben Seite: Adresse ersetzen statt anhängen,
+      // damit «Zurück» nicht von Abschnitt zu Abschnitt springt
+      const hash = href.startsWith('#') ? href : href.startsWith(location.pathname + '#') ? href.slice(location.pathname.length) : null;
+      if (hash && hash.length > 1 && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && a.getAttribute('target') !== '_blank') {
+        const ziel = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (ziel) {
+          e.preventDefault();
+          e.stopPropagation();
+          ziel.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+          window.history.replaceState(window.history.state, '', location.pathname + hash);
+          return;
+        }
+      }
+      if (eingefroren) return;
       if (!href.startsWith('/') || href.startsWith('/#') || a.getAttribute('target') === '_blank') return;
       try { sessionStorage.setItem(SCHLUESSEL + location.pathname, String(Math.round(window.scrollY))); } catch {}
       eingefroren = true;
